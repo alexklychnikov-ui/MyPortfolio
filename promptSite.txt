@@ -1,0 +1,90 @@
+You are generating a single-page portfolio website for a vibecode / no-code developer.
+
+IMPORTANT:
+- Use semantic HTML
+- Use pure CSS only (NO Tailwind, Bootstrap, or frameworks)
+- Minimal JavaScript (tabs, slider only)
+- Mobile-first layout
+- Clean, modern, professional UI
+- Structure the code so it can be easily connected to a backend later
+- Assume the developer’s personal photo will be added manually (local image file)
+
+PAGE STRUCTURE:
+
+1. HERO SECTION
+- Two-column layout on desktop, single-column on mobile
+- Left side:
+  - H1 title: “VibeCode / No-Code Developer”
+  - Short subtitle about fast MVP, automation, AI
+  - Short bullet list (2–3 points)
+  - 2 CTA buttons:
+    - “View Projects”
+    - “Contact Me”
+- Right side:
+  - Developer photo (img tag)
+  - Photo requirements:
+    - Local image (e.g. /assets/profile.jpg)
+    - Rounded or circular shape
+    - Max width constraint
+    - Soft shadow
+    - Subtle hover effect (scale or shadow)
+- Photo must not be a background image — use <img> for accessibility
+
+2. SKILLS / STACK SECTION
+- Tabs interface:
+  - No-code
+  - AI / API
+  - Automation
+- Inside each tab: badges or small cards with tools
+  (Lovable, Make, n8n, Zapier, OpenAI API, Cursor, Telegram Bots)
+
+3. PROJECTS SECTION (IMPORTANT)
+- Display projects as cards in a CSS Grid
+- Each project card contains:
+  - Title
+  - Short description
+  - Stack as tags/badges
+- Add hover animation:
+  - transform: translateY(-6px)
+  - box-shadow increase
+  - transition 0.3s ease
+- Assume project data will later come from projects.json or API
+
+4. SERVICES SECTION
+- Cards layout
+- Each service card:
+  - Title
+  - Short description
+  - CTA button “Discuss”
+- Data structure should be replaceable by services.json
+
+5. TESTIMONIALS SECTION
+- Simple slider or horizontal scroll
+- Cards with text + author
+
+6. CONTACT SECTION
+- Simple contact form:
+  - name
+  - email
+  - message
+- Use <form method="POST">
+- Proper name attributes
+- Ready for backend integration
+
+STYLING REQUIREMENTS:
+- CSS Variables (:root)
+- Flexbox and CSS Grid
+- Rounded cards
+- Soft shadows
+- Hover animations on cards, buttons, and photo
+- Consistent spacing and typography
+- No external UI libraries
+
+FILES STRUCTURE:
+- index.html
+- styles.css
+- script.js (optional, minimal)
+- /assets/profile.jpg (placeholder path for developer photo)
+
+GOAL:
+Generate clean, readable frontend code suitable for further backend development in Cursor and easy replacement of static data with API responses.

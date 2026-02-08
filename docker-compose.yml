@@ -1,0 +1,63 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+      target: runner
+    image: nextjs-app:latest
+    container_name: nextjs-app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - PORT=3000
+    env_file:
+      - .env
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
+    volumes:
+      - ./Frontend/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./Frontend/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./certs:/etc/letsencrypt:ro
+      - ./certbot-webroot:/var/www/certbot
+      - nginx-cache:/var/cache/nginx
+      - nginx-logs:/var/log/nginx
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  certbot:
+    image: certbot/certbot:latest
+    container_name: certbot
+    restart: "no"
+    volumes:
+      - ./certs:/etc/letsencrypt
+      - ./certbot-webroot:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  nginx-cache:
+  nginx-logs:

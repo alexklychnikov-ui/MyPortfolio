@@ -1,0 +1,15 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Certificates
+certs/
+certbot-webroot/
+
+# Docker
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

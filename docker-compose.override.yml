@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      target: builder
+    command: ["pnpm", "dev"]
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./Frontend/app:/app/app
+      - ./Frontend/components:/app/components
+      - ./Frontend/lib:/app/lib
+      - ./Frontend/styles:/app/styles
+      - ./Frontend/public:/app/public
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - "3000:3000"
+    # В local development healthcheck может не работать сразу
+    healthcheck:
+      disable: true
+
+  nginx:
+    ports:
+      - "80:80"
+    volumes:
+      - ./Frontend/nginx/nginx.local.conf:/etc/nginx/nginx.conf:ro
+      - nginx-cache:/var/cache/nginx
+    # Убираем зависимость от certbot в local dev
+    depends_on:
+      - app
+
+  # Certbot не нужен в local dev
+  certbot:
+    profiles:
+      - disabled

@@ -42,6 +42,15 @@ export default function Contact() {
                 </svg>
                 {t.contact.responseTime[locale]}
               </div>
+              <div className="contact-detail">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 2L11 13" />
+                  <path d="M22 2L15 22L11 13L2 9L22 2Z" />
+                </svg>
+                <a href={`https://t.me/${t.contact.telegramUsername}`} target="_blank" rel="noopener noreferrer">
+                  {t.contact.telegram[locale]}
+                </a>
+              </div>
             </div>
           </div>
 

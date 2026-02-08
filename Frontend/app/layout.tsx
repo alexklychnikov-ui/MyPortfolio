@@ -7,8 +7,8 @@ import './globals.css'
 const _inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'VibeCode / No-Code Developer Portfolio',
-  description: 'Fast MVPs, workflow automation, and AI integration. I build products with modern no-code tools and ship them in days.',
+  title: 'Александр Клычников — No-Code & AI Разработчик',
+  description: 'Привет, я Александр 👋 Собираю продукты из идей, no-code и AI — быстро, аккуратно и с результатом. Fast MVPs, workflow automation, and AI integration.',
 }
 
 export const viewport: Viewport = {

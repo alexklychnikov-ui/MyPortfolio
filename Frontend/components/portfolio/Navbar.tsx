@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Image from 'next/image'
 import { useI18n } from "./i18n"
 
 export default function Navbar() {
@@ -22,7 +23,13 @@ export default function Navbar() {
     >
       <div className="nav-container">
         <a href="#" className="nav-logo">
-          dev<span>.</span>folio
+          <Image
+            src="/assets/myLogotype.png"
+            alt="dev.folio logo"
+            width={40}
+            height={40}
+            unoptimized
+          />
         </a>
         <ul className={`nav-links${menuOpen ? " open" : ""}`}>
           <li><a href="#skills" onClick={() => setMenuOpen(false)}>{t.nav.skills[locale]}</a></li>

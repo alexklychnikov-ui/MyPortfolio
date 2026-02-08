@@ -1,6 +1,7 @@
 "use client"
 
 import { I18nProvider, useI18n } from "@/components/portfolio/i18n"
+import Image from 'next/image'
 import Navbar from "@/components/portfolio/Navbar"
 import Hero from "@/components/portfolio/Hero"
 import Skills from "@/components/portfolio/Skills"
@@ -14,7 +15,18 @@ function Footer() {
   const { locale, t } = useI18n()
   return (
     <footer className="portfolio-footer">
-      <p>{`\u00A9 ${new Date().getFullYear()} dev.folio \u2014 ${t.footer.text[locale]}`}</p>
+      <div className="footer-content">
+        <p>{`\u00A9 ${new Date().getFullYear()} dev.folio`}</p>
+        <Image
+          src="/assets/myLogotype.png" 
+          alt="dev.folio logo" 
+          className="footer-logo"
+          width={40}
+          height={40}
+          unoptimized
+        />
+        <p>{`\u2014 ${t.footer.text[locale]}`}</p>
+      </div>
     </footer>
   )
 }

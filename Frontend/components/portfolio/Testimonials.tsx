@@ -84,38 +84,11 @@ export default function Testimonials() {
 
           <div style={{ 
             textAlign: 'center', 
-            padding: '80px 20px',
-            background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
-            borderRadius: '16px',
-            border: '1px solid rgba(255,255,255,0.1)',
-            backdropFilter: 'blur(10px)'
+            padding: '60px 20px',
+            color: 'rgba(255,255,255,0.5)',
+            fontSize: '18px',
           }}>
-            <div style={{ 
-              fontSize: '64px', 
-              marginBottom: '24px',
-              opacity: 0.3
-            }}>
-              💬
-            </div>
-            <h3 style={{ 
-              fontSize: '24px', 
-              fontWeight: '600',
-              marginBottom: '16px',
-              opacity: 0.7
-            }}>
-              {t.testimonials.noTestimonials[locale]}
-            </h3>
-            <p style={{ 
-              fontSize: '16px', 
-              opacity: 0.5,
-              maxWidth: '400px',
-              margin: '0 auto'
-            }}>
-              {locale === 'ru' 
-                ? 'Отзывы появятся здесь, когда клиенты поделятся своим опытом работы со мной.'
-                : 'Testimonials will appear here when clients share their experience working with me.'
-              }
-            </p>
+            {t.testimonials.noTestimonials[locale]}
           </div>
         </div>
       </section>

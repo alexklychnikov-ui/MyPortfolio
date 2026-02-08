@@ -141,8 +141,8 @@ const translations = {
     scrollLeft: { en: "Scroll testimonials left", ru: "Прокрутить отзывы влево" },
     scrollRight: { en: "Scroll testimonials right", ru: "Прокрутить отзывы вправо" },
     noTestimonials: { 
-      en: "No testimonials yet", 
-      ru: "Здесь пока ничего нет" 
+      en: "No information in this section yet",
+      ru: "В этом разделе пока нет информации",
     },
     addTestimonial: { 
       en: "Add Testimonial", 

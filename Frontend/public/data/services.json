@@ -6,8 +6,8 @@
       "en": "MVP Development"
     },
     "description": {
-      "ru": "Быстрая сборка MVP на no-code/low-code и AI-инструментах с фокусом на проверку гипотез.",
-      "en": "Fast MVP delivery using no-code/low-code and AI tools focused on validating ideas."
+      "ru": "Помогаю быстро проверить гипотезу — собираю работающий MVP на no-code/low-code и AI-инструментах: авторизация, оплаты, интеграции и базовая аналитика.",
+      "en": "Quickly validate your idea with a working MVP using no-code/low-code and AI tools: auth, payments, integrations, and basic analytics."
     }
   },
   {
@@ -17,8 +17,8 @@
       "en": "Workflow Automation"
     },
     "description": {
-      "ru": "Проектирование и реализация автоматизаций на Make, n8n, Zapier и через ботов.",
-      "en": "Design and implementation of automations using Make, n8n, Zapier and bots."
+      "ru": "Убираю рутину за счёт автоматизаций на Make, n8n, Zapier и Telegram-ботах: интеграции, синхронизация данных, нотификации и регламенты.",
+      "en": "Eliminate repetitive work with automations on Make, n8n, Zapier and Telegram bots: integrations, data sync, notifications, and workflows."
     }
   },
   {
@@ -28,10 +28,9 @@
       "en": "AI Integration"
     },
     "description": {
-      "ru": "Встраивание AI-ассистентов и генеративных моделей в существующие продукты и процессы.",
-      "en": "Embedding AI assistants and generative models into existing products and workflows."
+      "ru": "Встраиваю AI в существующие продукты: чат-боты, ассистенты для сотрудников, генерация контента, умные формы и персонализация.",
+      "en": "Embed AI into existing products: chatbots, employee assistants, content generation, smart forms, and personalization."
     }
   }
 ]
 
-[{"id": "mvp-development", "title": {"ru": "Разработка MVP", "en": "MVP Development"}, "description": {"ru": "Превратите идею в работающий продукт за несколько дней. Полнофункциональные MVP с авторизацией, платежами и интеграциями — готовые к запуску.", "en": "Turn your idea into a working product in days. Full-featured MVPs with user auth, payments, and integrations — ready for launch."}}, {"id": "workflow-automation", "title": {"ru": "Автоматизация процессов", "en": "Workflow Automation"}, "description": {"ru": "Устраните рутинные задачи с помощью умных автоматизаций. Подключите инструменты, синхронизируйте данные и оптимизируйте работу всей компании.", "en": "Eliminate repetitive tasks with smart automations. Connect your tools, sync data, and streamline operations across your business."}}, {"id": "ai-integration", "title": {"ru": "Интеграция AI", "en": "AI Integration"}, "description": {"ru": "Встраивайте AI-функции в ваш продукт — чат-боты, генерацию контента, анализ данных и интеллектуальную автоматизацию.", "en": "Embed AI-powered features into your product — chatbots, content generation, data analysis, and intelligent automation."}}]

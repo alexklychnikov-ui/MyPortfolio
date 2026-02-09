@@ -3,53 +3,53 @@
     "id": "tg-bot-both-memory",
     "title": {
       "ru": "Telegram-бот с короткой и долгой памятью",
-      "en": "Telegram bot with short and long memory"
+      "en": "Telegram Bot with Short and Long Memory"
     },
     "description": {
-      "ru": "Бот, который запоминает контекст диалога и работает с долговременной памятью для персонализированных ответов.",
-      "en": "Bot that remembers conversation context and uses long-term memory for personalized answers."
+      "ru": "Telegram-бот, который поддерживает короткую (in-memory) и долгую (SQLite) память, чтобы возвращаться к контексту прошлых диалогов и давать более личные ответы.",
+      "en": "Telegram bot that supports short (in-memory) and long-term (SQLite) memory to reuse previous conversations and provide more personalized answers."
     },
     "stack": "Python, Telegram Bot API, SQLite, asyncio",
-    "tag": "tg-bot-both-memory"
+    "tag": "https://github.com/alexklychnikov-ui/TGBotBothMemory"
   },
   {
     "id": "tg-expenses-tracker",
     "title": {
-      "ru": "Telegram-бот для учёта расходов",
-      "en": "Telegram expenses tracker bot"
+      "ru": "Унифицированный Telegram-бот для ведения личных расходов",
+      "en": "Unified Telegram Bot for Personal Expense Tracking"
     },
     "description": {
-      "ru": "Универсальный бот для ведения личных финансов с категоризацией и статистикой расходов.",
-      "en": "Universal bot for tracking personal finances with categories and statistics."
+      "ru": "Бот для учёта личных финансов: быстрый ввод операций, категории, статистика и экспорт данных в удобном формате.",
+      "en": "Personal finance tracking bot with quick expense input, categories, stats, and convenient data export."
     },
-    "stack": "Python, Telegram Bot API, SQLite",
-    "tag": "tg-expenses-tracker"
+    "stack": "Python, Telegram Bot API, SQLite, aiogram",
+    "tag": "https://github.com/alexklychnikov-ui/TGRecordsOfExpenses"
   },
   {
     "id": "langchain-portfolio-generator",
     "title": {
-      "ru": "Генератор сайт-портфолио на LangChain",
-      "en": "LangChain-based portfolio generator"
+      "ru": "Генератор сайт-портфолио на базе LangChain",
+      "en": "Portfolio Website Generator based on LangChain"
     },
     "description": {
-      "ru": "Сервис, который собирает персональные сайты-портфолио на основе ответов пользователя и AI.",
-      "en": "Service that builds personal portfolio websites from user answers using AI."
+      "ru": "AI-инструмент, который собирает персональное сайт-портфолио по описанию навыков, проектов и ниши, используя LangChain и OpenAI.",
+      "en": "AI tool that generates a personal portfolio website from your skills, projects, and niche description using LangChain and OpenAI."
     },
-    "stack": "Python, LangChain, OpenAI API",
-    "tag": "langchain-portfolio-generator"
+    "stack": "Python, LangChain, OpenAI API, Streamlit",
+    "tag": "https://github.com/alexklychnikov-ui/LangChain"
   },
   {
     "id": "weather-telegram-bot",
     "title": {
-      "ru": "Погодный Telegram-бот",
-      "en": "Weather Telegram bot"
+      "ru": "Telegram-бот для получения информации о погоде",
+      "en": "Telegram Bot for Weather Information"
     },
     "description": {
-      "ru": "Бот, который показывает актуальный прогноз погоды по городу или текущей геолокации.",
-      "en": "Bot that returns up-to-date weather forecasts by city or current geolocation."
+      "ru": "Простой бот, который показывает актуальную погоду по городу или локации пользователя через интеграцию с OpenWeatherMap.",
+      "en": "Simple bot that returns current weather for a city or user location via OpenWeatherMap integration."
     },
-    "stack": "Python, Telegram Bot API, OpenWeather API",
-    "tag": "weather-telegram-bot"
+    "stack": "Python, Telegram Bot API, OpenWeatherMap API",
+    "tag": "https://github.com/alexklychnikov-ui/WeatherBot"
   },
   {
     "id": "dynamics-ax-assistant",
@@ -58,12 +58,11 @@
       "en": "Dynamics AX X++ Development Assistant"
     },
     "description": {
-      "ru": "Ассистент для ускорения разработки и навигации в коде Dynamics AX (X++).",
-      "en": "Assistant for speeding up development and navigation in Dynamics AX (X++)."
+      "ru": "AI-ассистент для разработки на X++ в Microsoft Dynamics AX: генерация кода, подсказки по паттернам и ускорение рутины.",
+      "en": "AI assistant for X++ development in Microsoft Dynamics AX: code generation, best-practice hints, and routine automation."
     },
-    "stack": "X++, Dynamics AX, Automation",
-    "tag": "dynamics-ax-assistant"
+    "stack": "Python, OpenAI API, X++ snippets, tooling",
+    "tag": "https://github.com/alexklychnikov-ui/DynamicsAX"
   }
 ]
 
-[{"id": "tg-bot-both-memory", "title": {"ru": "Telegram-бот с короткой и долгой памятью", "en": "Telegram Bot with Short and Long Memory"}, "description": {"ru": "Telegram бот, поддерживающий короткую (in-memory) и долгую (SQLite) память для хранения контекста диалогов с пользователями.", "en": "Telegram bot supporting short (in-memory) and long (SQLite) memory for storing conversation context with users."}, "stack": "Python, Telegram Bot API, SQLite, asyncio", "tag": "https://github.com/alexklychnikov-ui/TGBotBothMemory"}, {"id": "tg-expenses-tracker", "title": {"ru": "Унифицированный Telegram-бот для ведения личных расходов", "en": "Unified Telegram Bot for Personal Expense Tracking"}, "description": {"ru": "Telegram бот для учета личных финансов: запись расходов/доходов, категории, отчеты и статистика.", "en": "Telegram bot for personal finance management: expense/income recording, categories, reports and statistics."}, "stack": "Python, Telegram Bot API, SQLite, aiogram", "tag": "https://github.com/alexklychnikov-ui/TGRecordsOfExpenses"}, {"id": "langchain-portfolio-generator", "title": {"ru": "Генератор сайт-портфолио на базе LangChain", "en": "Portfolio Website Generator based on LangChain"}, "description": {"ru": "AI-инструмент на LangChain для автоматической генерации персональных сайтов-портфолио из описания навыков и проектов.", "en": "AI tool on LangChain for automatic generation of personal portfolio websites from skills and project descriptions."}, "stack": "Python, LangChain, OpenAI API, Streamlit", "tag": "https://github.com/alexklychnikov-ui/LangChain"}, {"id": "weather-telegram-bot", "title": {"ru": "Telegram-бот для получения информации о погоде", "en": "Telegram Bot for Weather Information"}, "description": {"ru": "Простой Telegram бот, предоставляющий актуальную погоду по городам через интеграцию с Weather API.", "en": "Simple Telegram bot providing current weather for cities through Weather API integration."}, "stack": "Python, Telegram Bot API, OpenWeatherMap API", "tag": "https://github.com/alexklychnikov-ui/WeatherBot"}, {"id": "dynamics-ax-assistant", "title": {"ru": "Dynamics AX X++ Development Assistant", "en": "Dynamics AX X++ Development Assistant"}, "description": {"ru": "AI-ассистент для разработки на X++ в Microsoft Dynamics AX: генерация кода, рефакторинг, отладка.", "en": "AI assistant for X++ development in Microsoft Dynamics AX: code generation, refactoring, debugging."}, "stack": "Python, OpenAI API, X++ snippets, VS Code extension", "tag": "https://github.com/alexklychnikov-ui/DynamicsAX"}]

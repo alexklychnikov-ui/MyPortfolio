@@ -1,3 +1,45 @@
-[]
+[
+  {
+    "text": {
+      "ru": "Александр собрал для нас рабочий MVP сервиса всего за пару недель. Мы сразу смогли показать продукт инвесторам и первым пользователям, без долгой разработки.",
+      "en": "Alexander delivered a working MVP of our service in just a couple of weeks. We could immediately show the product to investors and first users without a long dev cycle."
+    },
+    "author": {
+      "ru": "Иван Петров",
+      "en": "Ivan Petrov"
+    },
+    "role": {
+      "ru": "Основатель SaaS‑стартапа",
+      "en": "Founder of a SaaS startup"
+    }
+  },
+  {
+    "text": {
+      "ru": "Мы пришли с хаотичными процессами в Telegram и Excel. После автоматизации на Make и n8n команда перестала тратить часы на ручную рутину.",
+      "en": "We came with messy processes across Telegram and Excel. After Alexander's Make and n8n automations, the team stopped wasting hours on manual routine work."
+    },
+    "author": {
+      "ru": "Мария Смирнова",
+      "en": "Maria Smirnova"
+    },
+    "role": {
+      "ru": "Операционный директор агентства",
+      "en": "COO at a digital agency"
+    }
+  },
+  {
+    "text": {
+      "ru": "Александр настроил AI‑ассистента для внутренней команды. Количество однотипных вопросов к разработчикам заметно снизилось, а новые сотрудники быстрее входят в проект.",
+      "en": "Alexander set up an AI assistant for our internal team. Repetitive questions to developers dropped noticeably and new hires onboard much faster."
+    },
+    "author": {
+      "ru": "Дмитрий Ковалёв",
+      "en": "Dmitry Kovalev"
+    },
+    "role": {
+      "ru": "Руководитель разработки",
+      "en": "Head of Engineering"
+    }
+  }
+]
 
-[]

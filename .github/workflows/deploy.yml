@@ -3,7 +3,7 @@ name: Deploy to Production
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 env:
@@ -70,35 +70,10 @@ jobs:
           port: ${{ secrets.SSH_PORT || 22 }}
           script_stop: true
           script: |
-            # Переходим в директорию проекта
-            cd /opt/portfolio
-            
-            # Пуллим последние изменения
-            git fetch origin main
-            git reset --hard origin/main
-            
-            # Создаём .env если отсутствует
-            if [ ! -f .env ]; then
-              echo "Creating .env from .env.example"
-              cp .env.example .env
-              echo "Please configure .env manually!"
-              exit 1
-            fi
-            
-            # Pull latest image (если используем registry)
-            # docker compose pull app
-            
-            # Zero-downtime deploy
-            docker compose up -d --build
-            
-            # Check health
-            sleep 10
-            docker compose ps
-            
-            # Cleanup old images
-            docker image prune -af --filter "until=72h"
-            
-            echo "✅ Deployment completed successfully!"
+            cd ~/portfolio-website
+            git fetch origin master
+            git reset --hard origin/master
+            NODE_ENV=production ./deploy.sh
 
       - name: Notify deployment status
         if: always()

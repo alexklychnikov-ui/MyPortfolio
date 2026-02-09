@@ -67,10 +67,11 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: ${{ secrets.SSH_PORT || 22 }}
           script_stop: true
           script: |
-            cd ~/portfolio-website
+            cd /root/portfolio-website
             git fetch origin master
             git reset --hard origin/master
             NODE_ENV=production ./deploy.sh

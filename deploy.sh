@@ -19,8 +19,8 @@ fi
 
 # Pull latest changes
 echo -e "${YELLOW}📥 Pulling latest changes...${NC}"
-git fetch origin main
-git reset --hard origin/main
+git fetch origin master
+git reset --hard origin/master
 
 # Build and start containers
 echo -e "${YELLOW}🔨 Building and starting containers...${NC}"

@@ -22,10 +22,10 @@ echo -e "${YELLOW}📥 Pulling latest changes...${NC}"
 git fetch origin master
 git reset --hard origin/master
 
-# Build and start containers
+# Build and start containers (prod uses only docker-compose.yml)
 echo -e "${YELLOW}🔨 Building and starting containers...${NC}"
-docker compose pull || true
-docker compose up -d --build
+docker compose -f docker-compose.yml pull || true
+docker compose -f docker-compose.yml up -d --build
 
 # Wait for health check
 echo -e "${YELLOW}⏳ Waiting for services to be healthy...${NC}"

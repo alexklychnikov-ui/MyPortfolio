@@ -32,8 +32,7 @@ services:
       - nginx-cache:/var/cache/nginx
       - nginx-logs:/var/log/nginx
     depends_on:
-      app:
-        condition: service_healthy
+      - app
     networks:
       - app-network
 

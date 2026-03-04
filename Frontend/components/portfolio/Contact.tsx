@@ -1,9 +1,41 @@
 "use client"
 
+import { useState } from "react"
+import { toast } from "sonner"
 import { useI18n } from "./i18n"
 
 export default function Contact() {
   const { locale, t } = useI18n()
+  const [sending, setSending] = useState(false)
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const form = e.currentTarget
+    const name = (form.elements.namedItem("name") as HTMLInputElement).value
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value
+    const phone = (form.elements.namedItem("phone") as HTMLInputElement).value.trim() || undefined
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value
+
+    setSending(true)
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone, message }),
+      })
+      const data = (await res.json()) as { success: boolean; error?: string }
+      if (data.success) {
+        toast.success(t.contact.success[locale])
+        form.reset()
+      } else {
+        toast.error(data.error ?? t.contact.error[locale])
+      }
+    } catch {
+      toast.error(t.contact.error[locale])
+    } finally {
+      setSending(false)
+    }
+  }
 
   return (
     <section id="contact" className="section contact-section">
@@ -54,7 +86,11 @@ export default function Contact() {
             </div>
           </div>
 
-          <form className="contact-form" method="POST" action="#" aria-label={t.contact.formAriaLabel[locale]}>
+          <form
+            className="contact-form"
+            onSubmit={handleSubmit}
+            aria-label={t.contact.formAriaLabel[locale]}
+          >
             <div className="form-group">
               <label htmlFor="name">{t.contact.nameLabel[locale]}</label>
               <input
@@ -64,6 +100,7 @@ export default function Contact() {
                 placeholder={t.contact.namePlaceholder[locale]}
                 required
                 autoComplete="name"
+                disabled={sending}
               />
             </div>
             <div className="form-group">
@@ -75,6 +112,18 @@ export default function Contact() {
                 placeholder={t.contact.emailPlaceholder[locale]}
                 required
                 autoComplete="email"
+                disabled={sending}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="phone">{t.contact.phoneLabel[locale]}</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder={t.contact.phonePlaceholder[locale]}
+                autoComplete="tel"
+                disabled={sending}
               />
             </div>
             <div className="form-group">
@@ -84,10 +133,11 @@ export default function Contact() {
                 name="message"
                 placeholder={t.contact.messagePlaceholder[locale]}
                 required
+                disabled={sending}
               />
             </div>
-            <button type="submit" className="btn btn-primary">
-              {t.contact.sendButton[locale]}
+            <button type="submit" className="btn btn-primary" disabled={sending}>
+              {sending ? t.contact.sending[locale] : t.contact.sendButton[locale]}
             </button>
           </form>
         </div>

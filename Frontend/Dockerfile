@@ -8,8 +8,9 @@ RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 
-# Copy only package files for layer caching
+# Copy only package files and Prisma schema for layer caching
 COPY package.json pnpm-lock.yaml* ./
+COPY prisma ./prisma
 
 # Install pnpm
 RUN npm install -g pnpm@latest
@@ -23,6 +24,9 @@ RUN pnpm install --frozen-lockfile
 FROM node:22-alpine AS builder
 
 WORKDIR /app
+
+# Copy Prisma schema so postinstall prisma generate can run
+COPY prisma ./prisma
 
 # Install pnpm
 RUN npm install -g pnpm@latest

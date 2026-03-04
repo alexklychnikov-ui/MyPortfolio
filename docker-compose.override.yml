@@ -6,13 +6,13 @@ services:
     command: ["pnpm", "dev"]
     environment:
       - NODE_ENV=development
+      - DATABASE_URL=postgresql://Alexandr:Kentavr4801@host.docker.internal:5432/portfolio
     volumes:
       - ./Frontend/app:/app/app
       - ./Frontend/components:/app/components
       - ./Frontend/lib:/app/lib
       - ./Frontend/styles:/app/styles
       - ./Frontend/public:/app/public
-      - /app/node_modules
       - /app/.next
     ports:
       - "3000:3000"

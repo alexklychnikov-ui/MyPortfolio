@@ -13,3 +13,9 @@ certbot-webroot/
 # OS
 .DS_Store
 Thumbs.db
+
+# Prompts (local)
+Prompts/
+
+# Local npm lockfile (project uses pnpm)
+Frontend/package-lock.json

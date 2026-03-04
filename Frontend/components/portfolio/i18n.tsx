@@ -148,6 +148,16 @@ const translations = {
       en: "Add Testimonial", 
       ru: "Добавить отзыв" 
     },
+    formTaskLabel: { en: "What task was implemented?", ru: "Какую задачу реализовывали?" },
+    formImpressionsLabel: { en: "Your impressions of the result", ru: "Впечатления от реализации" },
+    formAuthorLabel: { en: "Your name", ru: "Ваше имя" },
+    formRoleLabel: { en: "Role / Company (optional)", ru: "Роль / компания (опционально)" },
+    formRatingLabel: { en: "Rating", ru: "Оценка" },
+    formSubmit: { en: "Submit review", ru: "Отправить отзыв" },
+    formSending: { en: "Sending...", ru: "Отправка..." },
+    formSuccess: { en: "Thank you! Your review is under moderation.", ru: "Спасибо! Отзыв на модерации." },
+    formError: { en: "Failed to send. Try again later.", ru: "Не удалось отправить. Попробуйте позже." },
+    modalClose: { en: "Close", ru: "Закрыть" },
   },
   contact: {
     label: { en: "Get In Touch", ru: "Связь" },
@@ -173,10 +183,15 @@ const translations = {
     namePlaceholder: { en: "Your name", ru: "Ваше имя" },
     emailLabel: { en: "Email", ru: "Эл. почта" },
     emailPlaceholder: { en: "you@example.com", ru: "you@example.com" },
+    phoneLabel: { en: "Phone", ru: "Телефон" },
+    phonePlaceholder: { en: "+7 (999) 123-45-67", ru: "+7 (999) 123-45-67" },
     messageLabel: { en: "Message", ru: "Сообщение" },
     messagePlaceholder: { en: "Tell me about your project...", ru: "Расскажите о вашем проекте..." },
     sendButton: { en: "Send Message", ru: "Отправить" },
     formAriaLabel: { en: "Contact form", ru: "Форма связи" },
+    sending: { en: "Sending...", ru: "Отправка..." },
+    success: { en: "Message sent. I'll reply soon.", ru: "Сообщение отправлено. Скоро отвечу." },
+    error: { en: "Failed to send. Try again or contact directly.", ru: "Не удалось отправить. Попробуйте ещё раз или напишите напрямую." },
   },
   footer: {
     text: {

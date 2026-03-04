@@ -56,8 +56,9 @@ RUN adduser --system --uid 1001 nextjs
 # Install pnpm
 RUN npm install -g pnpm@latest
 
-# Install only production dependencies
+# Install only production dependencies (Prisma needs schema for postinstall)
 COPY package.json pnpm-lock.yaml* ./
+COPY prisma ./prisma
 RUN pnpm install --frozen-lockfile --prod
 
 # Copy public files and build artifacts from builder stage

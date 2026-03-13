@@ -12,9 +12,19 @@ export default function Hero() {
           <div className="hero-content">
             <h1>
               {locale === "en" ? (
-                <><span>VibeCode</span>{" / No-Code Developer"}</>
+                <>
+                  <span className="hero-title">Vibecode developer</span>
+                  <span className="hero-tagline">
+                    Telegram bots & AI integrations for business
+                  </span>
+                </>
               ) : (
-                <><span>VibeCode</span>{" / No-Code \u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A"}</>
+                <>
+                  <span className="hero-title">Vibecode разработчик</span>
+                  <span className="hero-tagline">
+                    Telegram-боты и AI-интеграции для бизнеса
+                  </span>
+                </>
               )}
             </h1>
             <p className="hero-subtitle">{t.hero.subtitle[locale]}</p>

@@ -270,8 +270,16 @@
   margin-bottom: 16px;
 }
 
-.hero-content h1 span {
-  color: var(--color-primary);
+.hero-title {
+  color: #1b8473;
+}
+
+.hero-tagline {
+  display: block;
+  margin-top: 4px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2795c9;
 }
 
 .hero-subtitle {

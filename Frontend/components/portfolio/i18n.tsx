@@ -10,8 +10,8 @@ const translations = {
       ru: "VibeCode",
     },
     subtitle: {
-      en: "Hi, I'm Alexander 👋 Building products from ideas, no-code, and AI — fast, carefully, and with results.",
-      ru: "Привет, я Александр 👋 Собираю продукты из идей, no-code и AI — быстро, аккуратно и с результатом.",
+      en: "Hi, I'm Alexander 👋 I turn ideas into working products and business automation — fast, carefully, and with a guarantee.",
+      ru: "Привет, я Александр 👋 Превращаю идеи в работающие продукты и автоматизацию для бизнеса — быстро, аккуратно и с гарантией.",
     },
     description: {
       en: "I turn ideas into working products in days, not months. Specializing in rapid MVP development, AI integrations, and workflow automation.",

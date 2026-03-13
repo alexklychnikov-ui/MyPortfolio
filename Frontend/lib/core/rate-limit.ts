@@ -4,8 +4,12 @@ const WINDOW_MS = 15 * 60 * 1000
 const TESTIMONIAL_LIMIT = 3
 const TESTIMONIAL_WINDOW_MS = 60 * 60 * 1000
 
+const GITHUB_ANALYZE_LIMIT = 3
+const GITHUB_ANALYZE_WINDOW_MS = 15 * 60 * 1000
+
 const store = new Map<string, { count: number; resetAt: number }>()
 const testimonialStore = new Map<string, { count: number; resetAt: number }>()
+const githubAnalyzeStore = new Map<string, { count: number; resetAt: number }>()
 
 function cleanup(map: Map<string, { count: number; resetAt: number }>) {
   const now = Date.now()
@@ -44,4 +48,8 @@ export function checkRateLimit(ip: string): { allowed: boolean; retryAfter?: num
 
 export function checkTestimonialRateLimit(ip: string): { allowed: boolean; retryAfter?: number } {
   return check(ip, testimonialStore, TESTIMONIAL_LIMIT, TESTIMONIAL_WINDOW_MS)
+}
+
+export function checkGithubAnalyzeRateLimit(ip: string): { allowed: boolean; retryAfter?: number } {
+  return check(ip, githubAnalyzeStore, GITHUB_ANALYZE_LIMIT, GITHUB_ANALYZE_WINDOW_MS)
 }

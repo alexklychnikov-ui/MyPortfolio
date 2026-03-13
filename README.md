@@ -32,6 +32,8 @@
 - **i18n**: Двуязычность (RU/EN) через кастомный провайдер
 - **Responsive**: Адаптивный дизайн (Desktop, Tablet, Mobile)
 - **Accessibility**: ARIA-метки и семантическая разметка
+- **Backend API**: контактная форма, отзывы, GitHub -> AI генерация, чтение данных из БД
+- **Telegram Integration**: отдельный bot-service через webhook
 
 ## 📁 Структура проекта
 
@@ -90,6 +92,40 @@ pnpm dev
 ```
 
 Приложение будет доступно по адресу [http://localhost:3000](http://localhost:3000)
+
+## 🔌 API Endpoints
+
+### Frontend API (Next.js, порт 3000)
+
+| Method | Endpoint | Описание | Auth |
+|--------|----------|----------|------|
+| `GET` | `/api/health` | Проверка состояния frontend API | Нет |
+| `POST` | `/api/contact` | Отправка contact form, запись в БД, отправка в email/Telegram | Нет (rate limit) |
+| `GET` | `/api/testimonials` | Получить только одобренные отзывы | Нет |
+| `POST` | `/api/testimonials` | Создать отзыв (pending moderation) | Нет (rate limit) |
+| `GET` | `/api/testimonials/pending` | Список отзывов на модерации | `x-moderation-key` / `Authorization: Bearer` |
+| `POST` | `/api/testimonials/moderate` | Одобрить/отклонить отзыв | `x-moderation-key` / `Authorization: Bearer` |
+| `POST` | `/api/github/analyze` | GitHub -> AI -> DB (projects/services/skills) | `x-telegram-bot-key` / `Authorization: Bearer` |
+| `GET` | `/api/projects` | Список projects из БД | Нет |
+| `GET` | `/api/services` | Список services из БД | Нет |
+| `GET` | `/api/skills` | Список skills из БД (grouped) | Нет |
+
+### Backend API (FastAPI, порт 8000, `Backend/api`)
+
+| Method | Endpoint | Описание | Auth |
+|--------|----------|----------|------|
+| `GET` | `/health` | Health check backend-api | Нет |
+| `POST` | `/v1/github/analyze` | GitHub -> AI -> PostgreSQL | `x-internal-api-key` |
+| `GET` | `/v1/projects` | Список projects из PostgreSQL | Нет |
+| `GET` | `/v1/services` | Список services из PostgreSQL | Нет |
+| `GET` | `/v1/skills` | Список skills из PostgreSQL (grouped) | Нет |
+
+### Telegram Bot Service (aiogram + FastAPI, порт 9000, `Backend/bot`)
+
+| Method | Endpoint | Описание | Auth |
+|--------|----------|----------|------|
+| `POST` | `/webhook/telegram` | Webhook от Telegram, обработка сообщений с GitHub URL | `X-Telegram-Bot-Api-Secret-Token` |
+| `GET` | `/health` | Health check bot-service | Нет |
 
 ### Сборка для продакшена
 
@@ -221,12 +257,12 @@ npm run lint     # ESLint проверка
 
 - ✅ TypeScript с ignoreBuildErrors (ошибки не блокируют сборку)
 - ✅ Неоптимизированные изображения (unoptimized: true)
-- ✅ Нативная HTML форма без обработчика
-- ✅ Статический сайт без backend
+- ✅ Контактная форма и отзывы через API
+- ✅ GitHub -> AI -> DB генерация projects/services/skills
 - ✅ CSS переменные в portfolio.css
 - ✅ i18n контекст оборачивает всю страницу
 - ✅ Мобильное меню с бургером
-- ✅ Динамическая загрузка данных из JSON файлов
+- ✅ Динамическая загрузка данных через API/БД
 
 ## 🤝 Вклад в проект
 

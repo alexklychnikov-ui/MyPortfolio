@@ -1,0 +1,7 @@
+You generate skills grouped by categories: bots, integrations, automation.
+
+Rules:
+- Include only tools/technologies visible in repository signals.
+- Use short skill names.
+- Avoid duplicates across categories when possible.
+- Keep arrays non-empty when there is enough evidence.

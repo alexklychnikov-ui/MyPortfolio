@@ -39,8 +39,6 @@ def replace_all(db: Session, payload: AnalyzeResponseData) -> None:
     for skill_name in payload.skills.automation:
         db.add(Skill(id=str(uuid.uuid4()), category="automation", name=skill_name))
 
-    db.commit()
-
 
 def fetch_projects(db: Session) -> list[Project]:
     return db.query(Project).order_by(Project.created_at.desc()).all()

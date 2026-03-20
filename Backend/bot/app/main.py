@@ -49,7 +49,7 @@ async def process_message(message: Message):
         await message.answer("Не вижу ссылок GitHub. Формат: https://github.com/owner/repo")
         return
 
-    await message.answer(f"Принял {len(repositories)} репозиториев. Запускаю анализ.")
+    await message.answer(f"Принял {len(repositories)} ссылок. Запускаю анализ.")
     payload = {"repositories": repositories}
     headers = {"x-internal-api-key": settings.api_internal_key}
 
@@ -57,7 +57,12 @@ async def process_message(message: Message):
         async with httpx.AsyncClient(timeout=httpx.Timeout(120.0)) as client:
             response = await client.post(f"{settings.backend_api_url}/v1/github/analyze", json=payload, headers=headers)
             if response.status_code >= 400:
-                await message.answer(f"Ошибка API: {response.status_code}\n{response.text[:1200]}")
+                detail = ""
+                try:
+                    detail = response.json().get("detail", "")
+                except Exception:
+                    detail = response.text[:1200]
+                await message.answer(f"Ошибка API: {response.status_code}\n{detail[:1200]}")
                 return
             data: dict[str, Any] = response.json()
     except Exception as exc:
@@ -70,13 +75,16 @@ async def process_message(message: Message):
     skills = data.get("data", {}).get("skills", {})
 
     lines = [
-        "Готово. Данные обновлены в БД.",
-        f"Projects: {len(projects)}",
-        f"Services: {len(services)}",
-        f"Skills: nocode={len(skills.get('nocode', []))}, ai={len(skills.get('ai', []))}, automation={len(skills.get('automation', []))}",
+        (
+            f"Завершил: обработано {len(repositories) - len(skipped)} из {len(repositories)}."
+            " Обновлено в БД:"
+        ),
+        f"- Projects: {len(projects)}",
+        f"- Services: {len(services)}",
+        f"- Skills: nocode={len(skills.get('nocode', []))}, ai={len(skills.get('ai', []))}, automation={len(skills.get('automation', []))}",
     ]
     if skipped:
-        lines.append(f"Skipped: {len(skipped)}")
+        lines.append(f"- Skipped: {len(skipped)}")
     await message.answer("\n".join(lines))
 
 

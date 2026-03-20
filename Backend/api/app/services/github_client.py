@@ -1,4 +1,5 @@
 import base64
+from datetime import UTC, datetime
 from urllib.parse import urlparse
 
 import httpx
@@ -36,6 +37,24 @@ class GithubClient:
             return None
         return response.json()
 
+    async def _rate_limit_status(self, client: httpx.AsyncClient) -> tuple[bool, str | None]:
+        response = await client.get("/rate_limit")
+        if response.status_code >= 400:
+            return False, None
+        payload = response.json()
+        core = payload.get("resources", {}).get("core", {})
+        remaining = int(core.get("remaining", 0))
+        if remaining > 0:
+            return False, None
+        reset_ts = core.get("reset")
+        if not reset_ts:
+            return True, None
+        try:
+            reset_at = datetime.fromtimestamp(int(reset_ts), tz=UTC).isoformat()
+        except Exception:
+            return True, None
+        return True, reset_at
+
     def _decode_b64(self, value: str | None) -> str:
         if not value:
             return ""
@@ -51,6 +70,13 @@ class GithubClient:
         async with httpx.AsyncClient(
             base_url=self.base_url, headers=self.headers, timeout=httpx.Timeout(25.0)
         ) as client:
+            is_limited, reset_at = await self._rate_limit_status(client)
+            if is_limited:
+                reason = "GitHub API rate limit exceeded"
+                if reset_at:
+                    reason = f"{reason} (reset at {reset_at})"
+                return [], [{"url": repo_url, "reason": reason} for repo_url in repositories]
+
             for repo_url in repositories:
                 normalized = self.normalize(repo_url)
                 if not normalized:
@@ -58,10 +84,25 @@ class GithubClient:
                     continue
 
                 owner, repo, normalized_url = normalized
-                repo_data = await self._json_or_none(client, f"/repos/{owner}/{repo}")
-                if not repo_data:
+                repo_response = await client.get(f"/repos/{owner}/{repo}")
+                if repo_response.status_code >= 400:
+                    if (
+                        repo_response.status_code == 403
+                        and repo_response.headers.get("x-ratelimit-remaining") == "0"
+                    ):
+                        reset_ts = repo_response.headers.get("x-ratelimit-reset")
+                        reason = "GitHub API rate limit exceeded"
+                        if reset_ts:
+                            try:
+                                reset_at = datetime.fromtimestamp(int(reset_ts), tz=UTC).isoformat()
+                                reason = f"{reason} (reset at {reset_at})"
+                            except Exception:
+                                pass
+                        skipped.append({"url": repo_url, "reason": reason})
+                        continue
                     skipped.append({"url": repo_url, "reason": "Repository is not accessible"})
                     continue
+                repo_data = repo_response.json()
 
                 readme = await self._json_or_none(client, f"/repos/{owner}/{repo}/readme")
                 package_json = await self._json_or_none(client, f"/repos/{owner}/{repo}/contents/package.json")

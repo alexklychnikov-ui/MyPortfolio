@@ -31,7 +31,7 @@ OUTPUT_SCHEMA = {
                         "properties": {"ru": {"type": "string"}, "en": {"type": "string"}},
                     },
                     "stack": {"type": "string"},
-                    "tag": {"type": "string", "format": "uri"},
+                    "tag": {"type": "string"},
                 },
             },
         },
@@ -40,7 +40,7 @@ OUTPUT_SCHEMA = {
             "items": {
                 "type": "object",
                 "additionalProperties": False,
-                "required": ["title", "description"],
+                "required": ["id", "title", "description"],
                 "properties": {
                     "id": {"type": "string"},
                     "title": {

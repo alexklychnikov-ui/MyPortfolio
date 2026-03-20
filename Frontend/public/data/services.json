@@ -6,19 +6,19 @@
       "en": "MVP Development"
     },
     "description": {
-      "ru": "Помогаю быстро проверить гипотезу — собираю работающий MVP на no-code/low-code и AI-инструментах: авторизация, оплаты, интеграции и базовая аналитика.",
-      "en": "Quickly validate your idea with a working MVP using no-code/low-code and AI tools: auth, payments, integrations, and basic analytics."
+      "ru": "Быстрая разработка минимально жизнеспособных продуктов.",
+      "en": "Rapid development of minimum viable products."
     }
   },
   {
     "id": "workflow-automation",
     "title": {
-      "ru": "Автоматизация процессов",
+      "ru": "Автоматизация рабочих процессов",
       "en": "Workflow Automation"
     },
     "description": {
-      "ru": "Убираю рутину за счёт автоматизаций на Make, n8n, Zapier и Telegram-ботах: интеграции, синхронизация данных, нотификации и регламенты.",
-      "en": "Eliminate repetitive work with automations on Make, n8n, Zapier and Telegram bots: integrations, data sync, notifications, and workflows."
+      "ru": "Оптимизация и автоматизация бизнес-процессов.",
+      "en": "Optimization and automation of business processes."
     }
   },
   {
@@ -28,9 +28,8 @@
       "en": "AI Integration"
     },
     "description": {
-      "ru": "Встраиваю AI в существующие продукты: чат-боты, ассистенты для сотрудников, генерация контента, умные формы и персонализация.",
-      "en": "Embed AI into existing products: chatbots, employee assistants, content generation, smart forms, and personalization."
+      "ru": "Внедрение AI решений для чат-ботов и генерации контента.",
+      "en": "Implementation of AI solutions for chatbots and content generation."
     }
   }
 ]
-

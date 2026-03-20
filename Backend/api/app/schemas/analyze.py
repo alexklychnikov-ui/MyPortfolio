@@ -14,7 +14,7 @@ class GeneratedProject(BaseModel):
     title: LocalizedText
     description: LocalizedText
     stack: str
-    tag: HttpUrl
+    tag: str
 
 
 class GeneratedService(BaseModel):

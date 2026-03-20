@@ -1,0 +1,19 @@
+{
+  "nocode": [
+    "Airtable",
+    "Bubble",
+    "Notion",
+    "Webflow"
+  ],
+  "ai": [
+    "LangChain",
+    "OpenAI API",
+    "Pinecone"
+  ],
+  "automation": [
+    "Make",
+    "Telegram Bots",
+    "Zapier",
+    "n8n"
+  ]
+}

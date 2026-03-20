@@ -7,13 +7,14 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    volumes:
+      - ../Frontend/public/data:/shared/public/data
     ports:
       - "8000:8000"
     depends_on:
-      - postgres
       - redis
     networks:
-      - backend-network
+      - app-network
 
   telegram-bot:
     build:
@@ -28,35 +29,16 @@ services:
     depends_on:
       - backend-api
     networks:
-      - backend-network
+      - app-network
 
   redis:
     image: redis:7-alpine
     container_name: portfolio-redis
     restart: unless-stopped
-    ports:
-      - "6379:6379"
     networks:
-      - backend-network
-
-  postgres:
-    image: postgres:16-alpine
-    container_name: portfolio-postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: portfolio
-      POSTGRES_USER: portfolio
-      POSTGRES_PASSWORD: portfolio
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    networks:
-      - backend-network
+      - app-network
 
 networks:
-  backend-network:
-    driver: bridge
-
-volumes:
-  postgres-data:
+  app-network:
+    external: true
+    name: portfolio-website_app-network

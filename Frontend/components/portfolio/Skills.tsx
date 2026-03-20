@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useI18n } from "./i18n"
 
-const tabs = [
+const defaultTabs = [
   {
     id: "nocode",
     labelKey: "tabNoCode" as const,
@@ -21,9 +21,44 @@ const tabs = [
   },
 ]
 
+type SkillCategory = "nocode" | "ai" | "automation"
+
+interface SkillsData {
+  nocode?: string[]
+  ai?: string[]
+  automation?: string[]
+}
+
 export default function Skills() {
   const { locale, t } = useI18n()
   const [activeTab, setActiveTab] = useState("nocode")
+  const [skills, setSkills] = useState<SkillsData>({})
+
+  useEffect(() => {
+    const loadSkills = async () => {
+      try {
+        const response = await fetch("/data/skills.json")
+        if (!response.ok) return
+        const data = await response.json()
+        setSkills(data ?? {})
+      } catch {
+      }
+    }
+
+    loadSkills()
+  }, [])
+
+  const tabs = useMemo(
+    () =>
+      defaultTabs.map((tab) => {
+        const dynamicTools = skills[tab.id as SkillCategory]
+        return {
+          ...tab,
+          tools: Array.isArray(dynamicTools) && dynamicTools.length > 0 ? dynamicTools : tab.tools,
+        }
+      }),
+    [skills]
+  )
 
   return (
     <section id="skills" className="section skills-section">

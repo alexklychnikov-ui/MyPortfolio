@@ -2,10 +2,12 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.core.security import verify_internal_key
+from app.core.config import settings
 from app.db.session import get_db
 from app.repositories.portfolio_repository import fetch_projects, fetch_services, fetch_skills, replace_all
 from app.schemas.analyze import AnalyzeRequest, AnalyzeResponse
 from app.services.portfolio_service import PortfolioService
+from app.services.static_exporter import export_public_data
 
 router = APIRouter(prefix="/v1", tags=["github"])
 
@@ -15,7 +17,13 @@ async def analyze(payload: AnalyzeRequest, db: Session = Depends(get_db)):
     service = PortfolioService()
     try:
         data, skipped = await service.analyze_repositories([str(url) for url in payload.repositories])
-        replace_all(db, data)
+        with db.begin():
+            replace_all(db, data)
+        if settings.static_export_dir:
+            project_rows = fetch_projects(db)
+            service_rows = fetch_services(db)
+            skill_rows = fetch_skills(db)
+            export_public_data(project_rows, service_rows, skill_rows, settings.static_export_dir)
         return {"success": True, "data": data, "skipped": skipped}
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc

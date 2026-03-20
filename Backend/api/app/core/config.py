@@ -29,6 +29,7 @@ class Settings(BaseSettings):
         default="/app/prompts/skills.system.prompt.txt",
         alias="PROMPT_SKILLS_PATH",
     )
+    static_export_dir: str | None = Field(default=None, alias="STATIC_EXPORT_DIR")
 
 
 settings = Settings()

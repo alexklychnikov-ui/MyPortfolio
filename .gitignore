@@ -1,21 +1,75 @@
-# Environment
+# -----------------------------
+# Secrets / environment
+# -----------------------------
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
+!.env*.example
 
-# Certificates
-certs/
-certbot-webroot/
+# -----------------------------
+# Frontend (Next.js / Node)
+# -----------------------------
+node_modules/
+Frontend/node_modules/
+.next/
+Frontend/.next/
+out/
+dist/
+coverage/
+.turbo/
+*.tsbuildinfo
+pnpm-debug.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Docker
-*.log
+# -----------------------------
+# Backend (Python)
+# -----------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.venv/
+venv/
+env/
+ENV/
+pip-wheel-metadata/
+*.egg-info/
 
-# OS
+# -----------------------------
+# IDE / OS
+# -----------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
 .DS_Store
 Thumbs.db
 
-# Prompts (local)
-Prompts/
+# -----------------------------
+# Docker / local infra artifacts
+# -----------------------------
+*.log
+logs/
+certs/
+certbot-webroot/
 
-# Local npm lockfile (project uses pnpm)
+# -----------------------------
+# Project-local temp files
+# -----------------------------
+Prompts/
+tmp/
+temp/
+
+# -----------------------------
+# Explicit project preference
+# -----------------------------
+# Project uses pnpm; keep npm lockfile untracked locally.
 Frontend/package-lock.json

@@ -1,4 +1,23 @@
 # Portfolio Website (Next.js + Backend API + Telegram Bot)
+## 🖼 Скриншоты
+
+Ниже несколько скриншотов моего портфолио и отдельных страниц приложения.
+
+### Логотип
+![Главная страница](Frontend/public/assets/myLogotype.png)
+
+### Страница проектов
+![Страница проектов](Frontend/public/assets/screenshot-projects.png)
+
+### Мобильная версия
+![Мобильная версия](Frontend/public/assets/screenshot-mobile.png)
+
+## 🎥 Видео-демо
+
+Вы можете посмотреть короткое видео-демо работы приложения по ссылке:
+
+[Смотреть видео-демо на YouTube](https://youtu.be/ВАШ_ID_ВИДЕО)
+
 
 Актуальная документация по проекту `portfolio-website` после последних изменений:
 - транзакционное обновление данных в backend;

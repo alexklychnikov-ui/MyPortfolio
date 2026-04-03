@@ -8,12 +8,19 @@
   "ai": [
     "LangChain",
     "OpenAI API",
-    "Pinecone"
+    "Pinecone",
+    "LLM (OpenAI-compatible)"
   ],
   "automation": [
     "Make",
     "Telegram Bots",
     "Zapier",
-    "n8n"
+    "n8n",
+    "FastAPI",
+    "Docker",
+    "Celery",
+    "Redis",
+    "PostgreSQL",
+    "Grafana"
   ]
 }

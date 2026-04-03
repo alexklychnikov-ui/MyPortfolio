@@ -1,5 +1,18 @@
 [
   {
+    "id": "8f2a1c4e-9d03-4f6b-a1e8-7c3b2d5e9f01",
+    "title": {
+      "ru": "Мониторинг цен конкурентов (Price Monitor)",
+      "en": "Competitor Price Monitoring (Price Monitor)"
+    },
+    "description": {
+      "ru": "Система для бизнеса: парсинг магазинов, история цен в PostgreSQL, FastAPI, веб-интерфейс, Telegram-бот с алертами, Grafana и опциональная AI-аналитика.",
+      "en": "Business-oriented system: store scraping, PostgreSQL price history, FastAPI, web UI, Telegram bot with alerts, Grafana, and optional AI analytics."
+    },
+    "stack": "FastAPI, React, TypeScript, PostgreSQL, Celery, Redis, Docker, Telegram, Grafana",
+    "tag": "https://github.com/alexklychnikov-ui/PriceMonitoring"
+  },
+  {
     "id": "cf114d30-4502-4b74-9655-6c3390e3e208",
     "title": {
       "ru": "Портфолио разработчика",

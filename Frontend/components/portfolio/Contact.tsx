@@ -4,8 +4,32 @@ import { useState } from "react"
 import { toast } from "sonner"
 import { useI18n } from "./i18n"
 
-export default function Contact() {
+function extractUsernameFromTmeUrl(url: string): string | null {
+  const u = url.trim()
+  if (!u) return null
+  const m = u.match(/(?:https?:\/\/)?(?:t\.me|telegram\.me)\/([a-zA-Z0-9_]+)/i)
+  return m?.[1] ?? null
+}
+
+function resolveBotUsername(explicit: string, tmeUrl: string, fallback: string): string {
+  const e = explicit.trim().replace(/^@/, "")
+  if (e) return e
+  const fromUrl = extractUsernameFromTmeUrl(tmeUrl)
+  if (fromUrl) return fromUrl
+  return fallback.replace(/^@/, "")
+}
+
+export default function Contact({
+  telegramContactUrl = "",
+  telegramBotUsername = "",
+}: {
+  telegramContactUrl?: string
+  telegramBotUsername?: string
+}) {
   const { locale, t } = useI18n()
+  const botUsername = resolveBotUsername(telegramBotUsername, telegramContactUrl, t.contact.telegramUsername)
+  const telegramAppHref = `tg://resolve?domain=${encodeURIComponent(botUsername)}`
+  const telegramWebHref = `https://t.me/${encodeURIComponent(botUsername)}`
   const [sending, setSending] = useState(false)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -74,14 +98,30 @@ export default function Contact() {
                 </svg>
                 {t.contact.responseTime[locale]}
               </div>
-              <div className="contact-detail">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 2L11 13" />
-                  <path d="M22 2L15 22L11 13L2 9L22 2Z" />
-                </svg>
-                <a href={`https://t.me/${t.contact.telegramUsername}`} target="_blank" rel="noopener noreferrer">
-                  {t.contact.telegram[locale]}
-                </a>
+              <div className="contact-actions">
+                <span className="contact-actions-label">{t.contact.quickConnectLabel[locale]}</span>
+                <div className="contact-actions-buttons">
+                  <a
+                    href={telegramAppHref}
+                    className="btn btn-outline btn-sm contact-action-btn"
+                    aria-label={t.contact.telegram[locale]}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                      <path d="M22 2L11 13" />
+                      <path d="M22 2L15 22L11 13L2 9L22 2Z" />
+                    </svg>
+                    {t.contact.telegramButton[locale]}
+                  </a>
+                  <p className="contact-action-hint">{t.contact.telegramOpenAppHint[locale]}</p>
+                  <a
+                    href={telegramWebHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="contact-action-web-link"
+                  >
+                    @{botUsername} · t.me
+                  </a>
+                </div>
               </div>
             </div>
           </div>

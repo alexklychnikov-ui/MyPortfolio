@@ -11,6 +11,38 @@ import Testimonials from "@/components/portfolio/Testimonials"
 import Contact from "@/components/portfolio/Contact"
 import "./portfolio.css"
 
+type Project = {
+  id: string
+  title: {
+    ru: string
+    en: string
+  }
+  description: {
+    ru: string
+    en: string
+  }
+  stack: string
+  tag: string
+}
+
+type Service = {
+  id: string
+  title: {
+    ru: string
+    en: string
+  }
+  description: {
+    ru: string
+    en: string
+  }
+}
+
+type SkillsData = {
+  nocode?: string[]
+  ai?: string[]
+  automation?: string[]
+}
+
 function Footer() {
   const { locale, t } = useI18n()
   return (
@@ -34,9 +66,15 @@ function Footer() {
 export default function PortfolioClient({
   telegramContactUrl,
   telegramBotUsername,
+  initialProjects,
+  initialServices,
+  initialSkills,
 }: {
   telegramContactUrl: string
   telegramBotUsername: string
+  initialProjects: Project[]
+  initialServices: Service[]
+  initialSkills: SkillsData
 }) {
   return (
     <I18nProvider>
@@ -44,9 +82,9 @@ export default function PortfolioClient({
         <Navbar />
         <main>
           <Hero />
-          <Skills />
-          <Projects />
-          <Services />
+          <Skills initialSkills={initialSkills} />
+          <Projects initialProjects={initialProjects} />
+          <Services initialServices={initialServices} />
           <Testimonials />
           <Contact
             telegramContactUrl={telegramContactUrl}

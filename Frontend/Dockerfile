@@ -1,38 +1,28 @@
-# ============================================
-# Stage 1: Dependencies
-# ============================================
-FROM node:22-alpine AS deps
+# syntax=docker/dockerfile:1.7
 
-# Install system dependencies for native modules
-RUN apk add --no-cache libc6-compat
+# ============================================
+# Stage 0: Base
+# ============================================
+FROM node:22-alpine AS base
 
 WORKDIR /app
 
-# Copy only package files and Prisma schema for layer caching
+# Install system dependencies and pnpm once for all stages
+RUN apk add --no-cache libc6-compat \
+    && npm install -g pnpm@latest
+
+# ============================================
+# Stage 1: Builder
+# ============================================
+FROM base AS builder
+
+# Copy package files first to maximize dependency cache reuse
 COPY package.json pnpm-lock.yaml* ./
 COPY prisma ./prisma
+RUN --mount=type=cache,id=portfolio-frontend-pnpm-store,target=/root/.local/share/pnpm/store \
+    pnpm install --frozen-lockfile
 
-# Install pnpm
-RUN npm install -g pnpm@latest
-
-# Install dependencies (including dev for build)
-RUN pnpm install --frozen-lockfile
-
-# ============================================
-# Stage 2: Builder
-# ============================================
-FROM node:22-alpine AS builder
-
-WORKDIR /app
-
-# Copy Prisma schema so postinstall prisma generate can run
-COPY prisma ./prisma
-
-# Install pnpm
-RUN npm install -g pnpm@latest
-
-# Copy dependencies from previous stage
-COPY --from=deps /app/node_modules ./node_modules
+# Copy application sources after dependencies
 COPY . .
 
 # Set environment variables for build
@@ -43,7 +33,7 @@ ENV NODE_ENV=production
 RUN pnpm build
 
 # ============================================
-# Stage 3: Runner (Production)
+# Stage 2: Runner (Production)
 # ============================================
 FROM node:22-alpine AS runner
 
@@ -52,14 +42,6 @@ WORKDIR /app
 # Create non-root user
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
-
-# Install pnpm
-RUN npm install -g pnpm@latest
-
-# Install only production dependencies (Prisma needs schema for postinstall)
-COPY package.json pnpm-lock.yaml* ./
-COPY prisma ./prisma
-RUN pnpm install --frozen-lockfile --prod
 
 # Copy public files and build artifacts from builder stage
 COPY --from=builder /app/public ./public
@@ -79,7 +61,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
+    CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:3000 || exit 1
 
 # CMD
 CMD ["node", "server.js"]

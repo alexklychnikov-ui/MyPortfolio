@@ -13,14 +13,20 @@ export default function Hero() {
             <h1>
               {locale === "en" ? (
                 <>
-                  <span className="hero-title">Vibecode developer</span>
+                  <span className="hero-title">Alexander Klychnikov</span>
+                  <span className="hero-tagline">
+                    Vibecode developer
+                  </span>
                   <span className="hero-tagline">
                     Telegram bots & AI integrations for business
                   </span>
                 </>
               ) : (
                 <>
-                  <span className="hero-title">Vibecode разработчик</span>
+                  <span className="hero-title">Александр Клычников</span>
+                  <span className="hero-tagline">
+                    Vibecode разработчик
+                  </span>
                   <span className="hero-tagline">
                     Telegram-боты и AI-интеграции для бизнеса
                   </span>

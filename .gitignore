@@ -67,6 +67,7 @@ certbot-webroot/
 Prompts/
 tmp/
 temp/
+WORK_LOG.txt
 
 # -----------------------------
 # Explicit project preference

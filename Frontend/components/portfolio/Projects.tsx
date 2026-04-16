@@ -27,10 +27,10 @@ const emblaOptions = {
   containScroll: "trimSnaps" as const,
 }
 
-export default function Projects() {
+export default function Projects({ initialProjects = [] }: { initialProjects?: Project[] }) {
   const { locale, t } = useI18n()
-  const [projects, setProjects] = useState<Project[]>([])
-  const [loading, setLoading] = useState(true)
+  const [projects, setProjects] = useState<Project[]>(initialProjects)
+  const [loading, setLoading] = useState(initialProjects.length === 0)
 
   // embla-carousel refs
   const [emblaRef, emblaApi] = useEmblaCarousel(emblaOptions)

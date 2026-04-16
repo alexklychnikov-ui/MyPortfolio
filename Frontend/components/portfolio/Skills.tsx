@@ -29,10 +29,10 @@ interface SkillsData {
   automation?: string[]
 }
 
-export default function Skills() {
+export default function Skills({ initialSkills = {} }: { initialSkills?: SkillsData }) {
   const { locale, t } = useI18n()
   const [activeTab, setActiveTab] = useState("nocode")
-  const [skills, setSkills] = useState<SkillsData>({})
+  const [skills, setSkills] = useState<SkillsData>(initialSkills)
 
   useEffect(() => {
     const loadSkills = async () => {

@@ -29,7 +29,6 @@ export default function Contact({
   const { locale, t } = useI18n()
   const botUsername = resolveBotUsername(telegramBotUsername, telegramContactUrl, t.contact.telegramUsername)
   const telegramAppHref = `tg://resolve?domain=${encodeURIComponent(botUsername)}`
-  const telegramWebHref = `https://t.me/${encodeURIComponent(botUsername)}`
   const [sending, setSending] = useState(false)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -113,14 +112,6 @@ export default function Contact({
                     {t.contact.telegramButton[locale]}
                   </a>
                   <p className="contact-action-hint">{t.contact.telegramOpenAppHint[locale]}</p>
-                  <a
-                    href={telegramWebHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="contact-action-web-link"
-                  >
-                    @{botUsername} · t.me
-                  </a>
                 </div>
               </div>
             </div>

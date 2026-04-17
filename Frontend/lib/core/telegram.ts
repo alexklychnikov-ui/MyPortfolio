@@ -1,5 +1,12 @@
-const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN
-const telegramChatId = process.env.TELEGRAM_CHAT_ID
+const telegramLeadsBotToken =
+  process.env.TELEGRAM_LEADS_BOT_TOKEN?.trim() ||
+  process.env.TELEGRAM_BOT_TOKEN?.trim() ||
+  ""
+const telegramLeadsChatId =
+  process.env.TELEGRAM_LEADS_CHAT_ID?.trim() ||
+  process.env.TELEGRAM_CHAT_ID?.trim() ||
+  ""
+const telegramLeadsThreadId = process.env.TELEGRAM_LEADS_MESSAGE_THREAD_ID?.trim() || ""
 
 export async function sendContactToTelegram(params: {
   name: string
@@ -7,7 +14,7 @@ export async function sendContactToTelegram(params: {
   phone?: string
   message: string
 }): Promise<{ ok: boolean; error?: string }> {
-  if (!telegramBotToken || !telegramChatId) {
+  if (!telegramLeadsBotToken || !telegramLeadsChatId) {
     return { ok: false, error: "Telegram not configured" }
   }
   try {
@@ -20,14 +27,25 @@ export async function sendContactToTelegram(params: {
       params.message,
     ]
     const text = lines.join("\n")
-    const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`
+    const payload: {
+      chat_id: string
+      text: string
+      message_thread_id?: number
+    } = {
+      chat_id: telegramLeadsChatId,
+      text: text.slice(0, 4096),
+    }
+    if (telegramLeadsThreadId) {
+      const threadId = Number(telegramLeadsThreadId)
+      if (Number.isFinite(threadId) && threadId > 0) {
+        payload.message_thread_id = threadId
+      }
+    }
+    const url = `https://api.telegram.org/bot${telegramLeadsBotToken}/sendMessage`
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: telegramChatId,
-        text: text.slice(0, 4096),
-      }),
+      body: JSON.stringify(payload),
     })
     const data = (await res.json()) as { ok?: boolean; description?: string }
     if (!data.ok) return { ok: false, error: data.description ?? "Unknown error" }

@@ -47,13 +47,25 @@ async function readJsonFile<T>(fileName: string, fallback: T): Promise<T> {
   }
 }
 
+function extractTelegramUsername(value: string): string | null {
+  const normalized = value.trim()
+  if (!normalized) return null
+  if (normalized.startsWith("@")) return normalized.slice(1)
+  const match = normalized.match(/(?:https?:\/\/)?(?:t\.me|telegram\.me)\/([a-zA-Z0-9_]+)/i)
+  return match?.[1] ?? null
+}
+
 export default async function Page() {
   const siteUrl = "https://portfolio.hayklyvibelexy.ru"
   const telegramContactUrl =
+    process.env.TELEGRAM_LEADS_CONTACT_URL?.trim() ||
+    process.env.NEXT_PUBLIC_TELEGRAM_LEADS_CONTACT_URL?.trim() ||
     process.env.TELEGRAM_CONTACT_URL?.trim() ||
     process.env.NEXT_PUBLIC_TELEGRAM_CONTACT_URL?.trim() ||
     ""
   const telegramBotUsername =
+    process.env.TELEGRAM_LEADS_BOT_USERNAME?.trim() ||
+    process.env.NEXT_PUBLIC_TELEGRAM_LEADS_BOT_USERNAME?.trim() ||
     process.env.TELEGRAM_BOT_USERNAME?.trim() ||
     process.env.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME?.trim() ||
     ""
@@ -62,7 +74,11 @@ export default async function Page() {
     readJsonFile<Service[]>("services.json", []),
     readJsonFile<SkillsData>("skills.json", {}),
   ])
-  const telegramUsername = telegramBotUsername || "Alex_Assistant_freelancing_bot"
+  const telegramUsername =
+    extractTelegramUsername(telegramContactUrl) ||
+    extractTelegramUsername(telegramBotUsername) ||
+    "Alex_Assistant_freelancing_bot"
+  const telegramPublicUrl = telegramContactUrl || `https://t.me/${telegramUsername}`
   const personStructuredData = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -84,7 +100,7 @@ export default async function Page() {
     ],
     email: "alexandr_klychnikov@mail.ru",
     sameAs: [
-      `https://t.me/${telegramUsername}`,
+      telegramPublicUrl,
       `tg://resolve?domain=${telegramUsername}`,
     ],
   }

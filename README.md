@@ -25,6 +25,14 @@
 - webhook-интеграция Telegram-бота;
 - диагностика лимитов GitHub API.
 
+## Используемые фреймворки и ключевые технологии
+
+- Frontend: `Next.js 16` (App Router), `React 19`, `TypeScript`, `Tailwind CSS`.
+- Backend API: `FastAPI`, `Uvicorn`, `Pydantic`, `SQLAlchemy`.
+- Telegram Bot: `aiogram 3`, `FastAPI` (webhook endpoint).
+- Data/ORM: `Prisma` (`@prisma/client` + `prisma`), `PostgreSQL`.
+- UI/validation/libs: `Radix UI`, `React Hook Form`, `Zod`, `Resend`.
+
 ## Что внутри
 
 - `Frontend` — сайт на Next.js (App Router), RU/EN, Tailwind.

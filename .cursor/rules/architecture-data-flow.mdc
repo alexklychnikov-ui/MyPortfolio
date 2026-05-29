@@ -1,0 +1,38 @@
+---
+description: Архитектура и data-flow правила для Portfolio
+alwaysApply: true
+---
+
+# Portfolio Architecture and Data Flow
+
+## Не ломай архитектуру
+
+- UI (`Projects`, `Services`) читает данные только из `/public/data/*.json`.
+- API (`/api/projects`, `/api/services`) работает отдельно через БД.
+- Не смешивай JSON-источник UI и DB-источник API без явной задачи.
+
+## Работа с данными
+
+- Изменение для UI: правь JSON в `public/data/`.
+- Изменение для интеграций/API: используй Prisma + `/api/*`.
+
+## AI и GitHub pipeline
+
+- Используй существующий pipeline `/api/github/analyze`.
+- Не дублируй логику Python backend без необходимости.
+
+## UI и i18n
+
+- Используй существующие компоненты `components/portfolio/*`.
+- Поддерживай RU/EN через `i18n.tsx`.
+
+## Изменения в коде
+
+- Явно указывай, что изменилось: UI / API / DB / AI pipeline.
+- Минимизируй diff, не переписывай лишнее.
+
+## Предпочтения
+
+- Простые решения > сложные.
+- Переиспользование существующих модулей > создание новых.
+- Явная структура данных (Zod / Prisma schema).

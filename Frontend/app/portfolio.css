@@ -274,6 +274,14 @@
   color: #1b8473;
 }
 
+.hero-name-alt {
+  display: block;
+  margin-top: 2px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--muted-foreground, #64748b);
+}
+
 .hero-tagline {
   display: block;
   margin-top: 4px;

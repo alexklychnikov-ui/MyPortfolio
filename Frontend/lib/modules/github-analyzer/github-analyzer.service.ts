@@ -97,6 +97,7 @@ export async function analyzeGithubRepositories(urls: string[]): Promise<GithubA
         description: string | null
         default_branch: string | null
         topics?: string[]
+        private?: boolean
       }>(`/repos/${normalized.owner}/${normalized.repo}`)
 
       const languagesData = await fetchGithubJson<Record<string, number>>(
@@ -130,7 +131,7 @@ export async function analyzeGithubRepositories(urls: string[]): Promise<GithubA
         ])
       ).slice(0, 20)
 
-      const mockupUrl = await fetchMockupUrl(
+      const mockup = await fetchMockupUrl(
         normalized.owner,
         normalized.repo,
         fetchGithubJson
@@ -148,7 +149,9 @@ export async function analyzeGithubRepositories(urls: string[]): Promise<GithubA
         readme: compactText(readmeRaw, 8000),
         packageJson: compactText(packageJsonRaw, 8000),
         inferredStack,
-        mockupUrl,
+        mockupUrl: mockup?.url ?? null,
+        mockupName: mockup?.name ?? null,
+        isPrivate: Boolean(repoData.private),
       })
     } catch (error) {
       const reason = error instanceof Error ? error.message : "Unknown GitHub error"

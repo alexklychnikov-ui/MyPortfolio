@@ -3,48 +3,55 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from '@/components/theme-provider'
+import {
+  githubProfileUrl,
+  ogImagePath,
+  personNameRu,
+  siteDescription,
+  siteKeywords,
+  siteTitle,
+  siteUrl,
+} from '@/lib/seo'
 
 import './globals.css'
 
 const _inter = Inter({ subsets: ['latin'] })
-const siteUrl = 'https://portfolio.hayklyvibelexy.ru'
-const siteTitle = 'Клычников Александр - AI, Telegram Bot и No-Code разработчик'
-const siteDescription =
-  'Клычников Александр - Senior No-Code и AI разработчик. Разработка MVP, Telegram-ботов, AI-интеграций, сайтов и автоматизаций для бизнеса.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: siteTitle,
+  title: {
+    default: siteTitle,
+    template: `%s | ${personNameRu}`,
+  },
   description: siteDescription,
-  applicationName: 'dev.folio',
+  applicationName: personNameRu,
+  authors: [{ name: personNameRu, url: siteUrl }],
+  creator: personNameRu,
+  keywords: siteKeywords,
   alternates: {
-    canonical: '/',
-    languages: {
-      'ru-RU': '/',
-      'x-default': '/',
-    },
+    canonical: siteUrl,
   },
   openGraph: {
     type: 'website',
     url: siteUrl,
     title: siteTitle,
     description: siteDescription,
-    siteName: 'dev.folio',
+    siteName: personNameRu,
     locale: 'ru_RU',
     images: [
       {
-        url: '/assets/myLogotype.svg',
-        width: 512,
-        height: 512,
-        alt: 'Логотип портфолио Александра Клычникова',
+        url: ogImagePath,
+        width: 680,
+        height: 680,
+        alt: `${personNameRu} — фото разработчика`,
       },
     ],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: siteTitle,
     description: siteDescription,
-    images: ['/assets/myLogotype.svg'],
+    images: [ogImagePath],
   },
   icons: {
     icon: [
@@ -66,6 +73,9 @@ export const metadata: Metadata = {
     },
   },
   category: 'technology',
+  verification: {
+    yandex: '1d0c5c05e355fcf0',
+  },
 }
 
 export const viewport: Viewport = {
@@ -81,6 +91,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" suppressHydrationWarning>
+      <head>
+        <link rel="me" href={githubProfileUrl} />
+      </head>
       <body className="font-sans antialiased">
         <ThemeProvider>
           {children}

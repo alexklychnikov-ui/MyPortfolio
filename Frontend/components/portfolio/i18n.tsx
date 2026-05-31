@@ -5,13 +5,21 @@ type Locale = "en" | "ru"
 const translations = {
   hero: {
     label: { en: "No-Code Developer", ru: "No-Code Разработчик" },
+    namePrimary: {
+      en: "Alexander Klychnikov",
+      ru: "Клычников Александр",
+    },
+    nameSecondary: {
+      en: "Klychnikov Alexander",
+      ru: "Александр Клычников",
+    },
     title: {
       en: "VibeCode",
       ru: "VibeCode",
     },
     subtitle: {
-      en: "Hi, I'm Alexander 👋 I turn ideas into working products and business automation — fast, carefully, and with a guarantee.",
-      ru: "Привет, я Александр 👋 Превращаю идеи в работающие продукты и автоматизацию для бизнеса — быстро, аккуратно и с гарантией.",
+      en: "Alexander Klychnikov — I turn ideas into working products and business automation — fast, carefully, and with a guarantee.",
+      ru: "Клычников Александр — разработчик Telegram-ботов, AI-интеграций и MVP. Превращаю идеи в работающие продукты и автоматизацию для бизнеса.",
     },
     description: {
       en: "I turn ideas into working products in days, not months. Specializing in rapid MVP development, AI integrations, and workflow automation.",
@@ -33,7 +41,10 @@ const translations = {
       primary: { en: "View Projects", ru: "Посмотреть проекты" },
       secondary: { en: "Contact Me", ru: "Связаться" },
     },
-    photoAlt: { en: "Developer profile photo", ru: "Фото разработчика" },
+    photoAlt: {
+      en: "Alexander Klychnikov — developer profile photo",
+      ru: "Клычников Александр — фото разработчика",
+    },
   },
   skills: {
     label: { en: "Expertise", ru: "Экспертиза" },
@@ -135,8 +146,8 @@ const translations = {
     label: { en: "What I Offer", ru: "Что я предлагаю" },
     title: { en: "Services", ru: "Услуги" },
     subtitle: {
-      en: "End-to-end solutions from concept to deployment, optimized for speed and reliability.",
-      ru: "Комплексные решения от концепции до запуска, оптимизированные по скорости и надёжности.",
+      en: "AI solutions, Telegram bots, integrations and MVP in Python — fast and practical for business.",
+      ru: "AI-решения, Telegram-боты, интеграции и MVP на Python — быстро и с практической пользой для бизнеса.",
     },
     items: {
       en: [
@@ -225,9 +236,13 @@ const translations = {
     error: { en: "Failed to send. Try again or contact directly.", ru: "Не удалось отправить. Попробуйте ещё раз или напишите напрямую." },
   },
   footer: {
+    copyright: {
+      en: "Alexander Klychnikov",
+      ru: "Клычников Александр",
+    },
     text: {
-      en: "Built with vibes and no-code tools.",
-      ru: "Создано с вайбом и no-code инструментами.",
+      en: "Portfolio of Alexander Klychnikov — Telegram bots, AI integrations, MVP.",
+      ru: "Портфолио Клычникова Александра — Telegram-боты, AI-интеграции, MVP.",
     },
   },
   nav: {

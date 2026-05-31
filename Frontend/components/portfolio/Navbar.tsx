@@ -25,7 +25,7 @@ export default function Navbar() {
         <a href="#" className="nav-logo">
           <Image
             src="/assets/myLogotype.png"
-            alt="dev.folio logo"
+            alt={t.hero.namePrimary[locale]}
             width={40}
             height={40}
             unoptimized

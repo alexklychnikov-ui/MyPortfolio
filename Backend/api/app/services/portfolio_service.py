@@ -18,13 +18,18 @@ class PortfolioService:
         parsed = urlparse(value.strip())
         return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
-    def _normalize_project_tags(self, generated: dict, accepted: list[dict]) -> dict:
+    def _normalize_project_tags(self, generated: dict, repositories: list[str]) -> dict:
         projects = generated.get("projects")
         if not isinstance(projects, list):
             return generated
 
-        fallback_urls = [item.get("repo_url", "").strip() for item in accepted if item.get("repo_url")]
-        if not fallback_urls:
+        order_keys: list[str] = []
+        for repo_url in repositories:
+            normalized = self.github.normalize(repo_url)
+            if normalized:
+                order_keys.append(normalized[2].strip().lower())
+
+        if not order_keys:
             return generated
 
         for idx, project in enumerate(projects):
@@ -33,7 +38,7 @@ class PortfolioService:
             current_tag = project.get("tag")
             if self._is_http_url(current_tag):
                 continue
-            replacement = fallback_urls[idx] if idx < len(fallback_urls) else fallback_urls[0]
+            replacement = order_keys[idx] if idx < len(order_keys) else order_keys[-1]
             project["tag"] = replacement
 
         return generated
@@ -87,9 +92,9 @@ class PortfolioService:
             raise ValueError(f"No repositories were successfully analyzed: {top_reasons}")
 
         generated = await self.openai.generate(accepted)
-        generated = self._normalize_project_tags(generated, accepted)
         generated = self._sanitize_generated_projects(generated)
         generated = self._order_projects_by_input(generated, accepted, repositories)
+        generated = self._normalize_project_tags(generated, repositories)
         generated = await materialize_project_mockups(
             generated,
             accepted,

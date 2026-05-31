@@ -41,7 +41,14 @@ function pickLocalized(text: LocalizedText | undefined, locale: "ru" | "en"): st
 }
 
 function hasCaseStudy(project: Project): boolean {
-  return Boolean(project.goal?.ru || project.role?.ru || project.result?.ru)
+  return Boolean(
+    project.goal?.ru ||
+      project.goal?.en ||
+      project.role?.ru ||
+      project.role?.en ||
+      project.result?.ru ||
+      project.result?.en
+  )
 }
 
 export default function Projects({ initialProjects = [] }: { initialProjects?: Project[] }) {
@@ -53,6 +60,7 @@ export default function Projects({ initialProjects = [] }: { initialProjects?: P
   const [canScrollNext, setCanScrollNext] = useState(false)
 
   useEffect(() => {
+    if (initialProjects.length > 0) return
     const loadProjects = async () => {
       try {
         const response = await fetch("/data/projects.json")
@@ -66,7 +74,7 @@ export default function Projects({ initialProjects = [] }: { initialProjects?: P
       }
     }
     loadProjects()
-  }, [])
+  }, [initialProjects.length])
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return

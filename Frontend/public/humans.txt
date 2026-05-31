@@ -1,0 +1,10 @@
+/* TEAM */
+Developer: Клычников Александр
+Contact: alexandr_klychnikov@mail.ru
+Site: https://portfolio.hayklyvibelexy.ru
+GitHub: https://github.com/alexklychnikov-ui
+Telegram: https://t.me/HayklyVibeLexy_bot
+From: Remote
+
+/* THANKS */
+Next.js, FastAPI, OpenAI, Telegram

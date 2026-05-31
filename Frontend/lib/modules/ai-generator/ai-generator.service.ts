@@ -1,7 +1,8 @@
 import { generatedPortfolioSchema, type GeneratedPortfolio } from "./ai-generator.schema"
 import { buildUnifiedSystemPrompt, buildUserPrompt, readSystemPrompt } from "./ai-generator.prompt"
 import type { GithubRepoData } from "@/lib/modules/github-analyzer/github-analyzer.types"
-import { attachMockupsToProjects } from "@/lib/modules/github-analyzer/project-mockup"
+import { materializePrivateMockups, orderProjectsByInput } from "@/lib/modules/github-analyzer/project-mockup"
+import path from "node:path"
 import { SKILL_CATEGORIES } from "@/lib/modules/skills/skill-categories"
 
 const skillsOutputSchema = {
@@ -68,7 +69,6 @@ const OUTPUT_SCHEMA = {
         additionalProperties: false,
         required: ["title", "description"],
         properties: {
-          id: { type: "string" },
           title: {
             type: "object",
             additionalProperties: false,
@@ -94,16 +94,6 @@ type ChatCompletionResponse = {
       content?: string
     }
   }>
-}
-
-function dedupeByTag<T extends { tag: string }>(items: T[]): T[] {
-  const seen = new Set<string>()
-  return items.filter((item) => {
-    const key = item.tag.trim().toLowerCase()
-    if (seen.has(key)) return false
-    seen.add(key)
-    return true
-  })
 }
 
 export async function generatePortfolioFromRepositories(
@@ -182,9 +172,23 @@ export async function generatePortfolioFromRepositories(
   if (!parsed.success) throw new Error("OpenAI JSON does not match schema")
 
   const normalized = parsed.data
-  const projectsWithMockups = attachMockupsToProjects(normalized.projects, repositories)
+  const repositoryUrls = repositories.map((repo) => repo.originalUrl)
+  const ordered = orderProjectsByInput(normalized.projects, repositoryUrls)
+  const exportDir = path.join(process.cwd(), "public", "data")
+  const withMockups = await materializePrivateMockups(ordered, repositories, exportDir)
+  const projects = dedupeByTag(withMockups)
   return {
     ...normalized,
-    projects: dedupeByTag(projectsWithMockups),
+    projects,
   }
+}
+
+function dedupeByTag<T extends { tag: string }>(items: T[]): T[] {
+  const seen = new Set<string>()
+  return items.filter((item) => {
+    const key = item.tag.trim().toLowerCase()
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
 }

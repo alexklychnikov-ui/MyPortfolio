@@ -53,15 +53,22 @@ type Service = {
 
 type SkillsData = Record<string, string[] | undefined>
 
+type Testimonial = {
+  text: { ru: string; en: string }
+  author: { ru: string; en: string }
+  role?: { ru: string; en: string }
+  rating?: number
+}
+
 function Footer() {
   const { locale, t } = useI18n()
   return (
     <footer className="portfolio-footer">
       <div className="footer-content">
-        <p>{`\u00A9 ${new Date().getFullYear()} dev.folio`}</p>
+        <p>{`\u00A9 ${new Date().getFullYear()} ${t.footer.copyright[locale]}`}</p>
         <Image
           src="/assets/myLogotype.png"
-          alt="dev.folio logo"
+          alt={t.footer.copyright[locale]}
           className="footer-logo"
           width={40}
           height={40}
@@ -79,12 +86,14 @@ export default function PortfolioClient({
   initialProjects,
   initialServices,
   initialSkills,
+  initialTestimonials,
 }: {
   telegramContactUrl: string
   telegramBotUsername: string
   initialProjects: Project[]
   initialServices: Service[]
   initialSkills: SkillsData
+  initialTestimonials: Testimonial[]
 }) {
   return (
     <I18nProvider>
@@ -95,7 +104,7 @@ export default function PortfolioClient({
           <Skills initialSkills={initialSkills} />
           <Projects initialProjects={initialProjects} />
           <Services initialServices={initialServices} />
-          <Testimonials />
+          <Testimonials initialTestimonials={initialTestimonials} />
           <Contact
             telegramContactUrl={telegramContactUrl}
             telegramBotUsername={telegramBotUsername}

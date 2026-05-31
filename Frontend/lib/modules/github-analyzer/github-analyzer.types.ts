@@ -18,6 +18,8 @@ export type GithubRepoData = {
   packageJson: string
   inferredStack: string[]
   mockupUrl?: string | null
+  mockupName?: string | null
+  isPrivate?: boolean
 }
 
 export type GithubSkippedRepo = {

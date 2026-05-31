@@ -2,8 +2,18 @@ import { readFile } from "node:fs/promises"
 import path from "node:path"
 
 import PortfolioClient from "./portfolio-client"
+import {
+  githubProfileUrl,
+  ogImagePath,
+  personNameEn,
+  personNameEnAlt,
+  personNameRu,
+  personNameRuAlt,
+  siteDescription,
+  siteUrl,
+} from "@/lib/seo"
 
-export const dynamic = "force-dynamic"
+export const revalidate = 3600
 
 type Project = {
   id: string
@@ -47,6 +57,13 @@ type Service = {
 
 type SkillsData = Record<string, string[] | undefined>
 
+type Testimonial = {
+  text: { ru: string; en: string }
+  author: { ru: string; en: string }
+  role?: { ru: string; en: string }
+  rating?: number
+}
+
 async function readJsonFile<T>(fileName: string, fallback: T): Promise<T> {
   try {
     const filePath = path.join(process.cwd(), "public", "data", fileName)
@@ -66,7 +83,6 @@ function extractTelegramUsername(value: string): string | null {
 }
 
 export default async function Page() {
-  const siteUrl = "https://portfolio.hayklyvibelexy.ru"
   const telegramContactUrl =
     process.env.TELEGRAM_LEADS_CONTACT_URL?.trim() ||
     process.env.NEXT_PUBLIC_TELEGRAM_LEADS_CONTACT_URL?.trim() ||
@@ -79,10 +95,11 @@ export default async function Page() {
     process.env.TELEGRAM_BOT_USERNAME?.trim() ||
     process.env.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME?.trim() ||
     ""
-  const [initialProjects, initialServices, initialSkills] = await Promise.all([
+  const [initialProjects, initialServices, initialSkills, initialTestimonials] = await Promise.all([
     readJsonFile<Project[]>("projects.json", []),
     readJsonFile<Service[]>("services.json", []),
     readJsonFile<SkillsData>("skills.json", {}),
+    readJsonFile<Testimonial[]>("testimonials.json", []),
   ])
   const telegramUsername =
     extractTelegramUsername(telegramContactUrl) ||
@@ -92,13 +109,15 @@ export default async function Page() {
   const personStructuredData = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Александр Клычников",
-    alternateName: ["Alexander Klychnikov", "Клычников Александр"],
+    "@id": `${siteUrl}/#person`,
+    name: personNameRuAlt,
+    givenName: "Александр",
+    familyName: "Клычников",
+    alternateName: [personNameRu, personNameEn, personNameEnAlt],
     url: siteUrl,
-    image: `${siteUrl}/assets/myLogotype.svg`,
+    image: `${siteUrl}${ogImagePath}`,
     jobTitle: "AI, Telegram Bot и No-Code разработчик",
-    description:
-      "Клычников Александр - разработчик Telegram-ботов, AI-интеграций, сайтов, MVP и бизнес-автоматизаций.",
+    description: siteDescription,
     knowsAbout: [
       "Telegram Bots",
       "OpenAI",
@@ -107,31 +126,45 @@ export default async function Page() {
       "MVP development",
       "Automation",
       "Next.js",
+      "FastAPI",
     ],
     email: "alexandr_klychnikov@mail.ru",
     sameAs: [
+      githubProfileUrl,
       telegramPublicUrl,
-      `tg://resolve?domain=${telegramUsername}`,
     ],
   }
   const websiteStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Портфолио Александра Клычникова",
-    alternateName: "dev.folio",
+    "@id": `${siteUrl}/#website`,
+    name: `Портфолио ${personNameRu}`,
     url: siteUrl,
-    inLanguage: ["ru-RU", "en-US"],
-    about: {
-      "@type": "Person",
-      name: "Александр Клычников",
-    },
+    inLanguage: "ru-RU",
+    publisher: { "@id": `${siteUrl}/#person` },
+    about: { "@id": `${siteUrl}/#person` },
+  }
+  const profilePageStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": siteUrl,
+    url: siteUrl,
+    name: personNameRu,
+    description: siteDescription,
+    inLanguage: "ru-RU",
+    mainEntity: { "@id": `${siteUrl}/#person` },
+    isPartOf: { "@id": `${siteUrl}/#website` },
   }
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([personStructuredData, websiteStructuredData]),
+          __html: JSON.stringify([
+            personStructuredData,
+            websiteStructuredData,
+            profilePageStructuredData,
+          ]),
         }}
       />
       <PortfolioClient
@@ -140,6 +173,7 @@ export default async function Page() {
         initialProjects={initialProjects}
         initialServices={initialServices}
         initialSkills={initialSkills}
+        initialTestimonials={initialTestimonials}
       />
     </>
   )

@@ -11,27 +11,16 @@ export default function Hero() {
         <div className="hero-grid">
           <div className="hero-content">
             <h1>
-              {locale === "en" ? (
-                <>
-                  <span className="hero-title">Alexander Klychnikov</span>
-                  <span className="hero-tagline">
-                    Vibecode developer
-                  </span>
-                  <span className="hero-tagline">
-                    Telegram bots & AI integrations for business
-                  </span>
-                </>
-              ) : (
-                <>
-                  <span className="hero-title">Александр Клычников</span>
-                  <span className="hero-tagline">
-                    Vibecode разработчик
-                  </span>
-                  <span className="hero-tagline">
-                    Telegram-боты и AI-интеграции для бизнеса
-                  </span>
-                </>
-              )}
+              <span className="hero-title">{t.hero.namePrimary[locale]}</span>
+              <span className="hero-name-alt">{t.hero.nameSecondary[locale]}</span>
+              <span className="hero-tagline">
+                {locale === "en" ? "Vibecode developer" : "Vibecode разработчик"}
+              </span>
+              <span className="hero-tagline">
+                {locale === "en"
+                  ? "Telegram bots & AI integrations for business"
+                  : "Telegram-боты и AI-интеграции для бизнеса"}
+              </span>
             </h1>
             <p className="hero-subtitle">{t.hero.subtitle[locale]}</p>
             <ul className="hero-list">

@@ -1,1 +1,57 @@
-[]
+[
+  {
+    "id": "svc-python-ai",
+    "title": {
+      "ru": "Python и AI",
+      "en": "Python & AI"
+    },
+    "description": {
+      "ru": "AI-сервисы и интеграция LLM под вашу задачу — без лишней сложности на старте.",
+      "en": "AI services and LLM integration for your use case — without over-engineering upfront."
+    }
+  },
+  {
+    "id": "svc-telegram-bots",
+    "title": {
+      "ru": "Telegram-боты",
+      "en": "Telegram Bots"
+    },
+    "description": {
+      "ru": "Боты с памятью и AI-функциями для удобного взаимодействия с пользователями.",
+      "en": "Bots with memory and AI features for smooth user interaction."
+    }
+  },
+  {
+    "id": "svc-automation",
+    "title": {
+      "ru": "Автоматизация",
+      "en": "Automation"
+    },
+    "description": {
+      "ru": "Сокращаю рутину и ускоряю процессы за счёт автоматизации и AI-интеграций.",
+      "en": "Cut routine work and speed up processes with automation and AI integrations."
+    }
+  },
+  {
+    "id": "svc-integrations",
+    "title": {
+      "ru": "Интеграции и API",
+      "en": "Integrations & API"
+    },
+    "description": {
+      "ru": "Связываю сервисы и системы, чтобы данные и действия работали как единый процесс.",
+      "en": "Connect services and systems so data and actions work as one flow."
+    }
+  },
+  {
+    "id": "svc-mvp",
+    "title": {
+      "ru": "MVP и прототипы",
+      "en": "MVP & Prototypes"
+    },
+    "description": {
+      "ru": "Быстро собираю рабочий прототип, чтобы проверить идею на практике.",
+      "en": "Ship a working prototype fast to validate your idea in the real world."
+    }
+  }
+]

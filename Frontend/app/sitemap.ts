@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next"
+import { siteUrl } from "@/lib/seo"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = "https://portfolio.hayklyvibelexy.ru"
   const lastModified = new Date()
 
   return [

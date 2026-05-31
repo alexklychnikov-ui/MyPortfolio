@@ -71,9 +71,8 @@ OUTPUT_SCHEMA = {
             "items": {
                 "type": "object",
                 "additionalProperties": False,
-                "required": ["id", "title", "description"],
+                "required": ["title", "description"],
                 "properties": {
-                    "id": {"type": "string"},
                     "title": {
                         "type": "object",
                         "additionalProperties": False,

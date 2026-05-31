@@ -28,9 +28,11 @@ export default function Services({ initialServices = [] }: { initialServices?: S
   const [loading, setLoading] = useState(initialServices.length === 0)
 
   useEffect(() => {
+    if (initialServices.length > 0) return
     const loadServices = async () => {
       try {
-        const response = await fetch('/data/services.json')
+        const response = await fetch("/data/services.json")
+        if (!response.ok) throw new Error("Failed to load services")
         const data = await response.json()
         setServices(data)
       } catch (error) {
@@ -41,7 +43,7 @@ export default function Services({ initialServices = [] }: { initialServices?: S
     }
 
     loadServices()
-  }, [])
+  }, [initialServices.length])
 
   if (loading) {
     return (

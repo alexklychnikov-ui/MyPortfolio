@@ -25,11 +25,11 @@ function StarIcon({ filled }: { filled?: boolean }) {
   )
 }
 
-export default function Testimonials() {
+export default function Testimonials({ initialTestimonials = [] }: { initialTestimonials?: Testimonial[] }) {
   const { locale, t } = useI18n()
   const trackRef = useRef<HTMLDivElement>(null)
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([])
-  const [loading, setLoading] = useState(true)
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(initialTestimonials)
+  const [loading, setLoading] = useState(initialTestimonials.length === 0)
   const [modalOpen, setModalOpen] = useState(false)
   const [sending, setSending] = useState(false)
   const [formTask, setFormTask] = useState("")
@@ -40,13 +40,24 @@ export default function Testimonials() {
 
   const loadTestimonials = async () => {
     try {
+      const staticResponse = await fetch("/data/testimonials.json")
+      if (staticResponse.ok) {
+        const staticData = await staticResponse.json()
+        if (Array.isArray(staticData) && staticData.length > 0) {
+          setTestimonials(staticData)
+          return
+        }
+      }
+
       const response = await fetch("/api/testimonials")
       if (response.ok) {
         const data = await response.json()
-        setTestimonials(data)
-      } else {
-        setTestimonials([])
+        if (Array.isArray(data) && data.length > 0) {
+          setTestimonials(data)
+          return
+        }
       }
+      setTestimonials([])
     } catch {
       setTestimonials([])
     } finally {
@@ -55,8 +66,9 @@ export default function Testimonials() {
   }
 
   useEffect(() => {
+    if (initialTestimonials.length > 0) return
     loadTestimonials()
-  }, [])
+  }, [initialTestimonials.length])
 
   const scroll = (direction: "left" | "right") => {
     if (!trackRef.current) return

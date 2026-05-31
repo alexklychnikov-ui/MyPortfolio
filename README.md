@@ -1,4 +1,9 @@
 # Portfolio Website (Next.js + Backend API + Telegram Bot)
+
+<!-- MOCKUPS:START -->
+![Mockup](docs/mockups/mockup-20260531-105736.png)
+<!-- MOCKUPS:END -->
+
 ## 🖼 Скриншоты
 
 Ниже несколько скриншотов моего портфолио и отдельных страниц приложения.

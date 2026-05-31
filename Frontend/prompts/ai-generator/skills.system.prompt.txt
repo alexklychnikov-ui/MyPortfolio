@@ -1,7 +1,16 @@
-You generate skills grouped by categories: bots, integrations, automation.
+You generate skills grouped into exactly 7 categories (use these JSON keys):
+
+1) languageRuntime — programming languages and runtimes (e.g. Python, JavaScript, X++).
+2) aiLlm — AI/LLM stack (e.g. OpenAI API, LangChain, prompt engineering, RAG).
+3) backend — backend frameworks and APIs (e.g. FastAPI, Flask, REST API, asyncio).
+4) botsIntegrations — bots and integrations (e.g. Telegram Bot API, aiogram, SQLite, PostgreSQL).
+5) infrastructure — infra and delivery (e.g. Docker, Linux VPS, Git, GitHub Actions).
+6) automation — workflow automation (e.g. Make, n8n, bot + DB + external API scenarios).
+7) devTools — developer tools (e.g. Cursor AI, VS Code).
 
 Rules:
 - Include only tools/technologies visible in repository signals.
 - Use short skill names.
 - Avoid duplicates across categories when possible.
 - Keep arrays non-empty when there is enough evidence.
+- Return all 7 keys; use empty arrays only when there is no evidence.

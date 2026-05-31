@@ -63,6 +63,34 @@ class GithubClient:
         except Exception:
             return ""
 
+    _MOCKUP_DIR_PATHS = ("Docs/mockups", "docs/mockups")
+    _MOCKUP_IMAGE_EXTENSIONS = (".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg")
+
+    def _pick_mockup_url(self, entries: list) -> tuple[str, str] | None:
+        images = [
+            entry
+            for entry in entries
+            if isinstance(entry, dict)
+            and entry.get("type") == "file"
+            and isinstance(entry.get("name"), str)
+            and any(str(entry.get("name", "")).lower().endswith(ext) for ext in self._MOCKUP_IMAGE_EXTENSIONS)
+            and isinstance(entry.get("download_url"), str)
+        ]
+        if not images:
+            return None
+        images.sort(key=lambda item: str(item.get("name", "")), reverse=True)
+        return str(images[0]["download_url"]), str(images[0]["name"])
+
+    async def _fetch_mockup_url(self, client: httpx.AsyncClient, owner: str, repo: str) -> tuple[str, str] | None:
+        for dir_path in self._MOCKUP_DIR_PATHS:
+            entries = await self._json_or_none(client, f"/repos/{owner}/{repo}/contents/{dir_path}")
+            if not isinstance(entries, list):
+                continue
+            picked = self._pick_mockup_url(entries)
+            if picked:
+                return picked
+        return None
+
     async def collect_many(self, repositories: list[str]) -> tuple[list[dict], list[dict[str, str]]]:
         accepted: list[dict] = []
         skipped: list[dict[str, str]] = []
@@ -113,15 +141,21 @@ class GithubClient:
                     :8000
                 ]
                 language_list = list(languages.keys()) if isinstance(languages, dict) else []
+                mockup = await self._fetch_mockup_url(client, owner, repo)
 
                 accepted.append(
                     {
                         "repo_url": normalized_url,
+                        "owner": owner,
+                        "repo": repo,
+                        "is_private": bool(repo_data.get("private")),
                         "description": repo_data.get("description") or "",
                         "topics": repo_data.get("topics") or [],
                         "languages": language_list,
                         "readme": readme_text,
                         "package_json": package_text,
+                        "mockup_url": mockup[0] if mockup else None,
+                        "mockup_name": mockup[1] if mockup else None,
                     }
                 )
 

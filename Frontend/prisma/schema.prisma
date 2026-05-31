@@ -30,8 +30,14 @@ model Project {
   id          String   @id @default(uuid())
   title       Json
   description Json
+  goal        Json?
+  role        Json?
+  result      Json?
   stack       String
   tag         String   @unique
+  demoUrl     String?  @map("demo_url")
+  image       String?
+  sortOrder   Int      @default(0) @map("sort_order")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

@@ -17,6 +17,7 @@ export type GithubRepoData = {
   readme: string
   packageJson: string
   inferredStack: string[]
+  mockupUrl?: string | null
 }
 
 export type GithubSkippedRepo = {

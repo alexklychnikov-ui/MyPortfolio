@@ -42,17 +42,39 @@ const translations = {
       en: "Tools and technologies I use for fast and reliable development.",
       ru: "Инструменты и технологии, которые я использую для быстрой и надёжной разработки.",
     },
-    tabNoCode: { en: "Bots & AI assistants", ru: "Боты AI-ассистенты" },
-    tabAI: { en: "Integrations", ru: "Интеграции" },
+    tabLanguageRuntime: { en: "Languages & runtime", ru: "Языки и runtime" },
+    tabAILLM: { en: "AI / LLM", ru: "AI / LLM" },
+    tabBackend: { en: "Backend", ru: "Backend" },
+    tabBotsIntegrations: { en: "Bots & integrations", ru: "Боты и интеграции" },
+    tabInfrastructure: { en: "Infrastructure", ru: "Инфраструктура" },
     tabAutomation: { en: "Automation", ru: "Автоматизация" },
+    tabDevTools: { en: "Development tools", ru: "Инструменты разработки" },
     ariaLabel: { en: "Skills categories", ru: "Категории навыков" },
   },
   projects: {
     label: { en: "Portfolio", ru: "Портфолио" },
     title: { en: "Featured Projects", ru: "Избранные проекты" },
     subtitle: {
-      en: "A selection of products and automations built with modern no-code tools and AI integrations.",
-      ru: "Подборка продуктов и автоматизаций, созданных с помощью современных no-code инструментов и AI.",
+      en: "Real case studies: the problem, my role, tech stack, and measurable outcomes.",
+      ru: "Реальные кейсы: задача, моя роль, стек и конкретный результат.",
+    },
+    loading: { en: "Loading projects...", ru: "Загрузка проектов..." },
+    fields: {
+      goal: { en: "Task", ru: "Задача" },
+      role: { en: "My role", ru: "Моя роль" },
+      result: { en: "Result", ru: "Результат" },
+    },
+    links: {
+      github: { en: "GitHub", ru: "GitHub" },
+      demo: { en: "Live demo", ru: "Демо" },
+    },
+    cta: {
+      title: {
+        en: "Interested in a similar project?",
+        ru: "Интересует похожий проект?",
+      },
+      contact: { en: "Discuss a project", ru: "Обсудить проект" },
+      github: { en: "All repositories", ru: "Все репозитории" },
     },
     items: {
       en: [

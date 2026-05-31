@@ -4,6 +4,18 @@ import json
 import httpx
 
 from app.core.config import settings
+from app.core.skill_categories import SKILL_CATEGORIES
+
+
+def _skills_output_schema() -> dict:
+    return {
+        "type": "object",
+        "additionalProperties": False,
+        "required": list(SKILL_CATEGORIES),
+        "properties": {
+            category: {"type": "array", "items": {"type": "string"}} for category in SKILL_CATEGORIES
+        },
+    }
 
 
 OUTPUT_SCHEMA = {
@@ -16,7 +28,7 @@ OUTPUT_SCHEMA = {
             "items": {
                 "type": "object",
                 "additionalProperties": False,
-                "required": ["title", "description", "stack", "tag"],
+                "required": ["title", "description", "goal", "role", "result", "stack", "tag", "demoUrl"],
                 "properties": {
                     "title": {
                         "type": "object",
@@ -30,8 +42,27 @@ OUTPUT_SCHEMA = {
                         "required": ["ru", "en"],
                         "properties": {"ru": {"type": "string"}, "en": {"type": "string"}},
                     },
+                    "goal": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": ["ru", "en"],
+                        "properties": {"ru": {"type": "string"}, "en": {"type": "string"}},
+                    },
+                    "role": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": ["ru", "en"],
+                        "properties": {"ru": {"type": "string"}, "en": {"type": "string"}},
+                    },
+                    "result": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": ["ru", "en"],
+                        "properties": {"ru": {"type": "string"}, "en": {"type": "string"}},
+                    },
                     "stack": {"type": "string"},
                     "tag": {"type": "string"},
+                    "demoUrl": {"type": "string"},
                 },
             },
         },
@@ -58,16 +89,7 @@ OUTPUT_SCHEMA = {
                 },
             },
         },
-        "skills": {
-            "type": "object",
-            "additionalProperties": False,
-            "required": ["nocode", "ai", "automation"],
-            "properties": {
-                "nocode": {"type": "array", "items": {"type": "string"}},
-                "ai": {"type": "array", "items": {"type": "string"}},
-                "automation": {"type": "array", "items": {"type": "string"}},
-            },
-        },
+        "skills": _skills_output_schema(),
     },
 }
 

@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from app.core.skill_categories import empty_skills_grouped
 from app.db.models import Project, Service, Skill
 
 
@@ -15,16 +16,26 @@ def export_public_data(
 ) -> None:
     target = Path(target_dir)
 
-    projects_payload = [
-        {
+    projects_payload = []
+    for row in project_rows:
+        item: dict = {
             "id": row.id,
             "title": row.title,
             "description": row.description,
             "stack": row.stack,
             "tag": row.tag,
         }
-        for row in project_rows
-    ]
+        if row.goal:
+            item["goal"] = row.goal
+        if row.role:
+            item["role"] = row.role
+        if row.result:
+            item["result"] = row.result
+        if row.demo_url:
+            item["demoUrl"] = row.demo_url
+        if row.image:
+            item["image"] = row.image
+        projects_payload.append(item)
 
     services_payload = [
         {
@@ -35,9 +46,10 @@ def export_public_data(
         for row in service_rows
     ]
 
-    skills_payload: dict[str, list[str]] = {"nocode": [], "ai": [], "automation": []}
+    skills_payload = empty_skills_grouped()
     for row in skill_rows:
-        skills_payload.setdefault(row.category, []).append(row.name)
+        if row.category in skills_payload:
+            skills_payload[row.category].append(row.name)
 
     _dump_json(target / "projects.json", projects_payload)
     _dump_json(target / "services.json", services_payload)

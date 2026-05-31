@@ -8,8 +8,13 @@ export async function GET() {
       id: row.id,
       title: row.title as { ru: string; en: string },
       description: row.description as { ru: string; en: string },
+      goal: row.goal as { ru: string; en: string } | null,
+      role: row.role as { ru: string; en: string } | null,
+      result: row.result as { ru: string; en: string } | null,
       stack: row.stack,
       tag: row.tag,
+      demoUrl: row.demoUrl,
+      image: row.image,
       createdAt: row.createdAt.toISOString(),
       updatedAt: row.updatedAt.toISOString(),
     }))

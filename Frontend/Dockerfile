@@ -20,7 +20,8 @@ FROM base AS builder
 COPY package.json pnpm-lock.yaml* ./
 COPY prisma ./prisma
 RUN --mount=type=cache,id=portfolio-frontend-pnpm-store,target=/root/.local/share/pnpm/store \
-    pnpm install --frozen-lockfile
+    pnpm config set strict-dep-builds false \
+    && pnpm install --frozen-lockfile
 
 # Copy application sources after dependencies
 COPY . .

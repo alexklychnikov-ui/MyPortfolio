@@ -13,8 +13,13 @@ class LocalizedText(BaseModel):
 class GeneratedProject(BaseModel):
     title: LocalizedText
     description: LocalizedText
+    goal: LocalizedText
+    role: LocalizedText
+    result: LocalizedText
     stack: str
     tag: str
+    demoUrl: str | None = None
+    image: str | None = None
 
 
 class GeneratedService(BaseModel):
@@ -24,9 +29,13 @@ class GeneratedService(BaseModel):
 
 
 class GeneratedSkills(BaseModel):
-    nocode: list[str]
-    ai: list[str]
+    languageRuntime: list[str]
+    aiLlm: list[str]
+    backend: list[str]
+    botsIntegrations: list[str]
+    infrastructure: list[str]
     automation: list[str]
+    devTools: list[str]
 
 
 class AnalyzeResponseData(BaseModel):

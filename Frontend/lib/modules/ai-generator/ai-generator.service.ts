@@ -1,6 +1,17 @@
 import { generatedPortfolioSchema, type GeneratedPortfolio } from "./ai-generator.schema"
 import { buildUnifiedSystemPrompt, buildUserPrompt, readSystemPrompt } from "./ai-generator.prompt"
 import type { GithubRepoData } from "@/lib/modules/github-analyzer/github-analyzer.types"
+import { attachMockupsToProjects } from "@/lib/modules/github-analyzer/project-mockup"
+import { SKILL_CATEGORIES } from "@/lib/modules/skills/skill-categories"
+
+const skillsOutputSchema = {
+  type: "object",
+  additionalProperties: false,
+  required: [...SKILL_CATEGORIES],
+  properties: Object.fromEntries(
+    SKILL_CATEGORIES.map((category) => [category, { type: "array", items: { type: "string" } }])
+  ),
+} as const
 
 const OUTPUT_SCHEMA = {
   type: "object",
@@ -12,7 +23,7 @@ const OUTPUT_SCHEMA = {
       items: {
         type: "object",
         additionalProperties: false,
-        required: ["title", "description", "stack", "tag"],
+        required: ["title", "description", "goal", "role", "result", "stack", "tag", "demoUrl"],
         properties: {
           title: {
             type: "object",
@@ -26,8 +37,27 @@ const OUTPUT_SCHEMA = {
             required: ["ru", "en"],
             properties: { ru: { type: "string" }, en: { type: "string" } },
           },
+          goal: {
+            type: "object",
+            additionalProperties: false,
+            required: ["ru", "en"],
+            properties: { ru: { type: "string" }, en: { type: "string" } },
+          },
+          role: {
+            type: "object",
+            additionalProperties: false,
+            required: ["ru", "en"],
+            properties: { ru: { type: "string" }, en: { type: "string" } },
+          },
+          result: {
+            type: "object",
+            additionalProperties: false,
+            required: ["ru", "en"],
+            properties: { ru: { type: "string" }, en: { type: "string" } },
+          },
           stack: { type: "string" },
           tag: { type: "string", format: "uri" },
+          demoUrl: { type: "string" },
         },
       },
     },
@@ -54,16 +84,7 @@ const OUTPUT_SCHEMA = {
         },
       },
     },
-    skills: {
-      type: "object",
-      additionalProperties: false,
-      required: ["nocode", "ai", "automation"],
-      properties: {
-        nocode: { type: "array", items: { type: "string" } },
-        ai: { type: "array", items: { type: "string" } },
-        automation: { type: "array", items: { type: "string" } },
-      },
-    },
+    skills: skillsOutputSchema,
   },
 } as const
 
@@ -161,8 +182,9 @@ export async function generatePortfolioFromRepositories(
   if (!parsed.success) throw new Error("OpenAI JSON does not match schema")
 
   const normalized = parsed.data
+  const projectsWithMockups = attachMockupsToProjects(normalized.projects, repositories)
   return {
     ...normalized,
-    projects: dedupeByTag(normalized.projects),
+    projects: dedupeByTag(projectsWithMockups),
   }
 }

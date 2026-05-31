@@ -69,6 +69,8 @@
 3. Backend:
    - собирает данные по репозиториям из GitHub API;
    - генерирует `projects/services/skills` через OpenAI;
+   - подтягивает mockup проектов из `Docs/mockups` (для private-репо — в `/data/project-mockups/`);
+   - сохраняет порядок проектов как в списке ссылок из Telegram;
    - в одной транзакции заменяет данные в БД;
    - экспортирует JSON в `Frontend/public/data`.
 4. Сайт сразу читает обновленные JSON.
@@ -109,7 +111,7 @@
   `Завершил: обработано X из Y. Обновлено в БД:`
   - `Projects: ...`
   - `Services: ...`
-  - `Skills: nocode=..., ai=..., automation=...`
+  - `Skills: languageRuntime=..., aiLlm=..., backend=..., botsIntegrations=..., infrastructure=..., automation=..., devTools=...`
   - `Skipped: ...` (если есть)
 
 ## ENV (обязательные)
@@ -136,7 +138,7 @@
 
 Самая частая причина: исчерпан лимит GitHub API.  
 Решение:
-- задать `GITHUB_TOKEN` в `Backend/.env`;
+- задать `GITHUB_TOKEN` in `Backend/.env`;
 - перезапустить `backend-api`.
 
 ### 3) Сайт не обновляется после успешного анализа

@@ -73,6 +73,16 @@ async def process_message(message: Message):
     projects = data.get("data", {}).get("projects", [])
     services = data.get("data", {}).get("services", [])
     skills = data.get("data", {}).get("skills", {})
+    skill_categories = [
+        "languageRuntime",
+        "aiLlm",
+        "backend",
+        "botsIntegrations",
+        "infrastructure",
+        "automation",
+        "devTools",
+    ]
+    skill_summary = ", ".join(f"{category}={len(skills.get(category, []))}" for category in skill_categories)
 
     lines = [
         (
@@ -81,7 +91,7 @@ async def process_message(message: Message):
         ),
         f"- Projects: {len(projects)}",
         f"- Services: {len(services)}",
-        f"- Skills: nocode={len(skills.get('nocode', []))}, ai={len(skills.get('ai', []))}, automation={len(skills.get('automation', []))}",
+        f"- Skills: {skill_summary}",
     ]
     if skipped:
         lines.append(f"- Skipped: {len(skipped)}")

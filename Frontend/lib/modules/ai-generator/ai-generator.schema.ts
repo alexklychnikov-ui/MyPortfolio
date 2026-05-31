@@ -8,8 +8,16 @@ const localizedTextSchema = z.object({
 export const generatedProjectSchema = z.object({
   title: localizedTextSchema,
   description: localizedTextSchema,
+  goal: localizedTextSchema,
+  role: localizedTextSchema,
+  result: localizedTextSchema,
   stack: z.string().min(1),
   tag: z.string().url(),
+  demoUrl: z
+    .string()
+    .transform((value) => value.trim())
+    .transform((value) => (value && /^https?:\/\//i.test(value) ? value : undefined))
+    .optional(),
 })
 
 export const generatedServiceSchema = z.object({
@@ -19,9 +27,13 @@ export const generatedServiceSchema = z.object({
 })
 
 export const generatedSkillsSchema = z.object({
-  nocode: z.array(z.string()),
-  ai: z.array(z.string()),
+  languageRuntime: z.array(z.string()),
+  aiLlm: z.array(z.string()),
+  backend: z.array(z.string()),
+  botsIntegrations: z.array(z.string()),
+  infrastructure: z.array(z.string()),
   automation: z.array(z.string()),
+  devTools: z.array(z.string()),
 })
 
 export const generatedPortfolioSchema = z.object({

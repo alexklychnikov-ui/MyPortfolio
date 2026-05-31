@@ -3,6 +3,7 @@ import type {
   GithubRepoData,
   NormalizedGithubRepo,
 } from "./github-analyzer.types"
+import { fetchMockupUrl } from "./project-mockup"
 
 const GITHUB_API_BASE = "https://api.github.com"
 
@@ -129,6 +130,12 @@ export async function analyzeGithubRepositories(urls: string[]): Promise<GithubA
         ])
       ).slice(0, 20)
 
+      const mockupUrl = await fetchMockupUrl(
+        normalized.owner,
+        normalized.repo,
+        fetchGithubJson
+      )
+
       repositories.push({
         originalUrl: rawUrl,
         repoUrl: normalized.normalizedUrl,
@@ -141,6 +148,7 @@ export async function analyzeGithubRepositories(urls: string[]): Promise<GithubA
         readme: compactText(readmeRaw, 8000),
         packageJson: compactText(packageJsonRaw, 8000),
         inferredStack,
+        mockupUrl,
       })
     } catch (error) {
       const reason = error instanceof Error ? error.message : "Unknown GitHub error"

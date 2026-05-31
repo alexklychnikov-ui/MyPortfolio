@@ -15,8 +15,22 @@ type Project = {
     ru: string
     en: string
   }
+  goal?: {
+    ru: string
+    en: string
+  }
+  role?: {
+    ru: string
+    en: string
+  }
+  result?: {
+    ru: string
+    en: string
+  }
   stack: string
   tag: string
+  demoUrl?: string
+  image?: string
 }
 
 type Service = {
@@ -31,11 +45,7 @@ type Service = {
   }
 }
 
-type SkillsData = {
-  nocode?: string[]
-  ai?: string[]
-  automation?: string[]
-}
+type SkillsData = Record<string, string[] | undefined>
 
 async function readJsonFile<T>(fileName: string, fallback: T): Promise<T> {
   try {

@@ -1,14 +1,13 @@
 import { prisma } from "@/lib/db"
 import type { GeneratedPortfolio } from "@/lib/modules/ai-generator/ai-generator.schema"
+import { SKILL_CATEGORIES } from "@/lib/modules/skills/skill-categories"
 
 type GeneratedSkills = GeneratedPortfolio["skills"]
 
 export async function replaceSkills(skills: GeneratedSkills) {
-  const rows = [
-    ...skills.nocode.map((name) => ({ category: "nocode", name })),
-    ...skills.ai.map((name) => ({ category: "ai", name })),
-    ...skills.automation.map((name) => ({ category: "automation", name })),
-  ]
+  const rows = SKILL_CATEGORIES.flatMap((category) =>
+    skills[category].map((name) => ({ category, name }))
+  )
 
   await prisma.$transaction([
     prisma.skill.deleteMany({}),

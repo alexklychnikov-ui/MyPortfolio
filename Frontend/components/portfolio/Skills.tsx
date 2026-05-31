@@ -5,33 +5,47 @@ import { useI18n } from "./i18n"
 
 const defaultTabs = [
   {
-    id: "nocode",
-    labelKey: "tabNoCode" as const,
-    tools: ["Lovable", "Bubble", "Webflow", "Framer", "Airtable", "Notion"],
+    id: "languageRuntime",
+    labelKey: "tabLanguageRuntime" as const,
+    tools: ["Python", "X++ (Axapta)", "JavaScript (basic)"],
   },
   {
-    id: "ai",
-    labelKey: "tabAI" as const,
-    tools: ["OpenAI API", "Cursor", "Claude API", "LangChain", "Pinecone", "Supabase"],
+    id: "aiLlm",
+    labelKey: "tabAILLM" as const,
+    tools: ["OpenAI API", "LangChain", "Prompt engineering", "RAG (LightRAG)"],
+  },
+  {
+    id: "backend",
+    labelKey: "tabBackend" as const,
+    tools: ["FastAPI", "Flask", "REST API", "asyncio"],
+  },
+  {
+    id: "botsIntegrations",
+    labelKey: "tabBotsIntegrations" as const,
+    tools: ["Telegram Bot API", "aiogram", "SQLite", "PostgreSQL"],
+  },
+  {
+    id: "infrastructure",
+    labelKey: "tabInfrastructure" as const,
+    tools: ["Docker", "Linux (VPS)", "Git", "GitHub Actions"],
   },
   {
     id: "automation",
     labelKey: "tabAutomation" as const,
-    tools: ["Make", "n8n", "Zapier", "Telegram Bots", "Webhooks", "Cron Jobs"],
+    tools: ["Make", "n8n", "Bot + DB + external API scenarios"],
+  },
+  {
+    id: "devTools",
+    labelKey: "tabDevTools" as const,
+    tools: ["Cursor AI", "VS Code"],
   },
 ]
 
-type SkillCategory = "nocode" | "ai" | "automation"
-
-interface SkillsData {
-  nocode?: string[]
-  ai?: string[]
-  automation?: string[]
-}
+type SkillsData = Record<string, string[] | undefined>
 
 export default function Skills({ initialSkills = {} }: { initialSkills?: SkillsData }) {
   const { locale, t } = useI18n()
-  const [activeTab, setActiveTab] = useState("nocode")
+  const [activeTab, setActiveTab] = useState(defaultTabs[0].id)
   const [skills, setSkills] = useState<SkillsData>(initialSkills)
 
   useEffect(() => {
@@ -51,7 +65,7 @@ export default function Skills({ initialSkills = {} }: { initialSkills?: SkillsD
   const tabs = useMemo(
     () =>
       defaultTabs.map((tab) => {
-        const dynamicTools = skills[tab.id as SkillCategory]
+        const dynamicTools = skills[tab.id]
         return {
           ...tab,
           tools: Array.isArray(dynamicTools) && dynamicTools.length > 0 ? dynamicTools : tab.tools,

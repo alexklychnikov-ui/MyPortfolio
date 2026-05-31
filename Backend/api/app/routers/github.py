@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from app.core.security import verify_internal_key
 from app.core.config import settings
 from app.db.session import get_db
+from app.core.skill_categories import empty_skills_grouped
 from app.repositories.portfolio_repository import fetch_projects, fetch_services, fetch_skills, replace_all
 from app.schemas.analyze import AnalyzeRequest, AnalyzeResponse
 from app.services.portfolio_service import PortfolioService
@@ -65,7 +66,8 @@ def get_services(db: Session = Depends(get_db)):
 @router.get("/skills")
 def get_skills(db: Session = Depends(get_db)):
     rows = fetch_skills(db)
-    grouped: dict[str, list[str]] = {"nocode": [], "ai": [], "automation": []}
+    grouped = empty_skills_grouped()
     for row in rows:
-        grouped.setdefault(row.category, []).append(row.name)
+        if row.category in grouped:
+            grouped[row.category].append(row.name)
     return {"success": True, "data": grouped}

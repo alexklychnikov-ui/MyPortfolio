@@ -1,23 +1,18 @@
 import { NextResponse } from "next/server"
 import { getSkills } from "@/lib/modules/skills/skill.repository"
-
-type SkillsResponse = {
-  nocode: string[]
-  ai: string[]
-  automation: string[]
-  [key: string]: string[]
-}
+import { emptySkillsGrouped, type SkillCategory } from "@/lib/modules/skills/skill-categories"
 
 export async function GET() {
   try {
     const rows = await getSkills()
-    const grouped = rows.reduce<SkillsResponse>(
+    const grouped = rows.reduce<Record<SkillCategory, string[]>>(
       (acc, row) => {
-        if (!acc[row.category]) acc[row.category] = []
-        acc[row.category].push(row.name)
+        if (row.category in acc) {
+          acc[row.category as SkillCategory].push(row.name)
+        }
         return acc
       },
-      { nocode: [], ai: [], automation: [] }
+      emptySkillsGrouped()
     )
     return NextResponse.json({ success: true, data: grouped }, { status: 200 })
   } catch {

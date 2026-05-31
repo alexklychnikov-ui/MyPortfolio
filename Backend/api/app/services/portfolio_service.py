@@ -1,5 +1,7 @@
+from app.core.config import settings
 from app.schemas.analyze import AnalyzeResponseData
 from app.services.github_client import GithubClient
+from app.services.mockup_storage import materialize_project_mockups
 from app.services.openai_client import OpenAIClient
 from urllib.parse import urlparse
 
@@ -36,6 +38,47 @@ class PortfolioService:
 
         return generated
 
+    @staticmethod
+    def _sanitize_generated_projects(generated: dict) -> dict:
+        projects = generated.get("projects")
+        if not isinstance(projects, list):
+            return generated
+
+        for project in projects:
+            if not isinstance(project, dict):
+                continue
+            demo_url = project.get("demoUrl")
+            if not demo_url or not str(demo_url).strip():
+                project.pop("demoUrl", None)
+            elif not PortfolioService._is_http_url(str(demo_url)):
+                project.pop("demoUrl", None)
+            project.pop("image", None)
+
+        return generated
+
+    def _order_projects_by_input(self, generated: dict, accepted: list[dict], repositories: list[str]) -> dict:
+        projects = generated.get("projects")
+        if not isinstance(projects, list):
+            return generated
+
+        order_keys: list[str] = []
+        for repo_url in repositories:
+            normalized = self.github.normalize(repo_url)
+            if normalized:
+                order_keys.append(normalized[2].strip().lower())
+
+        if not order_keys:
+            order_keys = [str(item.get("repo_url", "")).strip().lower() for item in accepted if item.get("repo_url")]
+
+        def sort_key(project: dict) -> int:
+            tag = str(project.get("tag", "")).strip().lower()
+            if tag in order_keys:
+                return order_keys.index(tag)
+            return len(order_keys) + 1
+
+        projects.sort(key=sort_key)
+        return generated
+
     async def analyze_repositories(self, repositories: list[str]) -> tuple[AnalyzeResponseData, list[dict[str, str]]]:
         accepted, skipped = await self.github.collect_many(repositories)
         if not accepted:
@@ -45,5 +88,13 @@ class PortfolioService:
 
         generated = await self.openai.generate(accepted)
         generated = self._normalize_project_tags(generated, accepted)
+        generated = self._sanitize_generated_projects(generated)
+        generated = self._order_projects_by_input(generated, accepted, repositories)
+        generated = await materialize_project_mockups(
+            generated,
+            accepted,
+            settings.static_export_dir,
+            self.github.headers,
+        )
         payload = AnalyzeResponseData.model_validate(generated)
         return payload, skipped

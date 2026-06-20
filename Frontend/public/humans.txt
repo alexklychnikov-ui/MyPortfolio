@@ -3,7 +3,7 @@ Developer: Клычников Александр
 Contact: alexandr_klychnikov@mail.ru
 Site: https://portfolio.hayklyvibelexy.ru
 GitHub: https://github.com/alexklychnikov-ui
-Telegram: https://t.me/HayklyVibeLexy_bot
+Telegram: https://t.me/Alex_Assistant_freelancing_bot
 From: Remote
 
 /* THANKS */

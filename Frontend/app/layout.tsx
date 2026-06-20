@@ -75,6 +75,7 @@ export const metadata: Metadata = {
   category: 'technology',
   verification: {
     yandex: '1d0c5c05e355fcf0',
+    google: 'google8846ad12780bacbb',
   },
 }
 
@@ -93,6 +94,7 @@ export default function RootLayout({
     <html lang="ru" suppressHydrationWarning>
       <head>
         <link rel="me" href={githubProfileUrl} />
+        <link rel="author" type="text/plain" href="/humans.txt" />
       </head>
       <body className="font-sans antialiased">
         <ThemeProvider>

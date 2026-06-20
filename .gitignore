@@ -18,6 +18,10 @@ dist/
 coverage/
 .turbo/
 *.tsbuildinfo
+.pnpm-store/
+Frontend/.pnpm-store/
+pnpm-workspace.yaml
+Frontend/pnpm-workspace.yaml
 pnpm-debug.log*
 npm-debug.log*
 yarn-debug.log*

@@ -47,17 +47,16 @@ async def materialize_project_mockups(
             mockup_name = str(meta.get("mockup_name") or "mockup.png")
             is_private = bool(meta.get("is_private"))
 
-            if not is_private:
-                project["image"] = _strip_query(mockup_url)
-                continue
-
             filename = _safe_filename(str(meta.get("owner", "repo")), str(meta.get("repo", "project")), mockup_name)
             target = mockup_dir / filename
             download_url = _strip_query(mockup_url)
-            response = await client.get(download_url)
-            if response.status_code >= 400:
-                continue
-            target.write_bytes(response.content)
+
+            if not target.exists() or target.stat().st_size == 0:
+                response = await client.get(download_url)
+                if response.status_code >= 400:
+                    continue
+                target.write_bytes(response.content)
+
             project["image"] = f"{MOCKUP_PUBLIC_PREFIX}/{filename}"
 
     return generated

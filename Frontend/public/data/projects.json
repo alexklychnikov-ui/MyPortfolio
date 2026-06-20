@@ -50,7 +50,7 @@
       "ru": "Сайт автоматически обновляет данные о проектах и услугах в реальном времени."
     },
     "demoUrl": "https://portfolio.hayklyvibelexy.ru",
-    "image": "https://raw.githubusercontent.com/alexklychnikov-ui/MyPortfolio/master/docs/mockups/mockup-20260531-105736.png"
+    "image": "/data/project-mockups/alexklychnikov-ui-myportfolio.png"
   },
   {
     "id": "0e6367ac-1226-4ae8-932c-ae873a3a4e94",
@@ -76,7 +76,7 @@
       "en": "The system successfully tracks prices and sends notifications to users.",
       "ru": "Система успешно отслеживает цены и отправляет уведомления пользователям."
     },
-    "image": "https://raw.githubusercontent.com/alexklychnikov-ui/PriceMonitoring/main/docs/mockups/mockup-20260531-110315.png"
+    "image": "/data/project-mockups/alexklychnikov-ui-pricemonitoring.png"
   },
   {
     "id": "e41726be-7af0-4ad1-b889-e2ed21c2cb88",
@@ -102,7 +102,7 @@
       "en": "The bot successfully recognizes receipts and generates expense reports.",
       "ru": "Бот успешно распознает чеки и генерирует отчеты о расходах."
     },
-    "image": "https://raw.githubusercontent.com/alexklychnikov-ui/TGRecordsOfExpenses/main/docs/mockups/mockup-20260531-112123.png"
+    "image": "/data/project-mockups/alexklychnikov-ui-tgrecordsofexpenses.png"
   },
   {
     "id": "188b7e32-4ccb-4c4a-81bc-8bcece18960c",
@@ -128,6 +128,6 @@
       "en": "The tools significantly speed up the development process in Dynamics AX.",
       "ru": "Инструменты значительно ускоряют процесс разработки в Dynamics AX."
     },
-    "image": "https://raw.githubusercontent.com/alexklychnikov-ui/DynamicsAX/main/Docs/mockups/mockup-20260531-113055.png"
+    "image": "/data/project-mockups/alexklychnikov-ui-dynamicsax.png"
   }
 ]

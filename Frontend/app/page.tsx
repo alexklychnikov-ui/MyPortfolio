@@ -1,6 +1,9 @@
 import { readFile } from "node:fs/promises"
 import path from "node:path"
 
+import { getDisplayTestimonials } from "@/lib/modules/testimonials/testimonials.service"
+import type { TestimonialPublic } from "@/lib/modules/testimonials/testimonials.schema"
+
 import PortfolioClient from "./portfolio-client"
 import {
   githubProfileUrl,
@@ -57,13 +60,6 @@ type Service = {
 
 type SkillsData = Record<string, string[] | undefined>
 
-type Testimonial = {
-  text: { ru: string; en: string }
-  author: { ru: string; en: string }
-  role?: { ru: string; en: string }
-  rating?: number
-}
-
 async function readJsonFile<T>(fileName: string, fallback: T): Promise<T> {
   try {
     const filePath = path.join(process.cwd(), "public", "data", fileName)
@@ -99,7 +95,7 @@ export default async function Page() {
     readJsonFile<Project[]>("projects.json", []),
     readJsonFile<Service[]>("services.json", []),
     readJsonFile<SkillsData>("skills.json", {}),
-    readJsonFile<Testimonial[]>("testimonials.json", []),
+    getDisplayTestimonials().catch(() => [] as TestimonialPublic[]),
   ])
   const telegramUsername =
     extractTelegramUsername(telegramContactUrl) ||

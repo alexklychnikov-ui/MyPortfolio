@@ -40,16 +40,7 @@ export default function Testimonials({ initialTestimonials = [] }: { initialTest
 
   const loadTestimonials = async () => {
     try {
-      const staticResponse = await fetch("/data/testimonials.json")
-      if (staticResponse.ok) {
-        const staticData = await staticResponse.json()
-        if (Array.isArray(staticData) && staticData.length > 0) {
-          setTestimonials(staticData)
-          return
-        }
-      }
-
-      const response = await fetch("/api/testimonials")
+      const response = await fetch("/api/testimonials", { cache: "no-store" })
       if (response.ok) {
         const data = await response.json()
         if (Array.isArray(data) && data.length > 0) {

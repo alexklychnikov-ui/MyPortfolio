@@ -6,7 +6,9 @@ const STORAGE_KEY = "moderation-api-key"
 
 export default function ModeratePage() {
   const [key, setKey] = useState("")
-  const [pending, setPending] = useState<{ id: string; author: string; textPreview: string; createdAt: string }[]>([])
+  const [pending, setPending] = useState<
+    { id: string; author: string; role?: string; text: string; rating?: number | null; createdAt: string }[]
+  >([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [actioning, setActioning] = useState<string | null>(null)
@@ -114,8 +116,27 @@ export default function ModeratePage() {
               background: "#fafafa",
             }}
           >
-            <p style={{ margin: "0 0 8px", fontWeight: 600 }}>{item.author}</p>
-            <p style={{ margin: "0 0 12px", fontSize: 14, color: "#374151" }}>{item.textPreview}…</p>
+            <p style={{ margin: "0 0 4px", fontWeight: 600 }}>{item.author}</p>
+            {item.role ? (
+              <p style={{ margin: "0 0 8px", fontSize: 13, color: "#6b7280" }}>{item.role}</p>
+            ) : null}
+            {item.rating != null ? (
+              <p style={{ margin: "0 0 8px", fontSize: 13, color: "#d97706" }}>
+                Оценка: {item.rating}/5
+              </p>
+            ) : null}
+            <p
+              style={{
+                margin: "0 0 12px",
+                fontSize: 14,
+                color: "#374151",
+                lineHeight: 1.6,
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-word",
+              }}
+            >
+              {item.text}
+            </p>
             <p style={{ margin: "0 0 12px", fontSize: 12, color: "#9ca3af" }}>{new Date(item.createdAt).toLocaleString("ru")}</p>
             <div style={{ display: "flex", gap: 8 }}>
               <button

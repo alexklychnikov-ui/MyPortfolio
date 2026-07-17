@@ -60,6 +60,13 @@ type Testimonial = {
   rating?: number
 }
 
+type Testimonial = {
+  text: { ru: string; en: string }
+  author: { ru: string; en: string }
+  role: { ru: string; en: string }
+  rating?: number
+}
+
 function Footer() {
   const { locale, t } = useI18n()
   return (

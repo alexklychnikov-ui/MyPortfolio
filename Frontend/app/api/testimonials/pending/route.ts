@@ -12,13 +12,16 @@ export async function GET(req: NextRequest) {
   try {
     const rows = await findPendingTestimonials()
     const list = rows.map((r) => {
-      const text = r.text as { ru?: string }
-      const author = r.author as { ru?: string }
-      const preview = (text?.ru ?? String(text)).slice(0, 150)
+      const text = r.text as { ru?: string; en?: string }
+      const author = r.author as { ru?: string; en?: string }
+      const role = r.role as { ru?: string; en?: string } | null
+      const fullText = text?.ru ?? text?.en ?? String(text)
       return {
         id: r.id,
-        author: author?.ru ?? "",
-        textPreview: preview,
+        author: author?.ru ?? author?.en ?? "",
+        role: role?.ru ?? role?.en ?? "",
+        text: fullText,
+        rating: r.rating,
         createdAt: r.createdAt.toISOString(),
       }
     })

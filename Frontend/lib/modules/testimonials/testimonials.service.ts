@@ -1,3 +1,6 @@
+import { readFile } from "node:fs/promises"
+import path from "node:path"
+
 import { sanitizeString } from "@/lib/core/sanitize"
 import {
   createTestimonial as repoCreate,
@@ -36,6 +39,43 @@ export async function createTestimonial(input: CreateTestimonialInput) {
 export async function getApprovedTestimonials(): Promise<TestimonialPublic[]> {
   const rows = await findApprovedTestimonials()
   return rows.map(toPublic)
+}
+
+async function getStaticTestimonials(): Promise<TestimonialPublic[]> {
+  try {
+    const filePath = path.join(process.cwd(), "public", "data", "testimonials.json")
+    const raw = await readFile(filePath, "utf-8")
+    const data = JSON.parse(raw) as TestimonialPublic[]
+    if (!Array.isArray(data)) return []
+    return data.map((item) => ({
+      text: { ru: item.text?.ru ?? "", en: item.text?.en ?? "" },
+      author: { ru: item.author?.ru ?? "", en: item.author?.en ?? "" },
+      role: { ru: item.role?.ru ?? "", en: item.role?.en ?? "" },
+      ...(item.rating != null && { rating: item.rating }),
+    }))
+  } catch {
+    return []
+  }
+}
+
+function testimonialKey(item: TestimonialPublic): string {
+  return `${item.author.ru}::${item.text.ru.slice(0, 120)}`
+}
+
+export async function getDisplayTestimonials(): Promise<TestimonialPublic[]> {
+  const [staticItems, dbItems] = await Promise.all([
+    getStaticTestimonials(),
+    getApprovedTestimonials(),
+  ])
+  const seen = new Set<string>()
+  const merged: TestimonialPublic[] = []
+  for (const item of [...staticItems, ...dbItems]) {
+    const key = testimonialKey(item)
+    if (seen.has(key)) continue
+    seen.add(key)
+    merged.push(item)
+  }
+  return merged
 }
 
 export async function approveTestimonial(id: string, approved: boolean) {

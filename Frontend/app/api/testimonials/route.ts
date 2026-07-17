@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
-import { createTestimonial, getApprovedTestimonials } from "@/lib/modules/testimonials/testimonials.service"
+import { createTestimonial, getDisplayTestimonials } from "@/lib/modules/testimonials/testimonials.service"
 import { createTestimonialSchema } from "@/lib/modules/testimonials/testimonials.schema"
 import { checkTestimonialRateLimit } from "@/lib/core/rate-limit"
+
+export const dynamic = "force-dynamic"
 
 function getClientIp(req: NextRequest): string {
   return (
@@ -13,8 +15,12 @@ function getClientIp(req: NextRequest): string {
 
 export async function GET() {
   try {
-    const list = await getApprovedTestimonials()
-    return NextResponse.json(list)
+    const list = await getDisplayTestimonials()
+    return NextResponse.json(list, {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+      },
+    })
   } catch {
     return NextResponse.json({ error: "Server error" }, { status: 500 })
   }

@@ -13,7 +13,7 @@ import {
   siteUrl,
 } from "@/lib/seo"
 
-export const revalidate = 3600
+export const dynamic = "force-dynamic"
 
 type Project = {
   id: string

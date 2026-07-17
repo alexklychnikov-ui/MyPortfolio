@@ -52,5 +52,6 @@ def export_public_data(
             skills_payload[row.category].append(row.name)
 
     _dump_json(target / "projects.json", projects_payload)
-    _dump_json(target / "services.json", services_payload)
+    if services_payload:
+        _dump_json(target / "services.json", services_payload)
     _dump_json(target / "skills.json", skills_payload)

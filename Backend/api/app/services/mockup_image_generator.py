@@ -10,6 +10,7 @@ from app.core.config import settings
 TARGET_WIDTH = 1280
 TARGET_HEIGHT = 720
 DALLE_LANDSCAPE_SIZE = "1792x1024"
+GPT_IMAGE_LANDSCAPE_SIZE = "1536x1024"
 
 DEFAULT_MOCKUP_STYLE = """Create a premium SaaS product hero banner mockup for a software portfolio.
 
@@ -31,10 +32,22 @@ Constraints:
 
 class MockupImageGenerator:
     def __init__(self) -> None:
-        self.base_url = "https://api.openai.com/v1"
-        self.api_key = settings.openai_api_key
-        if not self.api_key:
-            raise RuntimeError("OPENAI_API_KEY is required for image generation")
+        if settings.openai_api_key:
+            self.base_url = "https://api.openai.com/v1"
+            self.api_key = settings.openai_api_key
+            self.model = settings.openai_image_model
+            self.size = DALLE_LANDSCAPE_SIZE
+            self.quality = "hd"
+            self.use_b64_json = True
+        elif settings.proxy_base_url and settings.proxy_api_key:
+            self.base_url = settings.proxy_base_url.rstrip("/")
+            self.api_key = settings.proxy_api_key
+            self.model = "gpt-image-1"
+            self.size = GPT_IMAGE_LANDSCAPE_SIZE
+            self.quality = "high"
+            self.use_b64_json = False
+        else:
+            raise RuntimeError("OPENAI_API_KEY or PROXY_BASE_URL+PROXY_API_KEY is required for image generation")
 
     def _read_style_prompt(self) -> str:
         path = Path(settings.prompt_mockup_path)
@@ -56,14 +69,15 @@ class MockupImageGenerator:
         )
 
     async def generate_png(self, prompt: str) -> bytes:
-        payload = {
-            "model": settings.openai_image_model,
+        payload: dict[str, str | int] = {
+            "model": self.model,
             "prompt": prompt,
-            "size": DALLE_LANDSCAPE_SIZE,
-            "quality": "hd",
-            "response_format": "b64_json",
+            "size": self.size,
+            "quality": self.quality,
             "n": 1,
         }
+        if self.use_b64_json:
+            payload["response_format"] = "b64_json"
         async with httpx.AsyncClient(timeout=httpx.Timeout(180.0)) as client:
             response = await client.post(
                 f"{self.base_url}/images/generations",

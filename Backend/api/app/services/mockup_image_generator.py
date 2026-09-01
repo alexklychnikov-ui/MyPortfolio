@@ -44,6 +44,14 @@ DEFAULT_MOCKUP_STYLE = """Создай премиальный hero-баннер 
 - Между буллетами — изогнутые стрелки-коннекторы со свечением (шаг → шаг → результат)
 - Буллеты связаны в единый визуальный поток со стрелками и линиями данных
 
+БЕЗОПАСНАЯ ЗОНА КАДРА (КРИТИЧНО):
+- Оставь поля минимум 10% со ВСЕХ сторон — ничего не касается краёв изображения
+- Весь текст (особенно заголовок слева) полностью внутри кадра, каждая буква видна целиком
+- Заголовок и подзаголовок — с явным отступом от левого края, не прижимать к border
+- KPI-карточки и элементы справа — тоже с отступом от правого края
+- Композиция сбалансирована по центру, safe area ~80% ширины и ~85% высоты
+- ЗАПРЕЩЕНО обрезать текст или UI у краёв кадра
+
 ФОН:
 - НЕ однотонный: градиент + схемы плат/нейросети + узлы связей + цифровая сетка + bokeh
 - Многослойность, объём, tech-атмосфера
@@ -92,7 +100,8 @@ class MockupImageGenerator:
             f"Тематика: {topic_text}\n"
             "Сгенерируй буллеты workflow и подписи UI строго на русском, под эту тематику.\n"
             "UI на экранах ноутбука и телефона — тоже только русский язык.\n"
-            "Добавь динамику как в premium SaaS-баннере: изогнутые светящиеся стрелки, парящие элементы, KPI-карточки, контрастную типографику (bold/light)."
+            "Добавь динамику как в premium SaaS-баннере: изогнутые светящиеся стрелки, парящие элементы, KPI-карточки, контрастную типографику (bold/light).\n"
+            "Важно: весь текст и UI строго внутри safe zone с полями 10% от краёв, заголовок не обрезать."
         )
 
     async def generate_png(self, prompt: str) -> bytes:
@@ -128,8 +137,22 @@ class MockupImageGenerator:
 
     @staticmethod
     def _resize_to_target(image_bytes: bytes) -> bytes:
+        target_ratio = TARGET_WIDTH / TARGET_HEIGHT
         with Image.open(BytesIO(image_bytes)) as image:
-            resized = image.convert("RGB").resize((TARGET_WIDTH, TARGET_HEIGHT), Image.Resampling.LANCZOS)
+            rgb = image.convert("RGB")
+            width, height = rgb.size
+            current_ratio = width / height
+
+            if current_ratio > target_ratio:
+                new_width = int(height * target_ratio)
+                left = (width - new_width) // 2
+                rgb = rgb.crop((left, 0, left + new_width, height))
+            elif current_ratio < target_ratio:
+                new_height = int(width / target_ratio)
+                top = (height - new_height) // 2
+                rgb = rgb.crop((0, top, width, top + new_height))
+
+            resized = rgb.resize((TARGET_WIDTH, TARGET_HEIGHT), Image.Resampling.LANCZOS)
             out = BytesIO()
             resized.save(out, format="PNG", optimize=True)
             return out.getvalue()

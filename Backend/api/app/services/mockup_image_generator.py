@@ -12,22 +12,33 @@ TARGET_HEIGHT = 720
 DALLE_LANDSCAPE_SIZE = "1792x1024"
 GPT_IMAGE_LANDSCAPE_SIZE = "1536x1024"
 
-DEFAULT_MOCKUP_STYLE = """Create a premium SaaS product hero banner mockup for a software portfolio.
+DEFAULT_MOCKUP_STYLE = """Создай премиальный hero-баннер IT-продукта для портфолио (16:9, landscape).
 
-Visual style (strict):
-- Glassmorphism UI, arctic white and electric blue palette (#3B82F6, #DBEAFE, #EFF6FF)
-- Luminous gradient background with subtle circuit lines and soft glow
-- Center: modern laptop with realistic dashboard UI matching the product domain
-- Secondary device: smartphone with messenger or mobile UI when relevant
-- Floating 3D glossy rounded-square feature icons
-- Frosted-glass KPI cards with abstract numbers (no readable fine print)
-- Clean corporate tech marketing look, high-end 3D render
+СТИЛЬ:
+- Glassmorphism, бело-синяя палитра (#3B82F6, #DBEAFE, #EFF6FF, #1D4ED8)
+- Богатый многослойный фон: мягкие градиенты, mesh-сетка, bokeh-ореолы, световые лучи, тонкие линии схемы, полупрозрачные геометрические фигуры, глубина и объём — НЕ плоский однотонный фон
+- Центр: ноутбук с UI продукта + смартфон с Telegram/мобильным UI (если уместно)
+- 3D глянцевые иконки фич, стеклянные KPI-карточки
 
-Constraints:
-- Exact 16:9 composition, landscape
-- No watermark, no logo text unless it is the product name
-- Avoid garbled or unreadable UI text; prefer abstract UI blocks
-- Professional, bright, trustworthy B2B/SaaS aesthetic"""
+ОБЯЗАТЕЛЬНО — РУССКИЙ ТЕКСТ:
+- ВСЕ надписи ТОЛЬКО на русском языке (кириллица)
+- ЗАПРЕЩЕНЫ английские слова: Search, Article, Dashboard, Settings, Login, Python, Docker и любые другие
+- Крупный читаемый шрифт без искажений и опечаток
+- Заголовок продукта — на русском, хорошо читается
+
+ОБЯЗАТЕЛЬНО — БУЛЛЕТЫ И СТРЕЛКИ:
+- Слева или сверху: 4–6 пунктов workflow в виде стеклянных карточек-буллетов
+- Между пунктами — красивые изогнутые стрелки/коннекторы со свечением (процесс: шаг → шаг → результат)
+- Примеры подписей буллетов (адаптируй под продукт): «Загрузка данных», «Индексация», «Вопрос-ответ», «Telegram-бот», «Аналитика»
+- Стрелки должны визуально связывать буллеты в единый поток
+
+ЗАПРЕТЫ:
+- Без watermark, без логотипов чужих брендов
+- Без мелкого нечитаемого текста
+- Без англоязычных UI-лейблов
+- Без однотонного пустого фона
+
+Качество: чистый корпоративный B2B/SaaS, яркий, современный, 3D-рендер высокого уровня."""
 
 
 class MockupImageGenerator:
@@ -57,15 +68,14 @@ class MockupImageGenerator:
 
     def build_prompt(self, title: str, description: str, topics: list[str], languages: list[str]) -> str:
         style = self._read_style_prompt()
-        topic_text = ", ".join(topics[:8]) if topics else "software product"
-        stack_text = ", ".join(languages[:6]) if languages else "modern web stack"
+        topic_text = ", ".join(topics[:8]) if topics else "программный продукт"
         return (
             f"{style}\n\n"
-            f"Product title: {title}\n"
-            f"Product summary: {description or title}\n"
-            f"Domain keywords: {topic_text}\n"
-            f"Tech hints: {stack_text}\n"
-            "Show a dashboard that visually matches this product category."
+            f"Название продукта (крупно на баннере): {title}\n"
+            f"Описание: {description or title}\n"
+            f"Тематика: {topic_text}\n"
+            "Сгенерируй буллеты workflow и подписи UI строго на русском, под эту тематику.\n"
+            "UI на экранах ноутбука и телефона — тоже только русский язык."
         )
 
     async def generate_png(self, prompt: str) -> bytes:

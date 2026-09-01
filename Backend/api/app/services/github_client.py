@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 import httpx
 
 from app.core.config import settings
+from app.services.readme_parser import extract_first_readme_image, extract_readme_title
 
 
 class GithubClient:
@@ -63,34 +64,6 @@ class GithubClient:
         except Exception:
             return ""
 
-    _MOCKUP_DIR_PATHS = ("Docs/mockups", "docs/mockups")
-    _MOCKUP_IMAGE_EXTENSIONS = (".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg")
-
-    def _pick_mockup_url(self, entries: list) -> tuple[str, str] | None:
-        images = [
-            entry
-            for entry in entries
-            if isinstance(entry, dict)
-            and entry.get("type") == "file"
-            and isinstance(entry.get("name"), str)
-            and any(str(entry.get("name", "")).lower().endswith(ext) for ext in self._MOCKUP_IMAGE_EXTENSIONS)
-            and isinstance(entry.get("download_url"), str)
-        ]
-        if not images:
-            return None
-        images.sort(key=lambda item: str(item.get("name", "")), reverse=True)
-        return str(images[0]["download_url"]), str(images[0]["name"])
-
-    async def _fetch_mockup_url(self, client: httpx.AsyncClient, owner: str, repo: str) -> tuple[str, str] | None:
-        for dir_path in self._MOCKUP_DIR_PATHS:
-            entries = await self._json_or_none(client, f"/repos/{owner}/{repo}/contents/{dir_path}")
-            if not isinstance(entries, list):
-                continue
-            picked = self._pick_mockup_url(entries)
-            if picked:
-                return picked
-        return None
-
     async def collect_many(self, repositories: list[str]) -> tuple[list[dict], list[dict[str, str]]]:
         accepted: list[dict] = []
         skipped: list[dict[str, str]] = []
@@ -141,7 +114,9 @@ class GithubClient:
                     :8000
                 ]
                 language_list = list(languages.keys()) if isinstance(languages, dict) else []
-                mockup = await self._fetch_mockup_url(client, owner, repo)
+                default_branch = str(repo_data.get("default_branch") or "main")
+                mockup = extract_first_readme_image(readme_text, owner, repo, default_branch)
+                readme_title = extract_readme_title(readme_text)
 
                 accepted.append(
                     {
@@ -154,6 +129,7 @@ class GithubClient:
                         "languages": language_list,
                         "readme": readme_text,
                         "package_json": package_text,
+                        "readme_title": readme_title,
                         "mockup_url": mockup[0] if mockup else None,
                         "mockup_name": mockup[1] if mockup else None,
                     }

@@ -38,6 +38,21 @@ class PortfolioOrderingTests(unittest.TestCase):
         generated = self.service._normalize_project_tags(generated, repositories)
         self.assertEqual(generated["projects"][0]["tag"], "https://github.com/o/a")
 
+    def test_apply_readme_titles(self):
+        generated = {
+            "projects": [
+                {"tag": "https://github.com/o/a", "title": {"ru": "AI title", "en": "AI title"}},
+            ]
+        }
+        accepted = [
+            {
+                "repo_url": "https://github.com/o/a",
+                "readme_title": "README Title",
+            }
+        ]
+        result = self.service._apply_readme_titles(generated, accepted)
+        self.assertEqual(result["projects"][0]["title"], {"ru": "README Title", "en": "README Title"})
+
     def test_sanitize_empty_demo_url(self):
         generated = {
             "projects": [

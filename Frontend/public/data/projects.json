@@ -1,133 +1,162 @@
 [
   {
-    "id": "57e27255-881f-4f5c-8683-7d2c2a343f80",
+    "id": "1dccae02-aafc-4dc0-9a5f-b3b986c81fdc",
     "title": {
-      "ru": "LightRAG + Telegram Bot",
-      "en": "LightRAG + Telegram Bot"
+      "en": "ContentForge (NODEX)",
+      "ru": "ContentForge (NODEX)"
     },
     "description": {
-      "ru": "Готовое решение для личной или корпоративной базы знаний, где документы и ссылки попадают в LightRAG, а ответы и пополнение — через Telegram.",
-      "en": "A ready-made solution for personal or corporate knowledge bases where documents and links go into LightRAG, and answers and updates are handled via Telegram."
+      "en": "An AI content marketing platform for automating content creation and publishing.",
+      "ru": "AI-платформа контент-маркетинга для автоматизации создания и публикации контента."
     },
-    "stack": "Python, PostgreSQL, aiogram, OpenAI API, Docker",
-    "tag": "https://github.com/alexklychnikov-ui/LightRAG",
+    "stack": "Python, TypeScript, FastAPI, PostgreSQL, Celery, Redis, Docker",
+    "tag": "https://github.com/alexklychnikov-ui/ContentForge",
     "goal": {
-      "en": "To create a unified knowledge inbox and Q&A for technical founders and team leads.",
-      "ru": "Создать единый инбокс знаний и Q&A для технических фаундеров и тимлидов."
+      "en": "To close the entire content marketing cycle without using multiple tools.",
+      "ru": "Закрыть полный цикл контент-маркетинга без использования множества инструментов."
     },
     "role": {
-      "en": "Full-stack development including architecture, backend, and Telegram bot.",
-      "ru": "Полная разработка, включая архитектуру, бэкенд и Telegram-бота."
+      "en": "Solo full-stack ownership.",
+      "ru": "Полная собственность как full-stack разработчик."
     },
     "result": {
-      "en": "Integration with Telegram was achieved for managing the knowledge base and Q&A.",
-      "ru": "Обеспечена интеграция с Telegram для управления базой знаний и Q&A."
+      "en": "Simplified the content marketing process for SMM and business owners.",
+      "ru": "Упрощение процесса контент-маркетинга для SMM и владельцев бизнеса."
+    },
+    "demoUrl": "https://kitchen.alexklyvibe.ru",
+    "image": "/data/project-mockups/alexklychnikov-ui-contentforge.png"
+  },
+  {
+    "id": "ac83f2c0-fdde-4783-a1a9-2d15ce6e8b3e",
+    "title": {
+      "en": "FullCRM Platform",
+      "ru": "FullCRM Platform"
+    },
+    "description": {
+      "en": "A modular B2B CRM platform with AI integration for managing deals and contacts.",
+      "ru": "Модульная B2B CRM-платформа с интеграцией AI для управления сделками и контактами."
+    },
+    "stack": "Python, TypeScript, FastAPI, PostgreSQL, Docker, Redis",
+    "tag": "https://github.com/alexklychnikov-ui/FullCRM",
+    "goal": {
+      "en": "To create a flexible CRM with the ability to connect modules without rewriting the core.",
+      "ru": "Создать гибкую CRM с возможностью подключения модулей без переписывания ядра."
+    },
+    "role": {
+      "en": "Developed architecture and API, integrated with AI.",
+      "ru": "Разработка архитектуры и API, интеграция с AI."
+    },
+    "result": {
+      "en": "Enabled customization and extensibility of the CRM for different organizations.",
+      "ru": "Обеспечил возможность кастомизации и расширяемости CRM для разных организаций."
+    },
+    "demoUrl": "https://testfullcrm.alexklyvibe.ru",
+    "image": "/data/project-mockups/alexklychnikov-ui-fullcrm.png"
+  },
+  {
+    "id": "eea290c0-c97f-48d1-8bfb-970c9c45d964",
+    "title": {
+      "en": "LightRAG",
+      "ru": "LightRAG"
+    },
+    "description": {
+      "en": "A system for creating personal or corporate knowledge bases using Telegram.",
+      "ru": "Система для создания личной или корпоративной базы знаний с использованием Telegram."
+    },
+    "stack": "Python, PostgreSQL, Docker, OpenAI API, aiogram",
+    "tag": "https://github.com/alexklychnikov-ui/LightRAG",
+    "goal": {
+      "en": "To provide convenient access to knowledge and the ability to replenish it.",
+      "ru": "Обеспечить удобный доступ к знаниям и возможность их пополнения."
+    },
+    "role": {
+      "en": "Developed the Telegram bot and integrated it with the database.",
+      "ru": "Разработка Telegram-бота и интеграция с базой данных."
+    },
+    "result": {
+      "en": "Created a unified knowledge inbox with Q&A capabilities via Telegram.",
+      "ru": "Создан единый инбокс знаний с возможностью Q&A через Telegram."
     },
     "image": "/data/project-mockups/alexklychnikov-ui-lightrag.png"
   },
   {
-    "id": "003652f0-192d-4050-8713-0a3dd53ddd0e",
+    "id": "273d908f-e9d8-42a5-a544-e850c75b3cbf",
     "title": {
-      "ru": "Сайт портфолио",
-      "en": "Portfolio Website"
+      "en": "MyPortfolio",
+      "ru": "MyPortfolio"
     },
     "description": {
-      "ru": "Сайт портфолио с интеграцией бэкенда и Telegram-бота для анализа GitHub-репозиториев.",
-      "en": "A portfolio website with backend integration and a Telegram bot for analyzing GitHub repositories."
+      "en": "Personal portfolio website with Telegram bot integration for data updates.",
+      "ru": "Персональный сайт-портфолио с интеграцией Telegram-бота для обновления данных."
     },
-    "stack": "TypeScript, Python, FastAPI, Next.js, PostgreSQL, Docker",
+    "stack": "TypeScript, Python, FastAPI, PostgreSQL, Next.js, Docker",
     "tag": "https://github.com/alexklychnikov-ui/MyPortfolio",
     "goal": {
-      "en": "To automate the updating of project, service, and skill data via Telegram.",
-      "ru": "Автоматизировать обновление данных о проектах, услугах и навыках через Telegram."
+      "en": "To create a convenient interface for showcasing projects and skills.",
+      "ru": "Создать удобный интерфейс для демонстрации проектов и навыков."
     },
     "role": {
-      "en": "Development of the frontend using Next.js and backend using FastAPI.",
-      "ru": "Разработка фронтенда на Next.js и бэкенда на FastAPI."
+      "en": "Developed the frontend and backend, integrated with GitHub API.",
+      "ru": "Разработка фронтенда и бэкенда, интеграция с GitHub API."
     },
     "result": {
-      "en": "The site automatically updates project and service data in real-time.",
-      "ru": "Сайт автоматически обновляет данные о проектах и услугах в реальном времени."
+      "en": "Enabled automatic updates of project and skill data.",
+      "ru": "Обеспечил автоматическое обновление данных о проектах и навыках."
     },
     "demoUrl": "https://portfolio.hayklyvibelexy.ru",
     "image": "/data/project-mockups/alexklychnikov-ui-myportfolio.png"
   },
   {
-    "id": "0e6367ac-1226-4ae8-932c-ae873a3a4e94",
+    "id": "4dcca1b3-f1bd-437f-b6c3-bc8f0ff676a5",
     "title": {
-      "ru": "Система мониторинга цен",
-      "en": "Price Monitoring System"
+      "en": "Price Monitoring",
+      "ru": "Price Monitoring"
     },
     "description": {
-      "ru": "Система мониторинга цен на шины с AI-аналитикой и уведомлениями.",
-      "en": "A price monitoring system for tires with AI analytics and notifications."
+      "en": "A price monitoring system for products with notifications and analytics.",
+      "ru": "Система мониторинга цен на товары с уведомлениями и аналитикой."
     },
     "stack": "Python, FastAPI, PostgreSQL, React, Docker",
     "tag": "https://github.com/alexklychnikov-ui/PriceMonitoring",
     "goal": {
-      "en": "To track price changes on products and notify users.",
-      "ru": "Отслеживать изменения цен на товары и уведомлять пользователей."
+      "en": "To track price changes and notify users.",
+      "ru": "Отслеживать изменения цен и уведомлять пользователей."
     },
     "role": {
-      "en": "Backend development using FastAPI and integration with Telegram for notifications.",
-      "ru": "Разработка бэкенда на FastAPI и интеграция с Telegram для уведомлений."
+      "en": "Developed the API, data parsing, and integrated with Telegram.",
+      "ru": "Разработка API, парсинг данных и интеграция с Telegram."
     },
     "result": {
-      "en": "The system successfully tracks prices and sends notifications to users.",
-      "ru": "Система успешно отслеживает цены и отправляет уведомления пользователям."
+      "en": "Enabled users to track prices and receive notifications.",
+      "ru": "Обеспечил пользователям возможность отслеживать цены и получать уведомления."
     },
     "image": "/data/project-mockups/alexklychnikov-ui-pricemonitoring.png"
   },
   {
-    "id": "e41726be-7af0-4ad1-b889-e2ed21c2cb88",
+    "id": "9e5a815a-e2e2-4dcb-960c-70a7b41395ce",
     "title": {
-      "ru": "Записи расходов",
-      "en": "Records Of Expenses"
+      "en": "KitchensProduction",
+      "ru": "KitchensProduction"
     },
     "description": {
-      "ru": "Telegram-бот для ведения личных расходов с распознаванием чеков и отчетами.",
-      "en": "A Telegram bot for tracking personal expenses with receipt recognition and reporting."
+      "en": "Telegram bot and web admin for a custom kitchen studio.",
+      "ru": "Telegram-бот и веб-админка для студии кухонь на заказ."
     },
-    "stack": "Python, SQLite, OpenAI API, aiogram",
-    "tag": "https://github.com/alexklychnikov-ui/TGRecordsOfExpenses",
+    "stack": "Python, FastAPI, PostgreSQL, aiogram, Docker",
+    "tag": "https://github.com/alexklychnikov-ui/KitchensProduction",
     "goal": {
-      "en": "To simplify personal expense tracking and provide analytics to users.",
-      "ru": "Упростить учет личных расходов и предоставить аналитику пользователям."
+      "en": "To simplify the process of selecting and ordering kitchens for clients.",
+      "ru": "Упростить процесс подбора и заказа кухонь для клиентов."
     },
     "role": {
-      "en": "Development of a bot in Python using OpenAI for receipt recognition.",
-      "ru": "Разработка бота на Python с использованием OpenAI для распознавания чеков."
+      "en": "Developed the Telegram bot and web dashboard for managing orders.",
+      "ru": "Разработка Telegram-бота и веб-дашборда для управления заявками."
     },
     "result": {
-      "en": "The bot successfully recognizes receipts and generates expense reports.",
-      "ru": "Бот успешно распознает чеки и генерирует отчеты о расходах."
+      "en": "Created a convenient selection funnel and order management system.",
+      "ru": "Создана удобная воронка подбора и система управления заявками."
     },
-    "image": "/data/project-mockups/alexklychnikov-ui-tgrecordsofexpenses.png"
-  },
-  {
-    "id": "188b7e32-4ccb-4c4a-81bc-8bcece18960c",
-    "title": {
-      "ru": "Инструментарий Dynamics AX",
-      "en": "Dynamics AX Tool"
-    },
-    "description": {
-      "ru": "Инструментарий для работы с XPO файлами Dynamics AX для упрощения разработки.",
-      "en": "A toolkit for working with Dynamics AX XPO files to simplify development."
-    },
-    "stack": "Python",
-    "tag": "https://github.com/alexklychnikov-ui/DynamicsAX",
-    "goal": {
-      "en": "To reduce the time spent on analyzing and modifying code in Dynamics AX.",
-      "ru": "Сократить время на разбор и правку кода в Dynamics AX."
-    },
-    "role": {
-      "en": "Development of tools for analyzing and refactoring XPO files.",
-      "ru": "Разработка инструментов для анализа и рефакторинга XPO файлов."
-    },
-    "result": {
-      "en": "The tools significantly speed up the development process in Dynamics AX.",
-      "ru": "Инструменты значительно ускоряют процесс разработки в Dynamics AX."
-    },
-    "image": "/data/project-mockups/alexklychnikov-ui-dynamicsax.png"
+    "demoUrl": "https://kitchen.alexklyvibe.ru",
+    "image": "/data/project-mockups/alexklychnikov-ui-kitchensproduction.png"
   }
 ]

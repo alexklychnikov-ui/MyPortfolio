@@ -84,6 +84,28 @@ class PortfolioService:
         projects.sort(key=sort_key)
         return generated
 
+    @staticmethod
+    def _apply_readme_titles(generated: dict, accepted: list[dict]) -> dict:
+        projects = generated.get("projects")
+        if not isinstance(projects, list):
+            return generated
+
+        repo_by_tag = {
+            str(item.get("repo_url", "")).strip().lower(): item for item in accepted if item.get("repo_url")
+        }
+        for project in projects:
+            if not isinstance(project, dict):
+                continue
+            tag = str(project.get("tag", "")).strip().lower()
+            meta = repo_by_tag.get(tag)
+            if not meta:
+                continue
+            title = str(meta.get("readme_title") or "").strip()
+            if title:
+                project["title"] = {"ru": title, "en": title}
+
+        return generated
+
     async def analyze_repositories(self, repositories: list[str]) -> tuple[AnalyzeResponseData, list[dict[str, str]]]:
         accepted, skipped = await self.github.collect_many(repositories)
         if not accepted:
@@ -95,6 +117,7 @@ class PortfolioService:
         generated = self._sanitize_generated_projects(generated)
         generated = self._order_projects_by_input(generated, accepted, repositories)
         generated = self._normalize_project_tags(generated, repositories)
+        generated = self._apply_readme_titles(generated, accepted)
         generated = await materialize_project_mockups(
             generated,
             accepted,

@@ -1,45 +1,6 @@
-const MOCKUP_DIR_PATHS = ["Docs/mockups", "docs/mockups"] as const
+import { extractReadmeTitle } from "./readme-parser"
 
-const IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"] as const
-
-type GithubContentEntry = {
-  type?: string
-  name?: string
-  download_url?: string
-}
-
-function isImageFile(name: string): boolean {
-  const lower = name.toLowerCase()
-  return IMAGE_EXTENSIONS.some((ext) => lower.endsWith(ext))
-}
-
-function pickLatestMockup(entries: GithubContentEntry[]): { url: string; name: string } | null {
-  const images = entries.filter(
-    (entry) => entry.type === "file" && entry.name && isImageFile(entry.name) && entry.download_url
-  )
-  if (images.length === 0) return null
-
-  images.sort((a, b) => String(b.name).localeCompare(String(a.name)))
-  return { url: images[0].download_url!, name: String(images[0].name) }
-}
-
-export async function fetchMockupUrl(
-  owner: string,
-  repo: string,
-  fetchJson: (path: string) => Promise<unknown>
-): Promise<{ url: string; name: string } | null> {
-  for (const dirPath of MOCKUP_DIR_PATHS) {
-    try {
-      const entries = await fetchJson(`/repos/${owner}/${repo}/contents/${dirPath}`)
-      if (!Array.isArray(entries)) continue
-      const picked = pickLatestMockup(entries as GithubContentEntry[])
-      if (picked) return picked
-    } catch {
-      continue
-    }
-  }
-  return null
-}
+export { extractFirstReadmeImage, extractReadmeTitle } from "./readme-parser"
 
 function normalizeRepoUrl(inputUrl: string): string | null {
   try {
@@ -68,13 +29,16 @@ export function orderProjectsByInput<T extends { tag: string }>(
   })
 }
 
+function mockupSlug(owner: string, repo: string): string {
+  return `${owner}-${repo}`.replace(/[^a-zA-Z0-9._-]+/g, "-").toLowerCase()
+}
+
 export async function materializePrivateMockups<
   T extends { tag: string; image?: string },
   R extends {
     repoUrl: string
     mockupUrl?: string | null
     mockupName?: string | null
-    isPrivate?: boolean
     owner: string
     repo: string
   }
@@ -97,16 +61,20 @@ export async function materializePrivateMockups<
     const meta = repoMeta.get(project.tag.trim().toLowerCase())
     if (!meta?.mockupUrl) continue
 
-    if (!meta.isPrivate) {
-      project.image = meta.mockupUrl.split("?")[0]
-      continue
-    }
-
     const ext = path.extname(meta.mockupName || "mockup.png") || ".png"
-    const filename = `${meta.owner}-${meta.repo}`.replace(/[^a-zA-Z0-9._-]+/g, "-").toLowerCase() + ext
+    const slug = mockupSlug(meta.owner, meta.repo)
+    const filename = `${slug}${ext}`
     const target = path.join(mockupDir, filename)
     const response = await fetch(meta.mockupUrl.split("?")[0], { headers, cache: "no-store" })
     if (!response.ok) continue
+
+    const existing = await fs.readdir(mockupDir).catch(() => [] as string[])
+    await Promise.all(
+      existing
+        .filter((name) => name.startsWith(`${slug}.`))
+        .map((name) => fs.unlink(path.join(mockupDir, name)).catch(() => undefined))
+    )
+
     const buffer = Buffer.from(await response.arrayBuffer())
     await fs.writeFile(target, buffer)
     project.image = `/data/project-mockups/${filename}`

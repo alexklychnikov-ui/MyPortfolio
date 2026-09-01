@@ -6,12 +6,20 @@ import httpx
 MOCKUP_PUBLIC_PREFIX = "/data/project-mockups"
 
 
+def _mockup_slug(owner: str, repo: str) -> str:
+    return re.sub(r"[^a-zA-Z0-9._-]+", "-", f"{owner}-{repo}").strip("-").lower()
+
+
 def _safe_filename(owner: str, repo: str, mockup_name: str) -> str:
     ext = Path(mockup_name).suffix.lower() if mockup_name else ".png"
     if ext not in {".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"}:
         ext = ".png"
-    slug = re.sub(r"[^a-zA-Z0-9._-]+", "-", f"{owner}-{repo}").strip("-").lower()
-    return f"{slug}{ext}"
+    return f"{_mockup_slug(owner, repo)}{ext}"
+
+
+def _cleanup_old_mockups(mockup_dir: Path, slug: str) -> None:
+    for existing in mockup_dir.glob(f"{slug}.*"):
+        existing.unlink(missing_ok=True)
 
 
 def _strip_query(url: str) -> str:
@@ -45,18 +53,19 @@ async def materialize_project_mockups(
 
             mockup_url = str(meta["mockup_url"])
             mockup_name = str(meta.get("mockup_name") or "mockup.png")
-            is_private = bool(meta.get("is_private"))
 
-            filename = _safe_filename(str(meta.get("owner", "repo")), str(meta.get("repo", "project")), mockup_name)
+            owner = str(meta.get("owner", "repo"))
+            repo_name = str(meta.get("repo", "project"))
+            filename = _safe_filename(owner, repo_name, mockup_name)
             target = mockup_dir / filename
             download_url = _strip_query(mockup_url)
 
-            if not target.exists() or target.stat().st_size == 0:
-                response = await client.get(download_url)
-                if response.status_code >= 400:
-                    continue
-                target.write_bytes(response.content)
+            response = await client.get(download_url)
+            if response.status_code >= 400:
+                continue
 
+            _cleanup_old_mockups(mockup_dir, _mockup_slug(owner, repo_name))
+            target.write_bytes(response.content)
             project["image"] = f"{MOCKUP_PUBLIC_PREFIX}/{filename}"
 
     return generated

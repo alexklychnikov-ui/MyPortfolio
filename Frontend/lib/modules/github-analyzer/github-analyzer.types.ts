@@ -17,6 +17,7 @@ export type GithubRepoData = {
   readme: string
   packageJson: string
   inferredStack: string[]
+  readmeTitle?: string
   mockupUrl?: string | null
   mockupName?: string | null
   isPrivate?: boolean

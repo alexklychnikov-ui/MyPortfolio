@@ -174,8 +174,9 @@ export async function generatePortfolioFromRepositories(
   const normalized = parsed.data
   const repositoryUrls = repositories.map((repo) => repo.originalUrl)
   const ordered = orderProjectsByInput(normalized.projects, repositoryUrls)
+  const withTitles = applyReadmeTitles(ordered, repositories)
   const exportDir = path.join(process.cwd(), "public", "data")
-  const withMockups = await materializePrivateMockups(ordered, repositories, exportDir)
+  const withMockups = await materializePrivateMockups(withTitles, repositories, exportDir)
   const projects = dedupeByTag(withMockups)
   return {
     ...normalized,
@@ -190,5 +191,22 @@ function dedupeByTag<T extends { tag: string }>(items: T[]): T[] {
     if (seen.has(key)) return false
     seen.add(key)
     return true
+  })
+}
+
+function applyReadmeTitles<T extends { tag: string; title: { ru: string; en: string } }>(
+  projects: T[],
+  repositories: GithubRepoData[]
+): T[] {
+  const titleByRepo = new Map(
+    repositories
+      .map((repo) => [repo.repoUrl.trim().toLowerCase(), repo.readmeTitle?.trim() || ""] as const)
+      .filter(([, title]) => Boolean(title))
+  )
+
+  return projects.map((project) => {
+    const title = titleByRepo.get(project.tag.trim().toLowerCase())
+    if (!title) return project
+    return { ...project, title: { ru: title, en: title } }
   })
 }

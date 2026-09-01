@@ -3,7 +3,7 @@ import type {
   GithubRepoData,
   NormalizedGithubRepo,
 } from "./github-analyzer.types"
-import { fetchMockupUrl } from "./project-mockup"
+import { extractFirstReadmeImage, extractReadmeTitle } from "./readme-parser"
 
 const GITHUB_API_BASE = "https://api.github.com"
 
@@ -131,10 +131,11 @@ export async function analyzeGithubRepositories(urls: string[]): Promise<GithubA
         ])
       ).slice(0, 20)
 
-      const mockup = await fetchMockupUrl(
+      const mockup = extractFirstReadmeImage(
+        readmeRaw,
         normalized.owner,
         normalized.repo,
-        fetchGithubJson
+        repoData.default_branch ?? "main"
       )
 
       repositories.push({
@@ -149,6 +150,7 @@ export async function analyzeGithubRepositories(urls: string[]): Promise<GithubA
         readme: compactText(readmeRaw, 8000),
         packageJson: compactText(packageJsonRaw, 8000),
         inferredStack,
+        readmeTitle: extractReadmeTitle(readmeRaw),
         mockupUrl: mockup?.url ?? null,
         mockupName: mockup?.name ?? null,
         isPrivate: Boolean(repoData.private),

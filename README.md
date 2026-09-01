@@ -1,4 +1,4 @@
-# Portfolio Website (Next.js + Backend API + Telegram Bot)
+# Сверстаю лендинг-портфолио с автонаполнением
 
 <!-- MOCKUPS:START -->
 ![Mockup](docs/mockups/mockup-20260531-105736.png)

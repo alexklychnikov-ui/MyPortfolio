@@ -31,13 +31,10 @@ Constraints:
 
 class MockupImageGenerator:
     def __init__(self) -> None:
-        use_proxy = bool(settings.proxy_base_url and settings.proxy_api_key)
-        self.base_url = (
-            settings.proxy_base_url.rstrip("/") if use_proxy and settings.proxy_base_url else "https://api.openai.com/v1"
-        )
-        self.api_key = settings.proxy_api_key if use_proxy else settings.openai_api_key
+        self.base_url = "https://api.openai.com/v1"
+        self.api_key = settings.openai_api_key
         if not self.api_key:
-            raise RuntimeError("OpenAI credentials are missing")
+            raise RuntimeError("OPENAI_API_KEY is required for image generation")
 
     def _read_style_prompt(self) -> str:
         path = Path(settings.prompt_mockup_path)
@@ -64,6 +61,7 @@ class MockupImageGenerator:
             "prompt": prompt,
             "size": DALLE_LANDSCAPE_SIZE,
             "quality": "hd",
+            "response_format": "b64_json",
             "n": 1,
         }
         async with httpx.AsyncClient(timeout=httpx.Timeout(180.0)) as client:

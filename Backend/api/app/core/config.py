@@ -13,6 +13,7 @@ class Settings(BaseSettings):
 
     github_token: str | None = Field(default=None, alias="GITHUB_TOKEN")
     openai_model: str = Field(default="gpt-4o-mini", alias="OPENAI_MODEL")
+    openai_image_model: str = Field(default="dall-e-3", alias="OPENAI_IMAGE_MODEL")
     openai_api_key: str | None = Field(default=None, alias="OPENAI_API_KEY")
     proxy_base_url: str | None = Field(default=None, alias="PROXY_BASE_URL")
     proxy_api_key: str | None = Field(default=None, alias="PROXY_API_KEY")
@@ -28,6 +29,10 @@ class Settings(BaseSettings):
     prompt_skills_path: str = Field(
         default="/app/prompts/skills.system.prompt.txt",
         alias="PROMPT_SKILLS_PATH",
+    )
+    prompt_mockup_path: str = Field(
+        default="/app/prompts/mockup.system.prompt.txt",
+        alias="PROMPT_MOCKUP_PATH",
     )
     static_export_dir: str | None = Field(default=None, alias="STATIC_EXPORT_DIR")
 

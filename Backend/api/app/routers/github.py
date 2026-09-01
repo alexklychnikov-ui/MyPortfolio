@@ -7,7 +7,9 @@ from app.db.session import get_db
 from app.core.skill_categories import empty_skills_grouped
 from app.repositories.portfolio_repository import fetch_projects, fetch_services, fetch_skills, replace_all
 from app.schemas.analyze import AnalyzeRequest, AnalyzeResponse
+from app.schemas.mockup import CreatePngData, CreatePngRequest, CreatePngResponse
 from app.services.portfolio_service import PortfolioService
+from app.services.project_mockup_service import ProjectMockupService
 from app.services.static_exporter import export_public_data
 
 router = APIRouter(prefix="/v1", tags=["github"])
@@ -26,6 +28,18 @@ async def analyze(payload: AnalyzeRequest, db: Session = Depends(get_db)):
             skill_rows = fetch_skills(db)
             export_public_data(project_rows, service_rows, skill_rows, settings.static_export_dir)
         return {"success": True, "data": data, "skipped": skipped}
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+@router.post("/github/create-png", dependencies=[Depends(verify_internal_key)], response_model=CreatePngResponse)
+async def create_png(payload: CreatePngRequest):
+    service = ProjectMockupService()
+    try:
+        result = await service.create_png_for_repository(str(payload.repository))
+        return {"success": True, "data": CreatePngData.model_validate(result)}
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     except Exception as exc:

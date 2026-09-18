@@ -2,8 +2,8 @@
   {
     "id": "1dccae02-aafc-4dc0-9a5f-b3b986c81fdc",
     "title": {
-      "en": "ContentForge (NODEX)",
-      "ru": "ContentForge (NODEX)"
+      "ru": "AI-платформа контент-маркетинга",
+      "en": "AI-платформа контент-маркетинга"
     },
     "description": {
       "en": "An AI content marketing platform for automating content creation and publishing.",
@@ -29,8 +29,8 @@
   {
     "id": "ac83f2c0-fdde-4783-a1a9-2d15ce6e8b3e",
     "title": {
-      "en": "FullCRM Platform",
-      "ru": "FullCRM Platform"
+      "ru": "Модульная B2B CRM-платформа",
+      "en": "Модульная B2B CRM-платформа"
     },
     "description": {
       "en": "A modular B2B CRM platform with AI integration for managing deals and contacts.",
@@ -56,8 +56,8 @@
   {
     "id": "eea290c0-c97f-48d1-8bfb-970c9c45d964",
     "title": {
-      "en": "LightRAG",
-      "ru": "LightRAG"
+      "ru": "Личная или корпоративная базы знаний",
+      "en": "Личная или корпоративная базы знаний"
     },
     "description": {
       "en": "A system for creating personal or corporate knowledge bases using Telegram.",
@@ -82,8 +82,8 @@
   {
     "id": "273d908f-e9d8-42a5-a544-e850c75b3cbf",
     "title": {
-      "en": "MyPortfolio",
-      "ru": "MyPortfolio"
+      "ru": "Сверстаю лендинг-портфолио с автонаполнением",
+      "en": "Сверстаю лендинг-портфолио с автонаполнением"
     },
     "description": {
       "en": "Personal portfolio website with Telegram bot integration for data updates.",
@@ -109,8 +109,8 @@
   {
     "id": "4dcca1b3-f1bd-437f-b6c3-bc8f0ff676a5",
     "title": {
-      "en": "Price Monitoring",
-      "ru": "Price Monitoring"
+      "ru": "Система мониторинга цен",
+      "en": "Система мониторинга цен"
     },
     "description": {
       "en": "A price monitoring system for products with notifications and analytics.",
@@ -135,8 +135,8 @@
   {
     "id": "9e5a815a-e2e2-4dcb-960c-70a7b41395ce",
     "title": {
-      "en": "KitchensProduction",
-      "ru": "KitchensProduction"
+      "ru": "Управление заказами, материалами и этапами производства",
+      "en": "Управление заказами, материалами и этапами производства"
     },
     "description": {
       "en": "Telegram bot and web admin for a custom kitchen studio.",

@@ -64,12 +64,26 @@ class GithubClient:
         except Exception:
             return ""
 
+    async def _headers_for_requests(self) -> dict[str, str]:
+        headers = dict(self.headers)
+        if "Authorization" not in headers:
+            return headers
+        async with httpx.AsyncClient(
+            base_url=self.base_url, headers=headers, timeout=httpx.Timeout(15.0)
+        ) as client:
+            probe = await client.get("/rate_limit")
+            if probe.status_code == 401:
+                # Bad/expired token breaks even public repos — fall back to anonymous.
+                headers.pop("Authorization", None)
+        return headers
+
     async def collect_many(self, repositories: list[str]) -> tuple[list[dict], list[dict[str, str]]]:
         accepted: list[dict] = []
         skipped: list[dict[str, str]] = []
+        headers = await self._headers_for_requests()
 
         async with httpx.AsyncClient(
-            base_url=self.base_url, headers=self.headers, timeout=httpx.Timeout(25.0)
+            base_url=self.base_url, headers=headers, timeout=httpx.Timeout(25.0)
         ) as client:
             is_limited, reset_at = await self._rate_limit_status(client)
             if is_limited:

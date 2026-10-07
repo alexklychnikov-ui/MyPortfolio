@@ -53,5 +53,16 @@
       "ru": "Быстро собираю рабочий прототип, чтобы проверить идею на практике.",
       "en": "Ship a working prototype fast to validate your idea in the real world."
     }
+  },
+  {
+    "id": "svc-content-factory",
+    "title": {
+      "ru": "Контент завод",
+      "en": "Content Factory"
+    },
+    "description": {
+      "ru": "AI-конвейер: Brand Kit → план → черновики → очередь → автопост (Telegram, VK, email) и аналитика. Развёртывание ContentForge или кастом под агентство. Демо: kitchen.alexklyvibe.ru",
+      "en": "AI pipeline: Brand Kit → plan → drafts → queue → autopost (Telegram, VK, email) and analytics. Deploy ContentForge or custom for an agency. Demo: kitchen.alexklyvibe.ru"
+    }
   }
 ]

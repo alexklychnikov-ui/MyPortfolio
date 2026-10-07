@@ -30,6 +30,7 @@ services:
       - ./Frontend/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./Frontend/nginx/conf.d:/etc/nginx/conf.d:ro
       - ./Frontend/public/data:/var/www/portfolio-data:ro
+      - ./Frontend/public:/var/www/portfolio-public:ro
       - ./certs:/etc/letsencrypt:ro
       - ./certbot-webroot:/var/www/certbot
       - nginx-cache:/var/cache/nginx

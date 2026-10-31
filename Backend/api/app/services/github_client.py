@@ -5,7 +5,12 @@ from urllib.parse import urlparse
 import httpx
 
 from app.core.config import settings
-from app.services.readme_parser import extract_first_readme_image, extract_readme_media, extract_readme_title
+from app.services.readme_parser import (
+    extract_first_readme_image,
+    extract_readme_demo_url,
+    extract_readme_media,
+    extract_readme_title,
+)
 
 
 class GithubClient:
@@ -133,6 +138,7 @@ class GithubClient:
                 mockup = extract_first_readme_image(readme_full, owner, repo, default_branch)
                 media = extract_readme_media(readme_full, owner, repo, default_branch)
                 readme_title = extract_readme_title(readme_full)
+                readme_demo_url = extract_readme_demo_url(readme_full)
 
                 accepted.append(
                     {
@@ -146,6 +152,7 @@ class GithubClient:
                         "readme": readme_text,
                         "package_json": package_text,
                         "readme_title": readme_title,
+                        "readme_demo_url": readme_demo_url,
                         "mockup_url": mockup[0] if mockup else None,
                         "mockup_name": mockup[1] if mockup else None,
                         "screenshots": media.get("screenshots") or [],

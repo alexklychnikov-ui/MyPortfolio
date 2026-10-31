@@ -2,6 +2,7 @@ import unittest
 
 from app.services.readme_parser import (
     extract_first_readme_image,
+    extract_readme_demo_url,
     extract_readme_media,
     extract_readme_title,
 )
@@ -66,6 +67,12 @@ class ReadmeParserTests(unittest.TestCase):
         self.assertEqual(media["videos"][0]["label"], "Работа дашборда")
         self.assertEqual(len(media["screenshots"]), 1)
         self.assertIn("01_onboarding.png", media["screenshots"][0]["url"])
+
+    def test_extract_readme_demo_url_markdown_and_backticks(self):
+        readme = "Демо: **[kitchen.alexklyvibe.ru](https://kitchen.alexklyvibe.ru)**\n"
+        self.assertEqual(extract_readme_demo_url(readme), "https://kitchen.alexklyvibe.ru")
+        readme2 = "**Демо / prod:** `https://testfullcrm.alexklyvibe.ru`\n"
+        self.assertEqual(extract_readme_demo_url(readme2), "https://testfullcrm.alexklyvibe.ru")
 
 
 if __name__ == "__main__":

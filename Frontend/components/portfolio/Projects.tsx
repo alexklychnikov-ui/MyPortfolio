@@ -71,21 +71,25 @@ export default function Projects({ initialProjects = [] }: { initialProjects?: P
   const [canScrollNext, setCanScrollNext] = useState(false)
 
   useEffect(() => {
-    if (initialProjects.length > 0) return
+    let cancelled = false
     const loadProjects = async () => {
       try {
-        const response = await fetch("/data/projects.json")
+        // Всегда берём актуальный JSON с nginx volume (git reset / analyze не ломают кнопку media)
+        const response = await fetch(`/data/projects.json?t=${Date.now()}`, { cache: "no-store" })
         if (!response.ok) throw new Error("Failed to load projects")
         const data = await response.json()
-        setProjects(data)
+        if (!cancelled && Array.isArray(data)) setProjects(data)
       } catch (error) {
         console.error("Error loading projects:", error)
       } finally {
-        setLoading(false)
+        if (!cancelled) setLoading(false)
       }
     }
     loadProjects()
-  }, [initialProjects.length])
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return

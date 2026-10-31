@@ -1,10 +1,13 @@
+from urllib.parse import urlparse
+
+import httpx
+
 from app.core.config import settings
 from app.schemas.analyze import AnalyzeResponseData
-from app.services.github_client import GithubClient
 from app.services.demo_storage import materialize_project_demos
+from app.services.github_client import GithubClient
 from app.services.mockup_storage import materialize_project_mockups
 from app.services.openai_client import OpenAIClient
-from urllib.parse import urlparse
 
 
 class PortfolioService:
@@ -107,6 +110,62 @@ class PortfolioService:
 
         return generated
 
+    @staticmethod
+    async def _url_is_reachable(url: str) -> bool:
+        try:
+            async with httpx.AsyncClient(timeout=httpx.Timeout(12.0), follow_redirects=True) as client:
+                response = await client.head(url, headers={"User-Agent": "portfolio-demo-check"})
+                if response.status_code < 400:
+                    return True
+                if response.status_code in {405, 501}:
+                    response = await client.get(url, headers={"User-Agent": "portfolio-demo-check"})
+                    return response.status_code < 400
+                return False
+        except Exception:
+            return False
+
+    async def _apply_readme_demo_urls(self, generated: dict, accepted: list[dict]) -> dict:
+        projects = generated.get("projects")
+        if not isinstance(projects, list):
+            return generated
+
+        repo_by_tag = {
+            str(item.get("repo_url", "")).strip().lower(): item for item in accepted if item.get("repo_url")
+        }
+        used_urls: set[str] = set()
+
+        for project in projects:
+            if not isinstance(project, dict):
+                continue
+            tag = str(project.get("tag", "")).strip().lower()
+            meta = repo_by_tag.get(tag) or {}
+            candidates: list[str] = []
+            readme_demo = str(meta.get("readme_demo_url") or "").strip().strip("`").rstrip(".,;")
+            ai_demo = str(project.get("demoUrl") or "").strip().strip("`").rstrip(".,;")
+            if readme_demo:
+                candidates.append(readme_demo)
+            if ai_demo and ai_demo not in candidates:
+                candidates.append(ai_demo)
+
+            chosen = None
+            for url in candidates:
+                if not self._is_http_url(url):
+                    continue
+                key = url.rstrip("/").lower()
+                if key in used_urls:
+                    continue
+                if await self._url_is_reachable(url):
+                    chosen = url
+                    used_urls.add(key)
+                    break
+
+            if chosen:
+                project["demoUrl"] = chosen
+            else:
+                project.pop("demoUrl", None)
+
+        return generated
+
     async def analyze_repositories(self, repositories: list[str]) -> tuple[AnalyzeResponseData, list[dict[str, str]]]:
         accepted, skipped = await self.github.collect_many(repositories)
         if not accepted:
@@ -119,6 +178,7 @@ class PortfolioService:
         generated = self._order_projects_by_input(generated, accepted, repositories)
         generated = self._normalize_project_tags(generated, repositories)
         generated = self._apply_readme_titles(generated, accepted)
+        generated = await self._apply_readme_demo_urls(generated, accepted)
         generated = await materialize_project_mockups(
             generated,
             accepted,

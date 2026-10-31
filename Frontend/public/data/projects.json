@@ -24,7 +24,55 @@
       "ru": "Упрощение процесса контент-маркетинга для SMM и владельцев бизнеса."
     },
     "demoUrl": "https://kitchen.alexklyvibe.ru",
-    "image": "/data/project-mockups/alexklychnikov-ui-contentforge.png"
+    "image": "/data/project-mockups/alexklychnikov-ui-contentforge.png",
+    "screenshots": [
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/01_01-login.png",
+        "label": "01_01-login"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/02_02-dashboard.png",
+        "label": "02_02-dashboard"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/03_03-calendar-slot.png",
+        "label": "03_03-calendar-slot"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/04_04-plan-existing.png",
+        "label": "04_04-plan-existing"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/05_05-channels.png",
+        "label": "05_05-channels"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/06_06-queue.png",
+        "label": "06_06-queue"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/07_07-analytics.png",
+        "label": "07_07-analytics"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/08_08-ab.png",
+        "label": "08_08-ab"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/09_09-settings.png",
+        "label": "09_09-settings"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/10_10-editor.png",
+        "label": "10_10-editor"
+      }
+    ],
+    "videos": [
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-contentforge/videos/01_demo-overview.mp4",
+        "label": "01_demo-overview"
+      }
+    ]
   },
   {
     "id": "ac83f2c0-fdde-4783-a1a9-2d15ce6e8b3e",
@@ -50,7 +98,6 @@
       "en": "Enabled customization and extensibility of the CRM for different organizations.",
       "ru": "Обеспечил возможность кастомизации и расширяемости CRM для разных организаций."
     },
-    "demoUrl": "https://testfullcrm.alexklyvibe.ru",
     "image": "/data/project-mockups/alexklychnikov-ui-fullcrm.png"
   },
   {
@@ -104,7 +151,13 @@
       "ru": "Обеспечил автоматическое обновление данных о проектах и навыках."
     },
     "demoUrl": "https://portfolio.hayklyvibelexy.ru",
-    "image": "/data/project-mockups/alexklychnikov-ui-myportfolio.png"
+    "image": "/data/project-mockups/alexklychnikov-ui-myportfolio.png",
+    "screenshots": [
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-myportfolio/screenshots/01_screenshot-1.png",
+        "label": "01_screenshot-1"
+      }
+    ]
   },
   {
     "id": "4dcca1b3-f1bd-437f-b6c3-bc8f0ff676a5",
@@ -130,7 +183,17 @@
       "en": "Enabled users to track prices and receive notifications.",
       "ru": "Обеспечил пользователям возможность отслеживать цены и получать уведомления."
     },
-    "image": "/data/project-mockups/alexklychnikov-ui-pricemonitoring.png"
+    "image": "/data/project-mockups/alexklychnikov-ui-pricemonitoring.png",
+    "screenshots": [
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-pricemonitoring/screenshots/01_screenshot-1.png",
+        "label": "01_screenshot-1"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-pricemonitoring/screenshots/02_Grafana.png",
+        "label": "02_Grafana"
+      }
+    ]
   },
   {
     "id": "9e5a815a-e2e2-4dcb-960c-70a7b41395ce",
@@ -156,7 +219,6 @@
       "en": "Created a convenient selection funnel and order management system.",
       "ru": "Создана удобная воронка подбора и система управления заявками."
     },
-    "demoUrl": "https://kitchen.alexklyvibe.ru",
     "image": "/data/project-mockups/alexklychnikov-ui-kitchensproduction.png"
   }
 ]

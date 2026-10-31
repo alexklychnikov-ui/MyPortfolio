@@ -23,6 +23,26 @@ def extract_readme_title(readme: str) -> str:
     return ""
 
 
+_DEMO_LINE_RE = re.compile(r"(?i)(?:demo|демо|live\s*demo|prod|сайт)")
+_BARE_URL_RE = re.compile(r"`?(https?://[^`\s)\]>\"']+)`?")
+
+
+def extract_readme_demo_url(readme: str) -> str | None:
+    for line in readme.splitlines()[:120]:
+        if not _DEMO_LINE_RE.search(line):
+            continue
+        for match in _README_LINK_MD_RE.finditer(line):
+            url = match.group(2).strip().strip("`").rstrip(".,;")
+            if url.startswith("http") and "github.com" not in url and "raw.githubusercontent" not in url:
+                return url
+        for match in _BARE_URL_RE.finditer(line):
+            url = match.group(1).strip().rstrip(".,;")
+            if "github.com" in url or "raw.githubusercontent" in url:
+                continue
+            return url
+    return None
+
+
 def _resolve_readme_asset_url(src: str, owner: str, repo: str, branch: str) -> str | None:
     src = src.strip()
     if not src or src.startswith(("data:", "#", "mailto:")):

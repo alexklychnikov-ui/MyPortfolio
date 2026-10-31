@@ -76,11 +76,11 @@ function Footer() {
       <div className="footer-content">
         <p>{`\u00A9 ${new Date().getFullYear()} ${t.footer.copyright[locale]}`}</p>
         <Image
-          src="/assets/myLogotype.png"
-          alt={t.footer.copyright[locale]}
+          src="/assets/myLogotype.jpg"
+          alt="NODEX"
           className="footer-logo"
-          width={40}
-          height={40}
+          width={48}
+          height={48}
           unoptimized
         />
         <p>{`\u2014 ${t.footer.text[locale]}`}</p>

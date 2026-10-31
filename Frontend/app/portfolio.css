@@ -101,18 +101,19 @@
 }
 
 .nav-logo img {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
-  object-fit: cover;
-  border: 2px solid var(--color-primary);
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  object-fit: contain;
+  background: #050812;
+  border: 1px solid rgba(56, 189, 248, 0.35);
   box-shadow: var(--shadow-sm);
   transition: transform 0.35s ease;
   transform-origin: 50% 0;
 }
 
 .nav-logo:hover img {
-  transform: scale(8.5) translateY(8px);
+  transform: scale(4.5) translateY(10px);
 }
 
 .nav-links {
@@ -1355,12 +1356,13 @@ button.project-link {
 }
 
 .portfolio-footer .footer-logo {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
-  object-fit: cover;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  object-fit: contain;
+  background: #050812;
   vertical-align: middle;
-  border: 3px solid var(--color-primary);
+  border: 1px solid rgba(56, 189, 248, 0.35);
   box-shadow: var(--shadow-md);
 }
 

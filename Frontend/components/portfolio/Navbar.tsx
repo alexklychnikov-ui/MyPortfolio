@@ -24,11 +24,12 @@ export default function Navbar() {
       <div className="nav-container">
         <a href="#" className="nav-logo">
           <Image
-            src="/assets/myLogotype.png"
-            alt={t.hero.namePrimary[locale]}
-            width={40}
-            height={40}
+            src="/assets/myLogotype.jpg"
+            alt="NODEX"
+            width={48}
+            height={48}
             unoptimized
+            priority
           />
         </a>
         <ul className={`nav-links${menuOpen ? " open" : ""}`}>

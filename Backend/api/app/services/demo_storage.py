@@ -1,5 +1,8 @@
+import asyncio
+import logging
 import re
 import shutil
+import subprocess
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -8,6 +11,7 @@ import httpx
 DEMO_PUBLIC_PREFIX = "/data/project-demos"
 _IMAGE_EXT = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".avif", ".bmp", ".svg"}
 _VIDEO_EXT = {".mp4", ".webm", ".mov", ".m4v", ".ogg"}
+logger = logging.getLogger(__name__)
 
 
 def demo_slug(owner: str, repo: str) -> str:
@@ -70,6 +74,69 @@ async def _download(client: httpx.AsyncClient, url: str, target: Path) -> bool:
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_bytes(response.content)
     return True
+
+
+def _ffmpeg_available() -> bool:
+    return shutil.which("ffmpeg") is not None
+
+
+def _transcode_video_for_browser(source: Path) -> Path:
+    """MPEG-4 ASP / MOV и т.п. часто не играют в Chrome. Гоним в H.264 + faststart."""
+    if not _ffmpeg_available():
+        logger.warning("ffmpeg missing; serving original video %s", source.name)
+        return source
+
+    output = source.with_name(f"{source.stem}.browser.mp4")
+    cmd = [
+        "ffmpeg",
+        "-y",
+        "-i",
+        str(source),
+        "-map",
+        "0:v:0",
+        "-map",
+        "0:a?",
+        "-c:v",
+        "libx264",
+        "-pix_fmt",
+        "yuv420p",
+        "-profile:v",
+        "main",
+        "-level",
+        "4.0",
+        "-c:a",
+        "aac",
+        "-b:a",
+        "128k",
+        "-movflags",
+        "+faststart",
+        str(output),
+    ]
+    try:
+        completed = subprocess.run(cmd, check=False, capture_output=True, text=True)
+    except OSError as exc:
+        logger.warning("ffmpeg failed for %s: %s", source, exc)
+        return source
+
+    if completed.returncode != 0 or not output.exists() or output.stat().st_size < 1024:
+        logger.warning(
+            "ffmpeg transcode failed for %s: %s",
+            source.name,
+            (completed.stderr or completed.stdout or "")[-500:],
+        )
+        output.unlink(missing_ok=True)
+        return source
+
+    source.unlink(missing_ok=True)
+    final_path = source.with_suffix(".mp4")
+    if output != final_path:
+        output.replace(final_path)
+        return final_path
+    return output
+
+
+async def _prepare_browser_video(source: Path) -> Path:
+    return await asyncio.to_thread(_transcode_video_for_browser, source)
 
 
 async def materialize_project_demos(
@@ -157,9 +224,10 @@ async def materialize_project_demos(
                 filename = f"{index:02d}_{_safe_stem(label, f'video-{index}')}{ext}"
                 target = project_dir / "videos" / filename
                 if await _download(client, url, target):
+                    prepared = await _prepare_browser_video(target)
                     local_videos.append(
                         {
-                            "url": f"{DEMO_PUBLIC_PREFIX}/{slug}/videos/{filename}",
+                            "url": f"{DEMO_PUBLIC_PREFIX}/{slug}/videos/{prepared.name}",
                             "label": label,
                         }
                     )

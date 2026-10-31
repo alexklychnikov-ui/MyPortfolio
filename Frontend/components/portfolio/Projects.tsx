@@ -322,10 +322,24 @@ function ProjectMediaModal({
   const [tab, setTab] = useState<"screenshots" | "videos">(initialTab)
   const [shotIndex, setShotIndex] = useState(0)
   const [videoIndex, setVideoIndex] = useState(0)
+  const [zoomedShot, setZoomedShot] = useState(false)
+  const [videoError, setVideoError] = useState(false)
+
+  useEffect(() => {
+    setVideoError(false)
+  }, [videoIndex, tab])
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose()
+      if (event.key === "Escape") {
+        if (zoomedShot) {
+          setZoomedShot(false)
+          return
+        }
+        onClose()
+        return
+      }
+      if (zoomedShot) return
       if (tab === "screenshots" && screenshots.length > 1) {
         if (event.key === "ArrowLeft") setShotIndex((i) => Math.max(0, i - 1))
         if (event.key === "ArrowRight") setShotIndex((i) => Math.min(screenshots.length - 1, i + 1))
@@ -342,7 +356,7 @@ function ProjectMediaModal({
       window.removeEventListener("keydown", onKey)
       document.body.style.overflow = prev
     }
-  }, [onClose, tab, screenshots.length, videos.length])
+  }, [onClose, tab, screenshots.length, videos.length, zoomedShot])
 
   const shot = screenshots[shotIndex]
   const video = videos[videoIndex]
@@ -397,8 +411,15 @@ function ProjectMediaModal({
                 </button>
               )}
               <div className="project-media-stage">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={shot.url} alt={shot.label} loading="lazy" />
+                <button
+                  type="button"
+                  className="project-media-shot-btn"
+                  onClick={() => setZoomedShot(true)}
+                  aria-label={t.projects.media.zoom[locale]}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={shot.url} alt={shot.label} loading="lazy" />
+                </button>
               </div>
               {screenshots.length > 1 && (
                 <button
@@ -446,7 +467,26 @@ function ProjectMediaModal({
                     <ExternalLink size={14} />
                   </a>
                 ) : (
-                  <video key={video.url} src={video.url} controls playsInline preload="metadata" />
+                  <>
+                    <video
+                      key={video.url}
+                      src={video.url}
+                      controls
+                      playsInline
+                      preload="auto"
+                      onError={() => setVideoError(true)}
+                    >
+                      <source src={video.url} type="video/mp4" />
+                    </video>
+                    {videoError && (
+                      <p className="project-media-video-error">
+                        {t.projects.media.videoError[locale]}{" "}
+                        <a href={video.url} target="_blank" rel="noopener noreferrer">
+                          {t.projects.media.openFile[locale]}
+                        </a>
+                      </p>
+                    )}
+                  </>
                 )}
               </div>
               {videos.length > 1 && (
@@ -468,6 +508,29 @@ function ProjectMediaModal({
           </div>
         )}
       </div>
+
+      {zoomedShot && shot && (
+        <div className="project-media-zoom" role="dialog" aria-modal="true" aria-label={shot.label}>
+          <button
+            type="button"
+            className="project-media-zoom-backdrop"
+            aria-label="Close zoom"
+            onClick={() => setZoomedShot(false)}
+          />
+          <div className="project-media-zoom-frame">
+            <button
+              type="button"
+              className="project-media-close project-media-zoom-close"
+              onClick={() => setZoomedShot(false)}
+              aria-label="Close zoom"
+            >
+              <X size={18} />
+            </button>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={shot.url} alt={shot.label} />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -83,6 +83,12 @@ const translations = {
     media: {
       screenshots: { en: "Screenshots", ru: "Скриншоты" },
       videos: { en: "Videos", ru: "Видео" },
+      zoom: { en: "Enlarge screenshot", ru: "Увеличить скриншот" },
+      videoError: {
+        en: "Browser cannot play this file.",
+        ru: "Браузер не смог проиграть файл.",
+      },
+      openFile: { en: "Open file", ru: "Открыть файл" },
     },
     cta: {
       title: {

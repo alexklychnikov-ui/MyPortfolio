@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState, useCallback } from "react"
+import { createPortal } from "react-dom"
 import useEmblaCarousel from "embla-carousel-react"
 import Image from "next/image"
 import { ArrowLeft, ArrowRight, ExternalLink, Github, Globe, Images, Play, X } from "lucide-react"
@@ -281,7 +282,11 @@ function ProjectCard({ project, locale }: { project: Project; locale: "ru" | "en
             <button
               type="button"
               className="project-link project-link-media"
-              onClick={() => setMediaOpen(true)}
+              onClick={(event) => {
+                event.preventDefault()
+                event.stopPropagation()
+                setMediaOpen(true)
+              }}
               aria-label={`${t.projects.links.media[locale]} — ${title}`}
             >
               {videos.length > 0 ? (
@@ -328,6 +333,11 @@ function ProjectMediaModal({
   const [videoIndex, setVideoIndex] = useState(0)
   const [zoomedShot, setZoomedShot] = useState(false)
   const [videoError, setVideoError] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     setVideoError(false)
@@ -394,7 +404,9 @@ function ProjectMediaModal({
   const shot = screenshots[shotIndex]
   const video = videos[videoIndex]
 
-  return (
+  if (!mounted) return null
+
+  return createPortal(
     <div className="project-media-overlay" role="dialog" aria-modal="true" aria-label={title}>
       <button type="button" className="project-media-backdrop" aria-label="Close" onClick={onClose} />
       <div className="project-media-dialog">
@@ -594,7 +606,8 @@ function ProjectMediaModal({
           </div>
         </div>
       )}
-    </div>
+    </div>,
+    document.body
   )
 }
 

@@ -53,6 +53,14 @@ def cleanup_orphan_project_demos(static_export_dir: str | None, keep_slugs: set[
             _remove_dir(child)
 
 
+def _download_headers() -> dict[str, str]:
+    # Public raw.githubusercontent.com: Authorization часто ломает доступ (404), даже на public files.
+    return {
+        "Accept": "*/*",
+        "User-Agent": "portfolio-backend-api",
+    }
+
+
 async def _download(client: httpx.AsyncClient, url: str, target: Path) -> bool:
     if not _is_downloadable(url):
         return False
@@ -81,8 +89,9 @@ async def materialize_project_demos(
     demos_root.mkdir(parents=True, exist_ok=True)
     keep_slugs: set[str] = set()
 
+    _ = github_headers  # API token не используем для raw download
     async with httpx.AsyncClient(
-        headers=github_headers, timeout=httpx.Timeout(120.0), follow_redirects=True
+        headers=_download_headers(), timeout=httpx.Timeout(120.0), follow_redirects=True
     ) as client:
         for project in projects:
             if not isinstance(project, dict):

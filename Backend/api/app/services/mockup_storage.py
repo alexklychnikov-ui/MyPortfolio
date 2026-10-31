@@ -42,7 +42,12 @@ async def materialize_project_mockups(
     mockup_dir = Path(static_export_dir) / "project-mockups"
     mockup_dir.mkdir(parents=True, exist_ok=True)
 
-    async with httpx.AsyncClient(headers=github_headers, timeout=httpx.Timeout(30.0), follow_redirects=True) as client:
+    # raw.githubusercontent.com: без Authorization (битый token → 404 даже на public)
+    download_headers = {
+        "Accept": "*/*",
+        "User-Agent": github_headers.get("User-Agent", "portfolio-backend-api"),
+    }
+    async with httpx.AsyncClient(timeout=httpx.Timeout(30.0), follow_redirects=True) as client:
         for project in projects:
             if not isinstance(project, dict):
                 continue
@@ -60,7 +65,7 @@ async def materialize_project_mockups(
             target = mockup_dir / filename
             download_url = _strip_query(mockup_url)
 
-            response = await client.get(download_url)
+            response = await client.get(download_url, headers=download_headers)
             if response.status_code >= 400:
                 continue
 

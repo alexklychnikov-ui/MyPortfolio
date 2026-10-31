@@ -44,7 +44,17 @@ def _is_image_url(url: str) -> bool:
 
 
 def _is_video_url(url: str) -> bool:
-    return bool(_VIDEO_EXT_RE.search(url) or _VIDEO_HOST_RE.search(url))
+    if _VIDEO_EXT_RE.search(url):
+        return True
+    if not _VIDEO_HOST_RE.search(url):
+        return False
+    # Отсекаем плейсхолдеры вроде youtu.be/ВАШ_ID_ВИДЕО
+    path = urlparse(url).path.strip("/")
+    if not path or any(ord(ch) > 127 for ch in path):
+        return False
+    if "your_" in path.lower() or "ваш" in path.lower() or "xxx" in path.lower():
+        return False
+    return True
 
 
 def _is_mockup_path(url: str) -> bool:

@@ -50,12 +50,11 @@ export async function materializePrivateMockups<
   const path = await import("node:path")
   await fs.mkdir(mockupDir, { recursive: true })
 
-  const token = process.env.GITHUB_TOKEN?.trim()
+  // raw.githubusercontent.com: без Authorization (битый token → 404 на public)
   const headers: HeadersInit = {
-    Accept: "application/vnd.github+json",
+    Accept: "*/*",
     "User-Agent": "portfolio-github-analyzer",
   }
-  if (token) headers.Authorization = `Bearer ${token}`
 
   const updated = [...projects]
   for (const project of updated) {
@@ -152,12 +151,10 @@ export async function materializeProjectDemos<
   const demosRoot = path.join(exportDir, "project-demos")
   await fs.mkdir(demosRoot, { recursive: true })
 
-  const token = process.env.GITHUB_TOKEN?.trim()
   const headers: HeadersInit = {
     Accept: "*/*",
     "User-Agent": "portfolio-github-analyzer",
   }
-  if (token) headers.Authorization = `Bearer ${token}`
 
   const keepSlugs = new Set<string>()
   const updated = [...projects]

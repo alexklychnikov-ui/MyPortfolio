@@ -56,7 +56,17 @@ function isImageUrl(url: string): boolean {
 }
 
 function isVideoUrl(url: string): boolean {
-  return VIDEO_EXT_RE.test(url) || VIDEO_HOST_RE.test(url)
+  if (VIDEO_EXT_RE.test(url)) return true
+  if (!VIDEO_HOST_RE.test(url)) return false
+  try {
+    const path = new URL(url).pathname.replace(/^\/+/, "")
+    if (!path || /[^\x00-\x7F]/.test(path)) return false
+    const lower = path.toLowerCase()
+    if (lower.includes("your_") || lower.includes("xxx")) return false
+    return true
+  } catch {
+    return false
+  }
 }
 
 function isMockupPath(url: string): boolean {

@@ -84,7 +84,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#2563eb',
+  themeColor: '#050812',
   width: 'device-width',
   initialScale: 1,
 }
@@ -101,7 +101,7 @@ export default function RootLayout({
         <link rel="author" type="text/plain" href="/humans.txt" />
       </head>
       <body className="font-sans antialiased">
-        <ThemeProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           {children}
           <Toaster />
         </ThemeProvider>

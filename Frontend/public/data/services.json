@@ -1,68 +1,68 @@
 [
   {
-    "id": "svc-python-ai",
-    "title": {
-      "ru": "Python и AI",
-      "en": "Python & AI"
-    },
-    "description": {
-      "ru": "AI-сервисы и интеграция LLM под вашу задачу — без лишней сложности на старте.",
-      "en": "AI services and LLM integration for your use case — without over-engineering upfront."
-    }
-  },
-  {
     "id": "svc-telegram-bots",
     "title": {
-      "ru": "Telegram-боты",
-      "en": "Telegram Bots"
+      "ru": "Telegram-боты под процесс",
+      "en": "Telegram bots under a process"
     },
     "description": {
-      "ru": "Боты с памятью и AI-функциями для удобного взаимодействия с пользователями.",
-      "en": "Bots with memory and AI features for smooth user interaction."
+      "ru": "Заявка → статус → менеджер или CRM. FAQ, классификация обращений, уведомления и сценарии диалога — с AI там, где снимает рутину.",
+      "en": "Request → status → manager or CRM. FAQ, routing, notifications and dialog flows — with AI where it removes routine."
     }
   },
   {
-    "id": "svc-automation",
+    "id": "svc-python-ai",
     "title": {
-      "ru": "Автоматизация",
-      "en": "Automation"
+      "ru": "AI и RAG под задачу",
+      "en": "AI & RAG for the job"
     },
     "description": {
-      "ru": "Сокращаю рутину и ускоряю процессы за счёт автоматизации и AI-интеграций.",
-      "en": "Cut routine work and speed up processes with automation and AI integrations."
+      "ru": "Обработка документов и Excel, классификация, база знаний с ответом в мессенджере. Один источник правды и один канал ответа — не «нейросеть изменит всё».",
+      "en": "Documents and Excel, classification, a knowledge base that answers in chat. One source of truth and one reply channel — not «AI will change everything»."
     }
   },
   {
     "id": "svc-integrations",
     "title": {
-      "ru": "Интеграции и API",
-      "en": "Integrations & API"
+      "ru": "Интеграции со статусом",
+      "en": "Integrations with status"
     },
     "description": {
-      "ru": "Связываю сервисы и системы, чтобы данные и действия работали как единый процесс.",
-      "en": "Connect services and systems so data and actions work as one flow."
+      "ru": "Связки Telegram ↔ CRM ↔ таблицы ↔ внешние API на Python/FastAPI. Журнал, повтор, идемпотентность — не «отправили и забыли».",
+      "en": "Telegram ↔ CRM ↔ sheets ↔ external APIs on Python/FastAPI. Journal, retry, idempotency — not fire-and-forget."
+    }
+  },
+  {
+    "id": "svc-automation",
+    "title": {
+      "ru": "Автоматизация рутины МСБ",
+      "en": "SMB routine automation"
+    },
+    "description": {
+      "ru": "Убираю ручные шаги: уведомления, синхронизация данных, сценарии «файл → решение → алерт». Критерий готово — рабочий поток и инструкция.",
+      "en": "Cut manual steps: notifications, data sync, file → decision → alert flows. Done means a working path plus handoff notes."
     }
   },
   {
     "id": "svc-mvp",
     "title": {
-      "ru": "MVP и прототипы",
-      "en": "MVP & Prototypes"
+      "ru": "MVP до деплоя",
+      "en": "MVP to deploy"
     },
     "description": {
-      "ru": "Быстро собираю рабочий прототип, чтобы проверить идею на практике.",
-      "en": "Ship a working prototype fast to validate your idea in the real world."
+      "ru": "Собираю минимальный рабочий контур: авторизация при необходимости, интеграции, деплой на VPS/Docker. Без лишней архитектуры на старте — с понятным «что считается готово».",
+      "en": "Ship a minimal working contour: auth if needed, integrations, VPS/Docker deploy. No over-architecture on day one — with a clear done criterion."
     }
   },
   {
     "id": "svc-content-factory",
     "title": {
-      "ru": "Контент завод",
-      "en": "Content Factory"
+      "ru": "Контент-завод (ContentForge)",
+      "en": "Content factory (ContentForge)"
     },
     "description": {
-      "ru": "AI-конвейер: Brand Kit → план → черновики → очередь → автопост (Telegram, VK, email) и аналитика. Развёртывание ContentForge или кастом под агентство. Демо: kitchen.alexklyvibe.ru",
-      "en": "AI pipeline: Brand Kit → plan → drafts → queue → autopost (Telegram, VK, email) and analytics. Deploy ContentForge or custom for an agency. Demo: kitchen.alexklyvibe.ru"
+      "ru": "AI-конвейер: Brand Kit → план → черновики → очередь → автопост (Telegram, VK, email) и аналитика. Развёртывание ContentForge или кастом под агентство.",
+      "en": "AI pipeline: Brand Kit → plan → drafts → queue → autopost (Telegram, VK, email) and analytics. Deploy ContentForge or a custom agency setup."
     }
   }
 ]

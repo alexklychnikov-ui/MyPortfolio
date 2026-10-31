@@ -6,23 +6,26 @@ export const personNameEn = "Alexander Klychnikov"
 export const personNameEnAlt = "Klychnikov Alexander"
 
 export const siteTitle =
-  "Клычников Александр — AI, Telegram Bot и No-Code разработчик"
+  "Клычников Александр — вайбкодер с ERP-бэкграундом · боты, AI, автоматизация"
 
 export const siteDescription =
-  "Клычников Александр — разработчик Telegram-ботов, AI-интеграций, сайтов, MVP и бизнес-автоматизаций. Портфолио, проекты и услуги."
+  "Вайбкодер с ERP-бэкграундом: Telegram-боты, AI/RAG и интеграции — до рабочего результата, а не до красивого прототипа. Иркутск · удалённо."
 
 export const siteKeywords = [
   "Клычников Александр",
   "Александр Клычников",
   "Alexander Klychnikov",
   "Klychnikov Alexander",
-  "разработчик Telegram ботов",
+  "вайбкодер",
+  "vibecoder",
+  "Telegram боты",
   "AI разработчик",
-  "No-Code разработчик",
-  "MVP разработка",
+  "RAG",
+  "LightRAG",
   "автоматизация бизнеса",
   "FastAPI",
-  "Next.js",
+  "MVP разработка",
+  "интеграции API",
 ]
 
 export const githubProfileUrl = "https://github.com/alexklychnikov-ui"

@@ -4,7 +4,10 @@ type Locale = "en" | "ru"
 
 const translations = {
   hero: {
-    label: { en: "No-Code Developer", ru: "No-Code Разработчик" },
+    label: {
+      en: "Vibecoder with ERP background",
+      ru: "Вайбкодер с ERP-бэкграундом",
+    },
     namePrimary: {
       en: "Alexander Klychnikov",
       ru: "Клычников Александр",
@@ -17,29 +20,37 @@ const translations = {
       en: "VibeCode",
       ru: "VibeCode",
     },
+    taglinePrimary: {
+      en: "Bots, AI & automation — shipped, not prototyped",
+      ru: "Боты, AI и автоматизация — до рабочего результата",
+    },
+    taglineSecondary: {
+      en: "Telegram bots · AI integrations · internal services",
+      ru: "Telegram-боты · AI-интеграции · внутренние сервисы",
+    },
     subtitle: {
-      en: "Alexander Klychnikov — I turn ideas into working products and business automation — fast, carefully, and with a guarantee.",
-      ru: "Клычников Александр — разработчик Telegram-ботов, AI-интеграций и MVP. Превращаю идеи в работающие продукты и автоматизацию для бизнеса.",
+      en: "Experienced corporate systems developer who uses AI-assisted delivery to ship Python / AI / Telegram solutions — not a ChatGPT beginner, a process practitioner with a new tool.",
+      ru: "Вайбкодер с ERP-бэкграундом: боты, AI и автоматизация — до рабочего результата, а не до красивого прототипа.",
     },
     description: {
-      en: "I turn ideas into working products in days, not months. Specializing in rapid MVP development, AI integrations, and workflow automation.",
-      ru: "Превращаю идеи в работающие продукты за дни, а не месяцы. Специализируюсь на быстрой разработке MVP, интеграции AI и автоматизации процессов.",
+      en: "I take a business scenario to a working contour: deploy, handoff notes, one measurable flow.",
+      ru: "Довожу сценарий до рабочего контура: деплой, инструкция, один измеримый поток.",
     },
     benefits: {
       en: [
-        "Rapid MVP development",
-        "AI & automation integration", 
-        "No-code & low-code tools"
+        "Telegram bots under a real process: request → status → person / system",
+        "AI & RAG that cut routine — documents, classification, knowledge bases",
+        "Integrations to a working result: API, statuses, journal — then deploy",
       ],
       ru: [
-        "Быстрая разработка MVP",
-        "Интеграция AI и автоматизация",
-        "Разработка Telegram-ботов, AI-ассистентов, сайтов и портфолио"
+        "Telegram-боты под процесс: заявка → статус → человек / система",
+        "AI и RAG под рутину — документы, классификация, базы знаний",
+        "Интеграции до результата: API, статусы, журнал — и деплой",
       ],
     },
     cta: {
       primary: { en: "View Projects", ru: "Посмотреть проекты" },
-      secondary: { en: "Contact Me", ru: "Связаться" },
+      secondary: { en: "Send a scenario", ru: "Прислать сценарий" },
     },
     photoAlt: {
       en: "Alexander Klychnikov — developer profile photo",
@@ -66,8 +77,8 @@ const translations = {
     label: { en: "Portfolio", ru: "Портфолио" },
     title: { en: "Featured Projects", ru: "Избранные проекты" },
     subtitle: {
-      en: "Real case studies: the problem, my role, tech stack, and measurable outcomes.",
-      ru: "Реальные кейсы: задача, моя роль, стек и конкретный результат.",
+      en: "Problem → solution → stack → result → demo / GitHub. Clear in 30 seconds.",
+      ru: "Проблема → решение → стек → результат → демо / GitHub. Понятно за 30 секунд.",
     },
     loading: { en: "Loading projects...", ru: "Загрузка проектов..." },
     fields: {
@@ -93,94 +104,40 @@ const translations = {
     },
     cta: {
       title: {
-        en: "Interested in a similar project?",
-        ru: "Интересует похожий проект?",
+        en: "Need a similar contour?",
+        ru: "Нужен похожий контур?",
       },
-      contact: { en: "Discuss a project", ru: "Обсудить проект" },
+      contact: { en: "Send your scenario", ru: "Прислать сценарий" },
       github: { en: "All repositories", ru: "Все репозитории" },
-    },
-    items: {
-      en: [
-        {
-          title: "AI Customer Support Bot",
-          description: "Automated support system using OpenAI API integrated with Telegram, handling 500+ queries daily with 95% resolution rate.",
-        },
-        {
-          title: "E-Commerce MVP",
-          description: "Full-featured online store built in 5 days with payment processing, inventory management, and automated order notifications.",
-        },
-        {
-          title: "Lead Gen Automation",
-          description: "End-to-end lead generation pipeline that scrapes, qualifies, and routes leads to the sales team automatically.",
-        },
-        {
-          title: "SaaS Dashboard",
-          description: "Analytics dashboard for a SaaS product with real-time data visualization, user management, and automated reporting.",
-        },
-        {
-          title: "Booking Platform",
-          description: "Appointment scheduling platform with calendar sync, automated reminders, and payment integration for a coaching business.",
-        },
-        {
-          title: "Content Workflow Engine",
-          description: "AI-powered content pipeline that generates, reviews, and publishes blog posts and social media content automatically.",
-        },
-      ],
-      ru: [
-        {
-          title: "AI-бот поддержки клиентов",
-          description: "Автоматизированная система поддержки на базе OpenAI API с интеграцией в Telegram. Обрабатывает 500+ запросов в неделю.",
-        },
-        {
-          title: "MVP Интернет-магазина",
-          description: "Полнофункциональный интернет-магазин, созданный за 5 дней с обработкой платежей, управлением складом и автоматическими уведомлениями.",
-        },
-        {
-          title: "Автоматизация лидогенерации",
-          description: "Комплексная система генерации лидов, которая автоматически собирает, квалифицирует и распределяет лиды по команде продаж.",
-        },
-        {
-          title: "SaaS Дашборд",
-          description: "Аналитический дашборд для SaaS-продукта с визуализацией данных в реальном времени, управлением пользователями и автоматической отчётностью.",
-        },
-        {
-          title: "Платформа бронирования",
-          description: "Платформа для записи на приём с синхронизацией календаря, автоматическими напоминаниями и интеграцией платежей.",
-        },
-        {
-          title: "Система контент-маркетинга",
-          description: "AI-система для автоматической генерации, проверки и публикации контента для блога и социальных сетей.",
-        },
-      ],
     },
   },
   services: {
     label: { en: "What I Offer", ru: "Что я предлагаю" },
     title: { en: "Services", ru: "Услуги" },
     subtitle: {
-      en: "AI solutions, Telegram bots, integrations and MVP in Python — fast and practical for business.",
-      ru: "AI-решения, Telegram-боты, интеграции и MVP на Python — быстро и с практической пользой для бизнеса.",
+      en: "Three focus areas for SMB and early product teams — to a working result, not a pretty prototype.",
+      ru: "Три фокуса для МСБ и ранних команд — до рабочего результата, не до красивого прототипа.",
     },
     items: {
       en: [
-        { title: "MVP Development", description: "Turn your idea into a working product in days. Full-featured MVPs with user auth, payments, and integrations — ready for launch." },
-        { title: "Workflow Automation", description: "Eliminate repetitive tasks with smart automations. Connect your tools, sync data, and streamline operations across your business." },
-        { title: "AI Integration", description: "Embed AI-powered features into your product — chatbots, content generation, data analysis, and intelligent automation." },
+        { title: "Telegram bots + business automation", description: "Intake, FAQ, routing to a manager/CRM, statuses and dialog flows — with AI where it removes routine." },
+        { title: "AI + automation / RAG", description: "Documents and Excel, task assistants, classification, knowledge bases — a pipeline from file to answer to notification." },
+        { title: "Integrations & internal services", description: "API, Python backend, DB, Telegram ↔ CRM ↔ sheets ↔ external APIs — with statuses and a journal, not fire-and-forget." },
       ],
       ru: [
-        { title: "Разработка MVP", description: "Превратите идею в работающий продукт за несколько дней. Полнофункциональные MVP с авторизацией, платежами и интеграциями." },
-        { title: "Автоматизация процессов", description: "Устраните рутинные задачи с помощью умных автоматизаций. Подключите инструменты, синхронизируйте данные и оптимизируйте работу." },
-        { title: "Интеграция AI", description: "Встраивайте AI-функции в ваш продукт — чат-боты, генерацию контента, анализ данных и интеллектуальную автоматизацию." },
+        { title: "Telegram-боты + автоматизация бизнеса", description: "Приём заявок, FAQ, передача менеджеру/в CRM, статусы и сценарии диалога — AI там, где снимает рутину." },
+        { title: "AI + автоматизация / RAG", description: "Документы и Excel, помощники под задачу, классификация, базы знаний — пайплайн «файл → ответ → уведомление»." },
+        { title: "Интеграции и внутренние сервисы", description: "API, Python backend, БД, связки Telegram ↔ CRM ↔ таблицы ↔ внешние API — со статусами и журналом, не «отправили и забыли»." },
       ],
     },
-    discuss: { en: "Discuss", ru: "Обсудить" },
+    discuss: { en: "Send a scenario", ru: "Прислать сценарий" },
   },
   testimonials: {
     label: { en: "Feedback", ru: "Отзывы" },
     title: { en: "What Clients Say", ru: "Что говорят клиенты" },
     subtitle: {
-      en: "Trusted by founders and teams to deliver fast, reliable solutions.",
-      ru: "Мне доверяют основатели и команды для быстрых и надёжных решений.",
+      en: "Feedback from people who shipped a working contour with me.",
+      ru: "Отзывы тех, с кем довели задачу до рабочего контура.",
     },
     starRating: { en: "5 star rating", ru: "Оценка 5 звёзд" },
     scrollLeft: { en: "Scroll testimonials left", ru: "Прокрутить отзывы влево" },
@@ -208,19 +165,19 @@ const translations = {
     label: { en: "Get In Touch", ru: "Связь" },
     title: { en: "Contact Me", ru: "Свяжитесь со мной" },
     subtitle: {
-      en: "Have an idea or project in mind? Let's discuss how I can help bring it to life.",
-      ru: "Есть идея или проект? Давайте обсудим, как я могу помочь.",
+      en: "Send one scenario: who triggers it, what should happen, what counts as done.",
+      ru: "Пришлите один сценарий: кто запускает, что должно произойти, что считается «готово».",
     },
     infoTitle: {
-      en: "Let's work together",
-      ru: "Давайте работать вместе",
+      en: "Next step",
+      ru: "Следующий шаг",
     },
     infoText: {
-      en: "Need a quick MVP, workflow automation, or AI integration? Submit the form — I get a Telegram notification and reply in direct messages or a group chat.",
-      ru: "Нужен быстрый MVP, автоматизация или интеграция AI? Заполните форму — я получу уведомление в Telegram и отвечу в личке или в группе.",
+      en: "Describe the flow (bot / AI / integration). I get a Telegram ping and reply with architecture options and a concrete next step — not a vague «let's discuss».",
+      ru: "Опишите поток (бот / AI / интеграция). Я получу пинг в Telegram и отвечу вариантами архитектуры и конкретным следующим шагом — не «давайте обсудим» в вакууме.",
     },
     email: "alexandr_klychnikov@mail.ru",
-    location: { en: "Remote / Worldwide", ru: "Удалённо / По всему миру" },
+    location: { en: "Irkutsk · remote", ru: "Иркутск · удалённо" },
     responseTime: { en: "Usually responds within 12h", ru: "Обычно отвечаю в течение 12ч" },
     telegram: {
       en: "Telegram contact",
@@ -240,8 +197,11 @@ const translations = {
     phoneLabel: { en: "Phone", ru: "Телефон" },
     phonePlaceholder: { en: "+7 (999) 123-45-67", ru: "+7 (999) 123-45-67" },
     messageLabel: { en: "Message", ru: "Сообщение" },
-    messagePlaceholder: { en: "Tell me about your project...", ru: "Расскажите о вашем проекте..." },
-    sendButton: { en: "Send Message", ru: "Отправить" },
+    messagePlaceholder: {
+      en: "Scenario: trigger → steps → done criterion…",
+      ru: "Сценарий: триггер → шаги → критерий «готово»…",
+    },
+    sendButton: { en: "Send scenario", ru: "Отправить сценарий" },
     formAriaLabel: { en: "Contact form", ru: "Форма связи" },
     sending: { en: "Sending...", ru: "Отправка..." },
     success: { en: "Message sent. I'll reply soon.", ru: "Сообщение отправлено. Скоро отвечу." },
@@ -253,8 +213,8 @@ const translations = {
       ru: "Клычников Александр",
     },
     text: {
-      en: "Portfolio of Alexander Klychnikov — Telegram bots, AI integrations, MVP.",
-      ru: "Портфолио Клычникова Александра — Telegram-боты, AI-интеграции, MVP.",
+      en: "Vibecoder with ERP background — bots, AI, automation to a working result.",
+      ru: "Вайбкодер с ERP-бэкграундом — боты, AI, автоматизация до рабочего результата.",
     },
   },
   nav: {

@@ -1,10 +1,11 @@
 /* TEAM */
 Developer: Клычников Александр
+Role: Вайбкодер с ERP-бэкграундом — Telegram-боты, AI/RAG, интеграции
 Contact: alexandr_klychnikov@mail.ru
 Site: https://portfolio.hayklyvibelexy.ru
 GitHub: https://github.com/alexklychnikov-ui
 Telegram: https://t.me/Alex_Assistant_freelancing_bot
-From: Remote
+From: Irkutsk / Remote
 
 /* THANKS */
-Next.js, FastAPI, OpenAI, Telegram
+Next.js, FastAPI, OpenAI, Telegram, LightRAG

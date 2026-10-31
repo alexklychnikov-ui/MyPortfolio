@@ -5,6 +5,11 @@ export type NormalizedGithubRepo = {
   repo: string
 }
 
+export type GithubMediaItem = {
+  url: string
+  label: string
+}
+
 export type GithubRepoData = {
   originalUrl: string
   repoUrl: string
@@ -20,6 +25,8 @@ export type GithubRepoData = {
   readmeTitle?: string
   mockupUrl?: string | null
   mockupName?: string | null
+  screenshots?: GithubMediaItem[]
+  videos?: GithubMediaItem[]
   isPrivate?: boolean
 }
 

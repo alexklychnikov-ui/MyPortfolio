@@ -15,6 +15,8 @@ export async function GET() {
       tag: row.tag,
       demoUrl: row.demoUrl,
       image: row.image,
+      screenshots: row.screenshots as { url: string; label: string }[] | null,
+      videos: row.videos as { url: string; label: string }[] | null,
       createdAt: row.createdAt.toISOString(),
       updatedAt: row.updatedAt.toISOString(),
     }))

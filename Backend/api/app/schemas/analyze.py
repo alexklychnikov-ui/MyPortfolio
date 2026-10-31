@@ -10,6 +10,11 @@ class LocalizedText(BaseModel):
     en: str
 
 
+class ProjectMediaItem(BaseModel):
+    url: str
+    label: str
+
+
 class GeneratedProject(BaseModel):
     title: LocalizedText
     description: LocalizedText
@@ -20,6 +25,8 @@ class GeneratedProject(BaseModel):
     tag: str
     demoUrl: str | None = None
     image: str | None = None
+    screenshots: list[ProjectMediaItem] | None = None
+    videos: list[ProjectMediaItem] | None = None
 
 
 class GeneratedService(BaseModel):

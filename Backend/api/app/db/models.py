@@ -18,6 +18,8 @@ class Project(Base):
     tag: Mapped[str] = mapped_column(String(500), unique=True, nullable=False)
     demo_url: Mapped[str | None] = mapped_column("demo_url", String(500), nullable=True)
     image: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    screenshots: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    videos: Mapped[list | None] = mapped_column(JSON, nullable=True)
     sort_order: Mapped[int] = mapped_column("sort_order", Integer, default=0, nullable=False)
     created_at: Mapped[datetime] = mapped_column(
         "createdAt", DateTime(timezone=False), insert_default=func.now(), server_default=func.now()

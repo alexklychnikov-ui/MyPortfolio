@@ -1,6 +1,7 @@
 from app.core.config import settings
 from app.schemas.analyze import AnalyzeResponseData
 from app.services.github_client import GithubClient
+from app.services.demo_storage import materialize_project_demos
 from app.services.mockup_storage import materialize_project_mockups
 from app.services.openai_client import OpenAIClient
 from urllib.parse import urlparse
@@ -119,6 +120,12 @@ class PortfolioService:
         generated = self._normalize_project_tags(generated, repositories)
         generated = self._apply_readme_titles(generated, accepted)
         generated = await materialize_project_mockups(
+            generated,
+            accepted,
+            settings.static_export_dir,
+            self.github.headers,
+        )
+        generated = await materialize_project_demos(
             generated,
             accepted,
             settings.static_export_dir,

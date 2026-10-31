@@ -3,12 +3,17 @@
 import { useEffect, useState, useCallback } from "react"
 import useEmblaCarousel from "embla-carousel-react"
 import Image from "next/image"
-import { ArrowLeft, ArrowRight, ExternalLink, Github, Globe } from "lucide-react"
+import { ArrowLeft, ArrowRight, ExternalLink, Github, Globe, Images, Play, X } from "lucide-react"
 import { useI18n } from "./i18n"
 
 interface LocalizedText {
   ru: string
   en: string
+}
+
+interface ProjectMediaItem {
+  url: string
+  label: string
 }
 
 interface Project {
@@ -22,6 +27,8 @@ interface Project {
   tag: string
   demoUrl?: string
   image?: string
+  screenshots?: ProjectMediaItem[]
+  videos?: ProjectMediaItem[]
 }
 
 const emblaOptions = {
@@ -49,6 +56,10 @@ function hasCaseStudy(project: Project): boolean {
       project.result?.ru ||
       project.result?.en
   )
+}
+
+function isExternalVideo(url: string): boolean {
+  return /(?:youtube\.com|youtu\.be|loom\.com|vimeo\.com|rutube\.ru)/i.test(url)
 }
 
 export default function Projects({ initialProjects = [] }: { initialProjects?: Project[] }) {
@@ -156,6 +167,7 @@ export default function Projects({ initialProjects = [] }: { initialProjects?: P
 function ProjectCard({ project, locale }: { project: Project; locale: "ru" | "en" }) {
   const { t } = useI18n()
   const [imageFailed, setImageFailed] = useState(false)
+  const [mediaOpen, setMediaOpen] = useState(false)
   const title = pickLocalized(project.title, locale)
   const description = pickLocalized(project.description, locale)
   const goal = pickLocalized(project.goal, locale)
@@ -163,6 +175,9 @@ function ProjectCard({ project, locale }: { project: Project; locale: "ru" | "en
   const result = pickLocalized(project.result, locale)
   const techStack = project.stack.split(",").map((tech) => tech.trim()).filter(Boolean)
   const structured = hasCaseStudy(project)
+  const screenshots = project.screenshots ?? []
+  const videos = project.videos ?? []
+  const hasMedia = screenshots.length > 0 || videos.length > 0
   const initials = title
     .split(/\s+/)
     .slice(0, 2)
@@ -258,8 +273,201 @@ function ProjectCard({ project, locale }: { project: Project; locale: "ru" | "en
               <ExternalLink className="project-link-ext" />
             </a>
           )}
+          {hasMedia && (
+            <button
+              type="button"
+              className="project-link project-link-media"
+              onClick={() => setMediaOpen(true)}
+              aria-label={`${t.projects.links.media[locale]} — ${title}`}
+            >
+              {videos.length > 0 ? (
+                <Play className="project-link-icon" />
+              ) : (
+                <Images className="project-link-icon" />
+              )}
+              <span>{t.projects.links.media[locale]}</span>
+            </button>
+          )}
         </div>
       </article>
+
+      {mediaOpen && (
+        <ProjectMediaModal
+          title={title}
+          screenshots={screenshots}
+          videos={videos}
+          locale={locale}
+          onClose={() => setMediaOpen(false)}
+        />
+      )}
+    </div>
+  )
+}
+
+function ProjectMediaModal({
+  title,
+  screenshots,
+  videos,
+  locale,
+  onClose,
+}: {
+  title: string
+  screenshots: ProjectMediaItem[]
+  videos: ProjectMediaItem[]
+  locale: "ru" | "en"
+  onClose: () => void
+}) {
+  const { t } = useI18n()
+  const initialTab = screenshots.length > 0 ? "screenshots" : "videos"
+  const [tab, setTab] = useState<"screenshots" | "videos">(initialTab)
+  const [shotIndex, setShotIndex] = useState(0)
+  const [videoIndex, setVideoIndex] = useState(0)
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose()
+      if (tab === "screenshots" && screenshots.length > 1) {
+        if (event.key === "ArrowLeft") setShotIndex((i) => Math.max(0, i - 1))
+        if (event.key === "ArrowRight") setShotIndex((i) => Math.min(screenshots.length - 1, i + 1))
+      }
+      if (tab === "videos" && videos.length > 1) {
+        if (event.key === "ArrowLeft") setVideoIndex((i) => Math.max(0, i - 1))
+        if (event.key === "ArrowRight") setVideoIndex((i) => Math.min(videos.length - 1, i + 1))
+      }
+    }
+    window.addEventListener("keydown", onKey)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      window.removeEventListener("keydown", onKey)
+      document.body.style.overflow = prev
+    }
+  }, [onClose, tab, screenshots.length, videos.length])
+
+  const shot = screenshots[shotIndex]
+  const video = videos[videoIndex]
+
+  return (
+    <div className="project-media-overlay" role="dialog" aria-modal="true" aria-label={title}>
+      <button type="button" className="project-media-backdrop" aria-label="Close" onClick={onClose} />
+      <div className="project-media-dialog">
+        <div className="project-media-header">
+          <div>
+            <p className="project-media-kicker">{t.projects.links.media[locale]}</p>
+            <h4 className="project-media-title">{title}</h4>
+          </div>
+          <button type="button" className="project-media-close" onClick={onClose} aria-label="Close">
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="project-media-tabs">
+          {screenshots.length > 0 && (
+            <button
+              type="button"
+              className={`project-media-tab${tab === "screenshots" ? " is-active" : ""}`}
+              onClick={() => setTab("screenshots")}
+            >
+              {t.projects.media.screenshots[locale]} ({screenshots.length})
+            </button>
+          )}
+          {videos.length > 0 && (
+            <button
+              type="button"
+              className={`project-media-tab${tab === "videos" ? " is-active" : ""}`}
+              onClick={() => setTab("videos")}
+            >
+              {t.projects.media.videos[locale]} ({videos.length})
+            </button>
+          )}
+        </div>
+
+        {tab === "screenshots" && shot && (
+          <div className="project-media-body">
+            <div className="project-media-stage-wrap">
+              {screenshots.length > 1 && (
+                <button
+                  type="button"
+                  className="project-media-nav project-media-nav-prev"
+                  disabled={shotIndex === 0}
+                  onClick={() => setShotIndex((i) => Math.max(0, i - 1))}
+                  aria-label="Previous screenshot"
+                >
+                  <ArrowLeft size={18} />
+                </button>
+              )}
+              <div className="project-media-stage">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={shot.url} alt={shot.label} loading="lazy" />
+              </div>
+              {screenshots.length > 1 && (
+                <button
+                  type="button"
+                  className="project-media-nav project-media-nav-next"
+                  disabled={shotIndex >= screenshots.length - 1}
+                  onClick={() => setShotIndex((i) => Math.min(screenshots.length - 1, i + 1))}
+                  aria-label="Next screenshot"
+                >
+                  <ArrowRight size={18} />
+                </button>
+              )}
+            </div>
+            <p className="project-media-caption">
+              {shot.label}
+              {screenshots.length > 1 ? ` · ${shotIndex + 1} / ${screenshots.length}` : ""}
+            </p>
+          </div>
+        )}
+
+        {tab === "videos" && video && (
+          <div className="project-media-body">
+            <div className="project-media-stage-wrap">
+              {videos.length > 1 && (
+                <button
+                  type="button"
+                  className="project-media-nav project-media-nav-prev"
+                  disabled={videoIndex === 0}
+                  onClick={() => setVideoIndex((i) => Math.max(0, i - 1))}
+                  aria-label="Previous video"
+                >
+                  <ArrowLeft size={18} />
+                </button>
+              )}
+              <div className="project-media-stage project-media-stage-video">
+                {isExternalVideo(video.url) ? (
+                  <a
+                    href={video.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-media-external-video"
+                  >
+                    <Play size={18} />
+                    <span>{video.label}</span>
+                    <ExternalLink size={14} />
+                  </a>
+                ) : (
+                  <video key={video.url} src={video.url} controls playsInline preload="metadata" />
+                )}
+              </div>
+              {videos.length > 1 && (
+                <button
+                  type="button"
+                  className="project-media-nav project-media-nav-next"
+                  disabled={videoIndex >= videos.length - 1}
+                  onClick={() => setVideoIndex((i) => Math.min(videos.length - 1, i + 1))}
+                  aria-label="Next video"
+                >
+                  <ArrowRight size={18} />
+                </button>
+              )}
+            </div>
+            <p className="project-media-caption">
+              {video.label}
+              {videos.length > 1 ? ` · ${videoIndex + 1} / ${videos.length}` : ""}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

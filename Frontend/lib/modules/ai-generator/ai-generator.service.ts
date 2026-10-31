@@ -1,7 +1,11 @@
 import { generatedPortfolioSchema, type GeneratedPortfolio } from "./ai-generator.schema"
 import { buildUnifiedSystemPrompt, buildUserPrompt, readSystemPrompt } from "./ai-generator.prompt"
 import type { GithubRepoData } from "@/lib/modules/github-analyzer/github-analyzer.types"
-import { materializePrivateMockups, orderProjectsByInput } from "@/lib/modules/github-analyzer/project-mockup"
+import {
+  materializePrivateMockups,
+  materializeProjectDemos,
+  orderProjectsByInput,
+} from "@/lib/modules/github-analyzer/project-mockup"
 import path from "node:path"
 import { SKILL_CATEGORIES } from "@/lib/modules/skills/skill-categories"
 
@@ -177,7 +181,8 @@ export async function generatePortfolioFromRepositories(
   const withTitles = applyReadmeTitles(ordered, repositories)
   const exportDir = path.join(process.cwd(), "public", "data")
   const withMockups = await materializePrivateMockups(withTitles, repositories, exportDir)
-  const projects = dedupeByTag(withMockups)
+  const withDemos = await materializeProjectDemos(withMockups, repositories, exportDir)
+  const projects = dedupeByTag(withDemos)
   return {
     ...normalized,
     projects,

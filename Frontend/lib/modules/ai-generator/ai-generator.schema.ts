@@ -5,6 +5,11 @@ const localizedTextSchema = z.object({
   en: z.string().min(1),
 })
 
+const mediaItemSchema = z.object({
+  url: z.string().url(),
+  label: z.string().min(1),
+})
+
 export const generatedProjectSchema = z.object({
   title: localizedTextSchema,
   description: localizedTextSchema,
@@ -18,6 +23,9 @@ export const generatedProjectSchema = z.object({
     .transform((value) => value.trim())
     .transform((value) => (value && /^https?:\/\//i.test(value) ? value : undefined))
     .optional(),
+  image: z.string().optional(),
+  screenshots: z.array(mediaItemSchema).optional(),
+  videos: z.array(mediaItemSchema).optional(),
 })
 
 export const generatedServiceSchema = z.object({

@@ -3,7 +3,7 @@ import type {
   GithubRepoData,
   NormalizedGithubRepo,
 } from "./github-analyzer.types"
-import { extractFirstReadmeImage, extractReadmeTitle } from "./readme-parser"
+import { extractFirstReadmeImage, extractReadmeMedia, extractReadmeTitle } from "./readme-parser"
 
 const GITHUB_API_BASE = "https://api.github.com"
 
@@ -131,11 +131,18 @@ export async function analyzeGithubRepositories(urls: string[]): Promise<GithubA
         ])
       ).slice(0, 20)
 
+      const defaultBranch = repoData.default_branch ?? "main"
       const mockup = extractFirstReadmeImage(
         readmeRaw,
         normalized.owner,
         normalized.repo,
-        repoData.default_branch ?? "main"
+        defaultBranch
+      )
+      const media = extractReadmeMedia(
+        readmeRaw,
+        normalized.owner,
+        normalized.repo,
+        defaultBranch
       )
 
       repositories.push({
@@ -144,7 +151,7 @@ export async function analyzeGithubRepositories(urls: string[]): Promise<GithubA
         owner: normalized.owner,
         repo: normalized.repo,
         description: repoData.description ?? "",
-        defaultBranch: repoData.default_branch ?? "main",
+        defaultBranch,
         topics: repoData.topics ?? [],
         languages: Object.keys(languagesData),
         readme: compactText(readmeRaw, 8000),
@@ -153,6 +160,8 @@ export async function analyzeGithubRepositories(urls: string[]): Promise<GithubA
         readmeTitle: extractReadmeTitle(readmeRaw),
         mockupUrl: mockup?.url ?? null,
         mockupName: mockup?.name ?? null,
+        screenshots: media.screenshots,
+        videos: media.videos,
         isPrivate: Boolean(repoData.private),
       })
     } catch (error) {

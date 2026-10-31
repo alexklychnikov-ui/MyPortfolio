@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 import httpx
 
 from app.core.config import settings
-from app.services.readme_parser import extract_first_readme_image, extract_readme_title
+from app.services.readme_parser import extract_first_readme_image, extract_readme_media, extract_readme_title
 
 
 class GithubClient:
@@ -123,14 +123,16 @@ class GithubClient:
                 package_json = await self._json_or_none(client, f"/repos/{owner}/{repo}/contents/package.json")
                 languages = await self._json_or_none(client, f"/repos/{owner}/{repo}/languages")
 
-                readme_text = self._decode_b64(readme.get("content") if isinstance(readme, dict) else None)[:8000]
+                readme_full = self._decode_b64(readme.get("content") if isinstance(readme, dict) else None)
+                readme_text = readme_full[:8000]
                 package_text = self._decode_b64(package_json.get("content") if isinstance(package_json, dict) else None)[
                     :8000
                 ]
                 language_list = list(languages.keys()) if isinstance(languages, dict) else []
                 default_branch = str(repo_data.get("default_branch") or "main")
-                mockup = extract_first_readme_image(readme_text, owner, repo, default_branch)
-                readme_title = extract_readme_title(readme_text)
+                mockup = extract_first_readme_image(readme_full, owner, repo, default_branch)
+                media = extract_readme_media(readme_full, owner, repo, default_branch)
+                readme_title = extract_readme_title(readme_full)
 
                 accepted.append(
                     {
@@ -146,6 +148,8 @@ class GithubClient:
                         "readme_title": readme_title,
                         "mockup_url": mockup[0] if mockup else None,
                         "mockup_name": mockup[1] if mockup else None,
+                        "screenshots": media.get("screenshots") or [],
+                        "videos": media.get("videos") or [],
                     }
                 )
 

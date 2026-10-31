@@ -73,6 +73,9 @@ jspm_packages/
 .env.test.local
 .env.production.local
 
+# Runtime demos copied from GitHub on analyze (screenshots/videos)
+public/data/project-demos/
+
 # parcel-bundler cache
 .cache
 .parcel-cache

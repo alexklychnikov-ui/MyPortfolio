@@ -25,6 +25,10 @@ def replace_all(db: Session, payload: AnalyzeResponseData) -> None:
                 tag=str(project.tag),
                 demo_url=project.demoUrl,
                 image=project.image,
+                screenshots=[item.model_dump() for item in project.screenshots]
+                if project.screenshots
+                else None,
+                videos=[item.model_dump() for item in project.videos] if project.videos else None,
                 sort_order=index,
             )
         )

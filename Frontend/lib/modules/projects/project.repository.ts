@@ -17,6 +17,8 @@ export async function replaceProjects(projects: GeneratedProject[]) {
         tag: project.tag,
         demoUrl: project.demoUrl ?? undefined,
         image: project.image ?? undefined,
+        screenshots: project.screenshots ?? undefined,
+        videos: project.videos ?? undefined,
         sortOrder: index,
       })),
     }),

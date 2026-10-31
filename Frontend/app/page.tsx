@@ -44,6 +44,8 @@ type Project = {
   tag: string
   demoUrl?: string
   image?: string
+  screenshots?: { url: string; label: string }[]
+  videos?: { url: string; label: string }[]
 }
 
 type Service = {

@@ -35,6 +35,10 @@ def export_public_data(
             item["demoUrl"] = row.demo_url
         if row.image:
             item["image"] = row.image
+        if row.screenshots:
+            item["screenshots"] = row.screenshots
+        if row.videos:
+            item["videos"] = row.videos
         projects_payload.append(item)
 
     services_payload = [

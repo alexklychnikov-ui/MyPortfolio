@@ -78,6 +78,11 @@ const translations = {
     links: {
       github: { en: "GitHub", ru: "GitHub" },
       demo: { en: "Live demo", ru: "Демо" },
+      media: { en: "Screens & video", ru: "Скрины и видео" },
+    },
+    media: {
+      screenshots: { en: "Screenshots", ru: "Скриншоты" },
+      videos: { en: "Videos", ru: "Видео" },
     },
     cta: {
       title: {

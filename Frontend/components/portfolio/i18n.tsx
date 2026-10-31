@@ -84,6 +84,7 @@ const translations = {
       screenshots: { en: "Screenshots", ru: "Скриншоты" },
       videos: { en: "Videos", ru: "Видео" },
       zoom: { en: "Enlarge screenshot", ru: "Увеличить скриншот" },
+      zoomOut: { en: "Back to normal size", ru: "Вернуть обычный размер" },
       videoError: {
         en: "Browser cannot play this file.",
         ru: "Браузер не смог проиграть файл.",

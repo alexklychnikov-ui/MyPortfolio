@@ -334,6 +334,26 @@ function ProjectMediaModal({
   }, [videoIndex, tab])
 
   useEffect(() => {
+    setZoomedShot(false)
+  }, [shotIndex, videoIndex, tab])
+
+  const goShot = useCallback(
+    (next: number) => {
+      setZoomedShot(false)
+      setShotIndex(Math.max(0, Math.min(screenshots.length - 1, next)))
+    },
+    [screenshots.length]
+  )
+
+  const goVideo = useCallback(
+    (next: number) => {
+      setZoomedShot(false)
+      setVideoIndex(Math.max(0, Math.min(videos.length - 1, next)))
+    },
+    [videos.length]
+  )
+
+  useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         if (zoomedShot) {
@@ -343,14 +363,13 @@ function ProjectMediaModal({
         onClose()
         return
       }
-      if (zoomedShot) return
       if (tab === "screenshots" && screenshots.length > 1) {
-        if (event.key === "ArrowLeft") setShotIndex((i) => Math.max(0, i - 1))
-        if (event.key === "ArrowRight") setShotIndex((i) => Math.min(screenshots.length - 1, i + 1))
+        if (event.key === "ArrowLeft") goShot(shotIndex - 1)
+        if (event.key === "ArrowRight") goShot(shotIndex + 1)
       }
       if (tab === "videos" && videos.length > 1) {
-        if (event.key === "ArrowLeft") setVideoIndex((i) => Math.max(0, i - 1))
-        if (event.key === "ArrowRight") setVideoIndex((i) => Math.min(videos.length - 1, i + 1))
+        if (event.key === "ArrowLeft") goVideo(videoIndex - 1)
+        if (event.key === "ArrowRight") goVideo(videoIndex + 1)
       }
     }
     window.addEventListener("keydown", onKey)
@@ -360,7 +379,17 @@ function ProjectMediaModal({
       window.removeEventListener("keydown", onKey)
       document.body.style.overflow = prev
     }
-  }, [onClose, tab, screenshots.length, videos.length, zoomedShot])
+  }, [
+    onClose,
+    tab,
+    screenshots.length,
+    videos.length,
+    zoomedShot,
+    shotIndex,
+    videoIndex,
+    goShot,
+    goVideo,
+  ])
 
   const shot = screenshots[shotIndex]
   const video = videos[videoIndex]
@@ -408,7 +437,7 @@ function ProjectMediaModal({
                   type="button"
                   className="project-media-nav project-media-nav-prev"
                   disabled={shotIndex === 0}
-                  onClick={() => setShotIndex((i) => Math.max(0, i - 1))}
+                  onClick={() => goShot(shotIndex - 1)}
                   aria-label="Previous screenshot"
                 >
                   <ArrowLeft size={18} />
@@ -418,11 +447,12 @@ function ProjectMediaModal({
                 <button
                   type="button"
                   className="project-media-shot-btn"
-                  onClick={() => setZoomedShot(true)}
+                  onClick={() => setZoomedShot((open) => !open)}
                   aria-label={t.projects.media.zoom[locale]}
+                  aria-pressed={zoomedShot}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={shot.url} alt={shot.label} loading="lazy" />
+                  <img key={shot.url} src={shot.url} alt={shot.label} loading="lazy" />
                 </button>
               </div>
               {screenshots.length > 1 && (
@@ -430,7 +460,7 @@ function ProjectMediaModal({
                   type="button"
                   className="project-media-nav project-media-nav-next"
                   disabled={shotIndex >= screenshots.length - 1}
-                  onClick={() => setShotIndex((i) => Math.min(screenshots.length - 1, i + 1))}
+                  onClick={() => goShot(shotIndex + 1)}
                   aria-label="Next screenshot"
                 >
                   <ArrowRight size={18} />
@@ -452,7 +482,7 @@ function ProjectMediaModal({
                   type="button"
                   className="project-media-nav project-media-nav-prev"
                   disabled={videoIndex === 0}
-                  onClick={() => setVideoIndex((i) => Math.max(0, i - 1))}
+                  onClick={() => goVideo(videoIndex - 1)}
                   aria-label="Previous video"
                 >
                   <ArrowLeft size={18} />
@@ -498,7 +528,7 @@ function ProjectMediaModal({
                   type="button"
                   className="project-media-nav project-media-nav-next"
                   disabled={videoIndex >= videos.length - 1}
-                  onClick={() => setVideoIndex((i) => Math.min(videos.length - 1, i + 1))}
+                  onClick={() => goVideo(videoIndex + 1)}
                   aria-label="Next video"
                 >
                   <ArrowRight size={18} />
@@ -530,8 +560,37 @@ function ProjectMediaModal({
             >
               <X size={18} />
             </button>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={shot.url} alt={shot.label} />
+            {screenshots.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  className="project-media-nav project-media-zoom-nav project-media-zoom-nav-prev"
+                  disabled={shotIndex === 0}
+                  onClick={() => goShot(shotIndex - 1)}
+                  aria-label="Previous screenshot"
+                >
+                  <ArrowLeft size={18} />
+                </button>
+                <button
+                  type="button"
+                  className="project-media-nav project-media-zoom-nav project-media-zoom-nav-next"
+                  disabled={shotIndex >= screenshots.length - 1}
+                  onClick={() => goShot(shotIndex + 1)}
+                  aria-label="Next screenshot"
+                >
+                  <ArrowRight size={18} />
+                </button>
+              </>
+            )}
+            <button
+              type="button"
+              className="project-media-zoom-image-btn"
+              onClick={() => setZoomedShot(false)}
+              aria-label={t.projects.media.zoomOut[locale]}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img key={shot.url} src={shot.url} alt={shot.label} />
+            </button>
           </div>
         </div>
       )}

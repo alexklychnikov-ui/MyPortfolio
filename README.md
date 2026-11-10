@@ -1,7 +1,7 @@
 # Сверстаю лендинг-портфолио с автонаполнением
 
 <!-- MOCKUPS:START -->
-![Mockup](docs/mockups/mockup-20260531-105736.png)
+![Mockup](docs/mockups/NODEX_%20Портфолио%20через%20Telegram.png)
 <!-- MOCKUPS:END -->
 
 ## 🖼 Скриншоты

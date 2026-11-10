@@ -5,7 +5,7 @@ import httpx
 from app.core.config import settings
 from app.schemas.analyze import AnalyzeResponseData
 from app.services.demo_storage import materialize_project_demos
-from app.services.github_client import GithubClient
+from app.services.github_client import RATE_LIMIT_REASON_PREFIX, GithubClient
 from app.services.mockup_storage import materialize_project_mockups
 from app.services.openai_client import OpenAIClient
 
@@ -14,6 +14,14 @@ class PortfolioService:
     def __init__(self) -> None:
         self.github = GithubClient()
         self.openai = OpenAIClient()
+
+    @staticmethod
+    def _rate_limit_skips(skipped: list[dict[str, str]]) -> list[dict[str, str]]:
+        return [
+            item
+            for item in skipped
+            if RATE_LIMIT_REASON_PREFIX in str(item.get("reason") or "")
+        ]
 
     @staticmethod
     def _is_http_url(value: str | None) -> bool:
@@ -168,6 +176,17 @@ class PortfolioService:
 
     async def analyze_repositories(self, repositories: list[str]) -> tuple[AnalyzeResponseData, list[dict[str, str]]]:
         accepted, skipped = await self.github.collect_many(repositories)
+        rate_limited = self._rate_limit_skips(skipped)
+        if rate_limited:
+            # Never replace_all with a partial batch caused by rate limit — keeps old portfolio intact.
+            sample = rate_limited[0].get("reason") or RATE_LIMIT_REASON_PREFIX
+            auth = getattr(self.github, "auth_mode", "unknown")
+            raise ValueError(
+                f"{sample}. "
+                f"Aborted before DB update to avoid wiping projects "
+                f"(accepted={len(accepted)}, rate_limited={len(rate_limited)}, auth={auth}). "
+                "If auth=anonymous_invalid_token — replace GITHUB_TOKEN in Backend/.env."
+            )
         if not accepted:
             reasons = [item.get("reason", "") for item in skipped if item.get("reason")]
             top_reasons = ", ".join(sorted(set(reasons))[:2]) if reasons else "unknown reason"

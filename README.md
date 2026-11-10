@@ -134,12 +134,18 @@
 Причина: `API_INTERNAL_KEY` не совпадает между `backend-api` и `telegram-bot`.  
 Решение: проверить `Backend/.env` и пересоздать bot-контейнер.
 
-### 2) `422 No repositories were successfully analyzed`
+### 2) `422` + `GitHub API rate limit exceeded`
 
-Самая частая причина: исчерпан лимит GitHub API.  
+Причины:
+- мёртвый/отозванный `GITHUB_TOKEN` (GitHub отвечает `401`) → backend молча падает в **anonymous 60 req/hour**;
+- спам повторных запросов из Telegram, пока предыдущий анализ ещё идёт;
+- частичный батч раньше мог записать 1/N проектов и затереть портфолио — теперь при rate-limit **БД не трогаем**.
+
 Решение:
-- задать `GITHUB_TOKEN` in `Backend/.env`;
-- перезапустить `backend-api`.
+- создать новый fine-grained/classic PAT с доступом к нужным репо;
+- прописать `GITHUB_TOKEN` в `Backend/.env` и `docker compose up -d --build backend-api`;
+- в боте дождаться одного ответа (повтор во время анализа блокируется);
+- проверить: `docker exec portfolio-backend-api python -c "…rate_limit…"` → `limit` должен быть 5000, не 60.
 
 ### 3) Сайт не обновляется после успешного анализа
 

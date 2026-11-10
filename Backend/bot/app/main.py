@@ -1,3 +1,4 @@
+import asyncio
 import re
 from typing import Any
 
@@ -29,6 +30,10 @@ dp.include_router(router)
 REPO_URL_PATTERN = re.compile(r"https://github\.com/[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+/?")
 CREATE_PNG_PREFIX = re.compile(r"^/?createPng(?:@\w+)?(?:\s+|$)", re.IGNORECASE)
 
+# One analyze at a time — spam retries were burning GitHub anonymous quota and timing out.
+_analyze_lock = asyncio.Lock()
+_create_png_lock = asyncio.Lock()
+
 
 def extract_repositories(text: str) -> list[str]:
     return list(dict.fromkeys(REPO_URL_PATTERN.findall(text)))
@@ -36,6 +41,17 @@ def extract_repositories(text: str) -> list[str]:
 
 def is_create_png_request(text: str) -> bool:
     return bool(CREATE_PNG_PREFIX.match(text.strip()))
+
+
+def _format_api_error(status_code: int, detail: str) -> str:
+    text = (detail or "").strip()
+    if "rate limit" in text.lower():
+        return (
+            f"GitHub rate limit. Портфолио в БД не трогал.\n"
+            f"Подожди reset / поставь рабочий GITHUB_TOKEN и повтори один раз.\n"
+            f"Детали: {text[:900]}"
+        )
+    return f"Ошибка API: {status_code}\n{text[:1200]}"
 
 
 @router.message(CommandStart())
@@ -69,53 +85,76 @@ async def process_message(message: Message):
         )
         return
 
-    await message.answer(f"Принял {len(repositories)} ссылок. Запускаю анализ.")
-    payload = {"repositories": repositories}
-    headers = {"x-internal-api-key": settings.api_internal_key}
-
-    try:
-        async with httpx.AsyncClient(timeout=httpx.Timeout(120.0)) as client:
-            response = await client.post(f"{settings.backend_api_url}/v1/github/analyze", json=payload, headers=headers)
-            if response.status_code >= 400:
-                detail = ""
-                try:
-                    detail = response.json().get("detail", "")
-                except Exception:
-                    detail = response.text[:1200]
-                await message.answer(f"Ошибка API: {response.status_code}\n{detail[:1200]}")
-                return
-            data: dict[str, Any] = response.json()
-    except Exception as exc:
-        await message.answer(f"Ошибка запроса к Backend API: {exc}")
+    if _analyze_lock.locked():
+        await message.answer(
+            "Уже идёт анализ предыдущего запроса. Дождись ответа — повтор сейчас только жжёт GitHub quota."
+        )
         return
 
-    skipped = data.get("skipped", [])
-    projects = data.get("data", {}).get("projects", [])
-    services = data.get("data", {}).get("services", [])
-    skills = data.get("data", {}).get("skills", {})
-    skill_categories = [
-        "languageRuntime",
-        "aiLlm",
-        "backend",
-        "botsIntegrations",
-        "infrastructure",
-        "automation",
-        "devTools",
-    ]
-    skill_summary = ", ".join(f"{category}={len(skills.get(category, []))}" for category in skill_categories)
+    async with _analyze_lock:
+        await message.answer(f"Принял {len(repositories)} ссылок. Запускаю анализ.")
+        payload = {"repositories": repositories}
+        headers = {"x-internal-api-key": settings.api_internal_key}
 
-    lines = [
-        (
-            f"Завершил: обработано {len(repositories) - len(skipped)} из {len(repositories)}."
-            " Обновлено в БД:"
-        ),
-        f"- Projects: {len(projects)}",
-        f"- Services: {len(services)}",
-        f"- Skills: {skill_summary}",
-    ]
-    if skipped:
-        lines.append(f"- Skipped: {len(skipped)}")
-    await message.answer("\n".join(lines))
+        try:
+            async with httpx.AsyncClient(timeout=httpx.Timeout(300.0)) as client:
+                response = await client.post(
+                    f"{settings.backend_api_url}/v1/github/analyze",
+                    json=payload,
+                    headers=headers,
+                )
+                if response.status_code >= 400:
+                    detail = ""
+                    try:
+                        detail = str(response.json().get("detail", ""))
+                    except Exception:
+                        detail = response.text[:1200]
+                    await message.answer(_format_api_error(response.status_code, detail))
+                    return
+                data: dict[str, Any] = response.json()
+        except httpx.TimeoutException:
+            await message.answer(
+                "Backend не ответил за 300с (часто ffmpeg/OpenAI). Портфолио могло не обновиться — "
+                "проверь логи backend-api и повтори один раз позже."
+            )
+            return
+        except Exception as exc:
+            await message.answer(f"Ошибка запроса к Backend API: {exc}")
+            return
+
+        skipped = data.get("skipped", [])
+        projects = data.get("data", {}).get("projects", [])
+        services = data.get("data", {}).get("services", [])
+        skills = data.get("data", {}).get("skills", {})
+        skill_categories = [
+            "languageRuntime",
+            "aiLlm",
+            "backend",
+            "botsIntegrations",
+            "infrastructure",
+            "automation",
+            "devTools",
+        ]
+        skill_summary = ", ".join(
+            f"{category}={len(skills.get(category, []))}" for category in skill_categories
+        )
+
+        lines = [
+            (
+                f"Завершил: обработано {len(repositories) - len(skipped)} из {len(repositories)}."
+                " Обновлено в БД:"
+            ),
+            f"- Projects: {len(projects)}",
+            f"- Services: {len(services)}",
+            f"- Skills: {skill_summary}",
+        ]
+        if skipped:
+            lines.append(f"- Skipped: {len(skipped)}")
+            for item in skipped[:5]:
+                reason = str(item.get("reason") or "")[:120]
+                url = str(item.get("url") or "")
+                lines.append(f"  • {url}: {reason}")
+        await message.answer("\n".join(lines))
 
 
 async def handle_create_png(message: Message):
@@ -128,44 +167,49 @@ async def handle_create_png(message: Message):
         await message.answer("createPng работает с одним репозиторием за раз.")
         return
 
-    repository = repositories[0]
-    await message.answer(f"Генерирую mockup 1280×720 для {repository}… Это может занять 1–2 минуты.")
-
-    headers = {"x-internal-api-key": settings.api_internal_key}
-    payload = {"repository": repository}
-    try:
-        async with httpx.AsyncClient(timeout=httpx.Timeout(240.0)) as client:
-            response = await client.post(
-                f"{settings.backend_api_url}/v1/github/create-png",
-                json=payload,
-                headers=headers,
-            )
-            if response.status_code >= 400:
-                detail = ""
-                try:
-                    detail = response.json().get("detail", "")
-                except Exception:
-                    detail = response.text[:1200]
-                await message.answer(f"Ошибка createPng: {response.status_code}\n{detail[:1200]}")
-                return
-            data = response.json().get("data", {})
-    except Exception as exc:
-        await message.answer(f"Ошибка запроса createPng: {exc}")
+    if _create_png_lock.locked():
+        await message.answer("createPng уже выполняется. Дождись ответа.")
         return
 
-    image_path = data.get("image_path", "")
-    readme_path = data.get("readme_path", "README.md")
-    replaced = "заменил" if data.get("replaced_existing_image") else "добавил"
-    await message.answer(
-        "\n".join(
-            [
-                f"Готово для {repository}",
-                f"- README: {replaced} первую картинку в {readme_path}",
-                f"- Файл: {image_path}",
-                "Отправь ссылку на репо ещё раз, чтобы обновить портфолио.",
-            ]
+    repository = repositories[0]
+    async with _create_png_lock:
+        await message.answer(f"Генерирую mockup 1280×720 для {repository}… Это может занять 1–2 минуты.")
+
+        headers = {"x-internal-api-key": settings.api_internal_key}
+        payload = {"repository": repository}
+        try:
+            async with httpx.AsyncClient(timeout=httpx.Timeout(240.0)) as client:
+                response = await client.post(
+                    f"{settings.backend_api_url}/v1/github/create-png",
+                    json=payload,
+                    headers=headers,
+                )
+                if response.status_code >= 400:
+                    detail = ""
+                    try:
+                        detail = str(response.json().get("detail", ""))
+                    except Exception:
+                        detail = response.text[:1200]
+                    await message.answer(f"Ошибка createPng: {response.status_code}\n{detail[:1200]}")
+                    return
+                data = response.json().get("data", {})
+        except Exception as exc:
+            await message.answer(f"Ошибка запроса createPng: {exc}")
+            return
+
+        image_path = data.get("image_path", "")
+        readme_path = data.get("readme_path", "README.md")
+        replaced = "заменил" if data.get("replaced_existing_image") else "добавил"
+        await message.answer(
+            "\n".join(
+                [
+                    f"Готово для {repository}",
+                    f"- README: {replaced} первую картинку в {readme_path}",
+                    f"- Файл: {image_path}",
+                    "Отправь ссылку на репо ещё раз, чтобы обновить портфолио.",
+                ]
+            )
         )
-    )
 
 
 @app.post("/webhook/telegram")

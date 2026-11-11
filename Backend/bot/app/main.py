@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import re
 from typing import Any
 
@@ -9,6 +10,8 @@ from aiogram.types import Message, Update
 from fastapi import FastAPI, Header, HTTPException
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+logger = logging.getLogger(__name__)
 
 
 class Settings(BaseSettings):
@@ -212,6 +215,14 @@ async def handle_create_png(message: Message):
         )
 
 
+async def _process_telegram_update(update: dict[str, Any]) -> None:
+    try:
+        telegram_update = Update.model_validate(update, context={"bot": bot})
+        await dp.feed_update(bot, telegram_update)
+    except Exception:
+        logger.exception("Failed to process Telegram update_id=%s", update.get("update_id"))
+
+
 @app.post("/webhook/telegram")
 async def telegram_webhook(
     update: dict[str, Any],
@@ -219,8 +230,8 @@ async def telegram_webhook(
 ):
     if x_telegram_bot_api_secret_token != settings.telegram_webhook_secret:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    telegram_update = Update.model_validate(update, context={"bot": bot})
-    await dp.feed_update(bot, telegram_update)
+    # Must answer Telegram quickly (< nginx/Telegram timeout). Long analyze runs in background.
+    asyncio.create_task(_process_telegram_update(update))
     return {"ok": True}
 
 

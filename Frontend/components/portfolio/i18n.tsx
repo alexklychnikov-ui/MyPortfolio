@@ -139,8 +139,8 @@ const translations = {
     label: { en: "What I Offer", ru: "Что предлагаю" },
     title: { en: "Services", ru: "Услуги" },
     subtitle: {
-      en: "Three clear scopes for SMB — price is «from» for one contour to deploy, not an endless discovery.",
-      ru: "Три понятных объёма для МСБ — цена «от» за один контур до деплоя, не бесконечный discovery.",
+      en: "Concrete scopes for SMB — price is «from» for one contour to deploy, not an endless discovery.",
+      ru: "Конкретные объёмы для МСБ — цена «от» за один контур до деплоя, не бесконечный discovery.",
     },
     items: {
       en: [
@@ -155,6 +155,9 @@ const translations = {
       ],
     },
     discuss: { en: "Discuss this scope", ru: "Обсудить этот объём" },
+    scrollLeft: { en: "Previous services", ru: "Предыдущие услуги" },
+    scrollRight: { en: "Next services", ru: "Следующие услуги" },
+    pages: { en: "Service pages", ru: "Страницы услуг" },
   },
   testimonials: {
     label: { en: "Feedback", ru: "Отзывы" },

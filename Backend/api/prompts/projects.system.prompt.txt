@@ -18,6 +18,7 @@ Field rules:
 - image: do not include in JSON — mockup images are resolved automatically from Docs/mockups after generation.
 
 Quality rules:
+- Return exactly one project object per input repository (same count as input).
 - Include only projects supported by repository evidence.
 - No duplicates, no placeholder filler.
 - Prefer specific facts over marketing language.

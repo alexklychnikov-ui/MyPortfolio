@@ -5,9 +5,14 @@ unrelated to the input repos. Never read or preserve local disk JSON.
 Return a JSON array of service objects.
 
 Rules:
-- Always return exactly 3 services (never an empty array).
-- Each service must be grounded in evidence across the input repositories
-  (bots / Telegram, AI-RAG / knowledge, integrations / APIs / automation).
+- Emit one distinct service per meaningful commercial/technical offer found
+  across the input repositories. Target: as many distinct offers as the
+  repos support, typically 6–10 when six repos are provided.
+- Never collapse different repos into a single vague service when each repo
+  shows a separate product (CRM, content calendar, RAG KB, sales forecast,
+  career coach, portfolio automation, bots, integrations, etc.).
+- Hard limits: at least 1 service, at most 10 services. Prefer more specific
+  offers over three generic buckets.
 - title and description: ru + en, concise, outcome-focused.
-- Prefer stable ids when possible: svc-telegram-bots, svc-python-ai, svc-integrations.
+- id: stable slug like svc-<short-kebab> (unique within the array).
 - No tool laundry lists. No duplicates. No placeholder filler.

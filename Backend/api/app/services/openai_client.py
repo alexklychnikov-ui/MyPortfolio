@@ -68,8 +68,8 @@ OUTPUT_SCHEMA = {
         },
         "services": {
             "type": "array",
-            "minItems": 3,
-            "maxItems": 5,
+            "minItems": 1,
+            "maxItems": 10,
             "items": {
                 "type": "object",
                 "additionalProperties": False,

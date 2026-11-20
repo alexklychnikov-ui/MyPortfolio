@@ -1,295 +1,318 @@
 [
   {
-    "id": "1dccae02-aafc-4dc0-9a5f-b3b986c81fdc",
+    "id": "4d58c268-ee92-4976-981b-a92e07cde20d",
     "title": {
-      "ru": "Контент: план → пост без ручной перекладки",
-      "en": "Content: plan → post without tool-hopping"
+      "en": "AI-платформа контент-маркетинга",
+      "ru": "AI-платформа контент-маркетинга"
     },
     "description": {
-      "ru": "Один контур: календарь, черновики, очередь и публикация в Telegram, WordPress и Gmail. Можно открыть живое демо.",
-      "en": "One contour: calendar, drafts, queue and publish to Telegram, WordPress and Gmail. Live demo is open."
+      "en": "AI content marketing platform that combines planning, creation, and autoposting of content.",
+      "ru": "AI-платформа контент-маркетинга, объединяющая планирование, создание и автопубликацию контента."
     },
-    "stack": "Python, TypeScript, FastAPI, PostgreSQL, Celery, Redis, Docker",
+    "stack": "Python, TypeScript, Docker, FastAPI",
     "tag": "https://github.com/alexklychnikov-ui/ContentForge",
     "goal": {
-      "ru": "Убрать прыжки между кабинетами в цикле «план → текст → очередь → публикация».",
-      "en": "Kill tool-hopping in the plan → draft → queue → publish loop."
+      "en": "To cover the entire content marketing cycle for SMM and content marketers.",
+      "ru": "Закрыть полный цикл контент-маркетинга для SMM и контент-маркетологов."
     },
     "role": {
-      "ru": "SMM и владельцы, кто пишет и публикует в разных сервисах.",
-      "en": "SMM leads and owners who write and publish across separate tools."
+      "en": "Full development of the platform, including architecture, backend, and integration with Telegram.",
+      "ru": "Полная разработка платформы, включая архитектуру, бэкенд и интеграцию с Telegram."
     },
     "result": {
-      "ru": "Рабочий продукт: календарь, каналы, очередь, аналитика, A/B. Демо и GitHub открыты.",
-      "en": "Shipped product: calendar, channels, queue, analytics, A/B. Demo and GitHub are public."
+      "en": "The platform allows users to plan and publish content across multiple channels without using separate tools.",
+      "ru": "Платформа позволяет пользователям планировать и публиковать контент в нескольких каналах без использования отдельных инструментов."
     },
     "demoUrl": "https://kitchen.alexklyvibe.ru",
     "image": "/data/project-mockups/alexklychnikov-ui-contentforge.png",
     "screenshots": [
       {
         "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/01_01-login.png",
-        "label": "Вход"
+        "label": "01-login.png"
       },
       {
         "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/02_02-dashboard.png",
-        "label": "Дашборд"
+        "label": "02-dashboard.png"
       },
       {
         "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/03_03-calendar-slot.png",
-        "label": "Слот календаря"
+        "label": "03-calendar-slot.png"
       },
       {
         "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/04_04-plan-existing.png",
-        "label": "План"
+        "label": "04-plan-existing.png"
       },
       {
         "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/05_05-channels.png",
-        "label": "Каналы"
+        "label": "05-channels.png"
       },
       {
         "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/06_06-queue.png",
-        "label": "Очередь"
+        "label": "06-queue.png"
       },
       {
         "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/07_07-analytics.png",
-        "label": "Аналитика"
+        "label": "07-analytics.png"
       },
       {
         "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/08_08-ab.png",
-        "label": "A/B"
+        "label": "08-ab.png"
       },
       {
         "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/09_09-settings.png",
-        "label": "Настройки"
+        "label": "09-settings.png"
       },
       {
         "url": "/data/project-demos/alexklychnikov-ui-contentforge/screenshots/10_10-editor.png",
-        "label": "Редактор"
+        "label": "10-editor.png"
       }
     ],
     "videos": [
       {
         "url": "/data/project-demos/alexklychnikov-ui-contentforge/videos/01_demo-overview.mp4",
-        "label": "Обзор"
+        "label": "demo-overview.mp4"
       }
     ]
   },
   {
-    "id": "ac83f2c0-fdde-4783-a1a9-2d15ce6e8b3e",
+    "id": "b6ef0688-d408-4644-a9d5-2a213a8a054e",
     "title": {
-      "ru": "CRM, которую наращивают модулями",
-      "en": "A CRM you grow with modules"
+      "en": "Модульная B2B CRM-платформа",
+      "ru": "Модульная B2B CRM-платформа"
     },
     "description": {
-      "ru": "Ядро + плагины: новый процесс — новый модуль, без переписывания CRM целиком.",
-      "en": "Core + plugins: a new process is a new module, without rewriting the whole CRM."
+      "en": "Modular B2B CRM platform with capabilities for deals, contacts, and analytics.",
+      "ru": "Модульная B2B CRM-платформа с возможностями сделок, контактов и аналитики."
     },
-    "stack": "Python, TypeScript, FastAPI, PostgreSQL, Docker, Redis",
+    "stack": "Python, TypeScript, FastAPI, PostgreSQL",
     "tag": "https://github.com/alexklychnikov-ui/FullCRM",
     "goal": {
-      "ru": "Собрать CRM, которая не ломается на каждом новом B2B-процессе.",
-      "en": "Build a CRM that does not break on every new B2B process."
+      "en": "To create a flexible CRM platform for managing deals and contacts.",
+      "ru": "Создать гибкую CRM-платформу для управления сделками и контактами."
     },
     "role": {
-      "ru": "B2B-команды с жёсткой CRM, где каждый новый процесс = боль.",
-      "en": "B2B teams stuck in a rigid CRM where every new process hurts."
+      "en": "Development of the API and interface, including integration with modules and analytics.",
+      "ru": "Разработка API и интерфейса, включая интеграцию с модулями и аналитикой."
     },
     "result": {
-      "ru": "Каркас core + modules: сделки, контакты, AI в контуре. Репозиторий открыт.",
-      "en": "Core + modules frame: deals, contacts, AI in the contour. Repo is public."
+      "en": "The platform allows users to manage deals and contacts through an intuitive interface.",
+      "ru": "Платформа позволяет пользователям управлять сделками и контактами с помощью интуитивно понятного интерфейса."
     },
     "image": "/data/project-mockups/alexklychnikov-ui-fullcrm.png"
   },
   {
-    "id": "273d908f-e9d8-42a5-a544-e850c75b3cbf",
+    "id": "48bdedc2-c081-47ed-9241-b1a84c2c4d28",
     "title": {
-      "ru": "Портфолио, которое само подтягивает кейсы",
-      "en": "A portfolio that pulls cases in by itself"
+      "en": "Сверстаю лендинг-портфолио с автонаполнением",
+      "ru": "Сверстаю лендинг-портфолио с автонаполнением"
     },
     "description": {
-      "ru": "RU/EN сайт. GitHub → бот → карточки кейсов без ручной правки каждой. Вы сейчас на нём.",
-      "en": "RU/EN site. GitHub → bot → case cards without hand-editing each one. You are on it now."
+      "en": "Landing portfolio with auto-filling from GitHub via Telegram.",
+      "ru": "Лендинг-портфолио с автонаполнением из GitHub через Telegram."
     },
-    "stack": "TypeScript, Next.js, Python, FastAPI, PostgreSQL, Prisma, Docker",
+    "stack": "TypeScript, Python, FastAPI, PostgreSQL",
     "tag": "https://github.com/alexklychnikov-ui/MyPortfolio",
     "goal": {
-      "ru": "Кейсы на сайте = актуальные репозитории, а не то, что успел вписать руками.",
-      "en": "Cases on the site = current repos, not whatever was typed in last."
+      "en": "To create a dynamic portfolio that updates automatically.",
+      "ru": "Создать динамическое портфолио, обновляющееся автоматически."
     },
     "role": {
-      "ru": "Себе: карточки устаревали быстрее, чем я их правил.",
-      "en": "Myself: cards went stale faster than I could edit them."
+      "en": "Development of the frontend and backend for integration with GitHub and Telegram.",
+      "ru": "Разработка фронтенда и бэкенда для интеграции с GitHub и Telegram."
     },
     "result": {
-      "ru": "Сайт читает JSON, бот обновляет кейсы из GitHub. Live demo = этот сайт.",
-      "en": "The site reads JSON; the bot refreshes cases from GitHub. Live demo = this site."
+      "en": "The portfolio automatically updates when new projects are added to GitHub.",
+      "ru": "Портфолио автоматически обновляется при добавлении новых проектов в GitHub."
     },
-    "demoUrl": "https://portfolio.hayklyvibelexy.ru",
+    "demoUrl": "https://youtu.be/ВАШ_ID_ВИДЕО",
     "image": "/data/project-mockups/alexklychnikov-ui-myportfolio.png",
     "screenshots": [
       {
         "url": "/data/project-demos/alexklychnikov-ui-myportfolio/screenshots/01_screenshot-1.png",
-        "label": "Главная"
+        "label": "Главная страница"
       }
     ]
   },
   {
-    "id": "eea290c0-c97f-48d1-8bfb-970c9c45d964",
+    "id": "93a0a54c-4ca6-4fd7-9169-13fad952b1f2",
     "title": {
-      "ru": "База знаний → ответ в Telegram за минуту",
-      "en": "Knowledge base → Telegram answer in a minute"
+      "en": "Личная или корпоративная базы знаний",
+      "ru": "Личная или корпоративная базы знаний"
     },
     "description": {
-      "ru": "Свои документы → гибридный поиск → Q&A в Telegram и MCP в Cursor. Ежедневный рабочий контур.",
-      "en": "Your docs → hybrid search → Telegram Q&A and Cursor MCP. A daily working contour."
+      "en": "Knowledge base with Q&A capability via Telegram.",
+      "ru": "База знаний с возможностью Q&A через Telegram."
     },
-    "stack": "Python, LightRAG, PostgreSQL, pgvector, Docker, OpenAI API, aiogram",
+    "stack": "Python, PostgreSQL, Docker",
     "tag": "https://github.com/alexklychnikov-ui/LightRAG",
     "goal": {
-      "ru": "Ответ по своим материалам без поиска по чатам и папкам.",
-      "en": "Answers from your own materials without hunting chats and folders."
+      "en": "To create a system for storing and retrieving information using Telegram.",
+      "ru": "Создать систему для хранения и поиска информации с помощью Telegram."
     },
     "role": {
-      "ru": "Себе и командам, у кого знания размазаны по документам.",
-      "en": "Myself and teams whose knowledge is scattered across documents."
+      "en": "Development of the Telegram bot and integration with the database for knowledge storage.",
+      "ru": "Разработка Telegram-бота и интеграция с базой данных для хранения знаний."
     },
     "result": {
-      "ru": "Ingest, pgvector, Docker на VPS, бот и MCP. Пользуюсь каждый рабочий день.",
-      "en": "Ingest, pgvector, Docker on a VPS, bot and MCP. I use it every working day."
+      "en": "Users can ask questions and receive answers based on the knowledge base.",
+      "ru": "Пользователи могут задавать вопросы и получать ответы на основе базы знаний."
     },
     "image": "/data/project-mockups/alexklychnikov-ui-lightrag.png"
   },
   {
-    "id": "2c989fa6-f7c3-46ad-8e53-a518b2cde584",
+    "id": "98122d16-2ab3-46ee-8cc3-b8cd3183f140",
     "title": {
-      "ru": "Прогноз продаж, который можно сверить",
-      "en": "A sales forecast you can actually check"
+      "en": "AI-система предиктивной аналитики продаж",
+      "ru": "AI-система предиктивной аналитики продаж"
     },
     "description": {
-      "ru": "История → прогноз с backtesting → «что если» → рекомендации. Без OpenAI — на правилах. Демо открыто.",
-      "en": "History → backtested forecast → what-if → recommendations. No OpenAI? Rules still run. Live demo open."
+      "en": "Sales predictive analytics system with 'what-if' scenario capabilities.",
+      "ru": "Система предиктивной аналитики продаж с возможностью сценариев 'что если'."
     },
-    "stack": "Python, Streamlit, PostgreSQL, Prophet, Docker",
+    "stack": "Python, Docker, PostgreSQL",
     "tag": "https://github.com/alexklychnikov-ui/AI-PredictiveSalesAnalytics",
     "goal": {
-      "ru": "Показать прогноз, которому можно доверять: сверка с историей и сдвиг при скидке/акции.",
-      "en": "Show a forecast you can trust: check against history and shift for a discount or promo."
+      "en": "To create a tool for sales analysis and forecasting based on historical data.",
+      "ru": "Создать инструмент для анализа продаж и прогнозирования на основе исторических данных."
     },
     "role": {
-      "ru": "Кто живёт в таблицах продаж и не верит «красивому» графику.",
-      "en": "People who live in sales sheets and distrust pretty forecast charts."
+      "en": "Development of a web application for uploading and analyzing sales data.",
+      "ru": "Разработка веб-приложения для загрузки и анализа данных о продажах."
     },
     "result": {
-      "ru": "MVP: CSV/XLSX, Prophet vs baseline, MAE/RMSE/WAPE, сценарии. OpenAI опционален. Демо открыто.",
-      "en": "MVP: CSV/XLSX, Prophet vs baseline, MAE/RMSE/WAPE, scenarios. OpenAI optional. Demo is public."
+      "en": "Users can upload sales data and receive forecasts and recommendations.",
+      "ru": "Пользователи могут загружать данные о продажах и получать прогнозы и рекомендации."
     },
-    "demoUrl": "https://salesanalytics.alexklyvibe.ru",
     "image": "/data/project-mockups/alexklychnikov-ui-ai-predictivesalesanalytics.png",
     "screenshots": [
       {
-        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/01_obzor.png",
-        "label": "Обзор"
+        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/01_01_obzor_full.png",
+        "label": "01_obzor_full.png"
       },
       {
-        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/02_zagruzka.png",
-        "label": "Загрузка"
+        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/02_01.png",
+        "label": "01…"
       },
       {
-        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/03_analitika.png",
-        "label": "Аналитика"
+        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/03_02_zagruzka_full.png",
+        "label": "02_zagruzka_full.png"
       },
       {
-        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/04_prognoz.png",
-        "label": "Прогноз"
+        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/04_02.png",
+        "label": "02…"
       },
       {
-        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/05_scenarii.png",
-        "label": "Сценарии"
+        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/05_03_analitika_full.png",
+        "label": "03_analitika_full.png"
       },
       {
-        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/06_rekomendacii.png",
-        "label": "Рекомендации"
+        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/06_03.png",
+        "label": "03…"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/07_04_prognoz_full.png",
+        "label": "04_prognoz_full.png"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/08_04.png",
+        "label": "04…"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/09_05_scenarii_full.png",
+        "label": "05_scenarii_full.png"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/10_05.png",
+        "label": "05…"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/11_06_rekomendacii_full.png",
+        "label": "06_rekomendacii_full.png"
+      },
+      {
+        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/screenshots/12_06.png",
+        "label": "06…"
       }
     ],
     "videos": [
       {
-        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/videos/01_osnovnoj-scenarij.mp4",
-        "label": "Основной сценарий"
+        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/videos/01_demo_osnovnoj_scenarij.mp4",
+        "label": "docs/demo/demo_osnovnoj_scenarij.mp4"
       },
       {
-        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/videos/02_prezentaciya.mp4",
-        "label": "Презентация"
+        "url": "/data/project-demos/alexklychnikov-ui-ai-predictivesalesanalytics/videos/02_ai-sistema-prediktivnoy-analitiki-prodazh.mp4",
+        "label": "docs/demo/ai-sistema-prediktivnoy-analitiki-prodazh.mp4"
       }
     ]
   },
   {
-    "id": "4f78e2ad-a94f-4716-afd6-ca4cc4daa46f",
+    "id": "2ee89a88-3842-46af-a5cd-af142dcfe4c7",
     "title": {
-      "ru": "AI-коуч: одна цель и check-in в Telegram",
-      "en": "AI coach: one goal and a Telegram check-in"
+      "en": "Личный AI-коуч для карьеры",
+      "ru": "Личный AI-коуч для карьеры"
     },
     "description": {
-      "ru": "План, skill-gap по рынку, коучинг, mock interview и короткий weekly check-in в боте. Демо открыто.",
-      "en": "Plan, market skill-gap, coaching, mock interview and a short weekly bot check-in. Live demo open."
+      "en": "Personal AI coach for career growth with plans and check-ins.",
+      "ru": "Личный AI-коуч для карьерного роста с планами и проверками."
     },
-    "stack": "Python, FastAPI, Streamlit, MongoDB, aiogram, Docker",
+    "stack": "Python, Docker, FastAPI",
     "tag": "https://github.com/alexklychnikov-ui/PersonalAICoach",
     "goal": {
-      "ru": "Держать одну карьерную цель вместо трёх параллельных «учусь / откликаюсь / жду».",
-      "en": "Hold one career goal instead of three parallel tracks of studying, applying and waiting."
+      "en": "To help users structure career goals and track progress.",
+      "ru": "Помочь пользователям структурировать карьерные цели и отслеживать прогресс."
     },
     "role": {
-      "ru": "Single-user контур: фокус на одной цели + Telegram check-in.",
-      "en": "Single-user contour: one goal in focus plus a Telegram check-in."
+      "en": "Development of an AI coach with Telegram integration for user interaction.",
+      "ru": "Разработка AI-коуча с интеграцией Telegram для взаимодействия с пользователями."
     },
     "result": {
-      "ru": "UI + API + бот: онбординг, план, skill-gap, коучинг, интервью. LightRAG опционален. Демо открыто.",
-      "en": "UI + API + bot: onboarding, plan, skill-gap, coaching, interview. LightRAG optional. Demo is public."
+      "en": "Users can receive advice and track their career goals via Telegram.",
+      "ru": "Пользователи могут получать советы и отслеживать свои карьерные цели через Telegram."
     },
-    "demoUrl": "https://aicareercoach.alexklyvibe.ru",
+    "demoUrl": "https://aicareercoach.alexklyvibe.ru/",
     "image": "/data/project-mockups/alexklychnikov-ui-personalaicoach.png",
     "screenshots": [
       {
-        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/01_onboarding.png",
-        "label": "Онбординг"
+        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/01_01_onboarding.png",
+        "label": "01_onboarding.png"
       },
       {
-        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/02_plan.png",
-        "label": "План"
+        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/02_02_plan.png",
+        "label": "02_plan.png"
       },
       {
-        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/03_market_skillgap.png",
-        "label": "Skill-gap"
+        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/03_03_market_skillgap.png",
+        "label": "03_market_skillgap.png"
       },
       {
-        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/03b_market_telegram_channels.png",
-        "label": "Telegram-каналы"
+        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/04_03b_market_telegram_channels.png",
+        "label": "03b_market_telegram_channels.png"
       },
       {
-        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/03c_market_hh.png",
-        "label": "hh.ru"
+        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/05_03c_market_hh.png",
+        "label": "03c_market_hh.png"
       },
       {
-        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/04_coaching.png",
-        "label": "Коучинг"
+        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/06_04_coaching.png",
+        "label": "04_coaching.png"
       },
       {
-        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/05_interview.png",
-        "label": "Интервью"
+        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/07_05_interview.png",
+        "label": "05_interview.png"
       },
       {
-        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/06_status.png",
-        "label": "Статус"
+        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/screenshots/08_06_status.png",
+        "label": "06_status.png"
       }
     ],
     "videos": [
       {
-        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/videos/01_dashboard.mp4",
-        "label": "Дашборд"
+        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/videos/01_video-1.mp4",
+        "label": "Работа дашборда"
       },
       {
-        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/videos/02_telegram.mp4",
-        "label": "Telegram"
+        "url": "/data/project-demos/alexklychnikov-ui-personalaicoach/videos/02_Telegram.mp4",
+        "label": "Работа в Telegram"
       }
     ]
   }

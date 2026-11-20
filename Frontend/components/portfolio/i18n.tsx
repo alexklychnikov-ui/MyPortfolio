@@ -258,9 +258,69 @@ const translations = {
     skills: { en: "Skills", ru: "Навыки" },
     projects: { en: "Projects", ru: "Проекты" },
     services: { en: "Services", ru: "Услуги" },
+    about: { en: "About", ru: "Обо мне" },
     testimonials: { en: "Testimonials", ru: "Отзывы" },
     contact: { en: "Contact", ru: "Контакты" },
     discuss: { en: "Discuss project", ru: "Обсудить проект" },
+  },
+  about: {
+    label: { en: "Personal approach", ru: "Личный подход" },
+    titleStrong: { en: "About", ru: "Обо" },
+    titleMuted: { en: "me", ru: "мне" },
+    photoAlt: {
+      en: "Alexander Klychnikov — Python / AI developer",
+      ru: "Клычников Александр — Python / AI-разработчик",
+    },
+    paragraphs: {
+      en: [
+        "I am a Python/AI developer based in Irkutsk. Years in corporate ERP (Microsoft Dynamics AX / X++): business-critical customizations, integrations and process automation for large companies.",
+        "Now I ship Telegram bots, RAG knowledge bases and API contours: one scenario → working MVP → deploy. Stack: Python, FastAPI, OpenAI/LangChain, PostgreSQL, Docker, aiogram.",
+        "I work remotely across Russia. Projects stay transparent: stages, constraints and source materials remain with you.",
+      ],
+      ru: [
+        "Я — Python/AI-разработчик из Иркутска. Много лет в корпоративных ERP (Microsoft Dynamics AX / X++): бизнес-критичные доработки, интеграции и автоматизация процессов для крупных компаний.",
+        "Сейчас собираю Telegram-ботов, RAG-базы знаний и API-контуры: один сценарий → рабочий MVP → деплой. Стек: Python, FastAPI, OpenAI/LangChain, PostgreSQL, Docker, aiogram.",
+        "Работаю удалённо по России. Веду проекты прозрачно: этапы, условия и исходники остаются у вас.",
+      ],
+    },
+    principles: {
+      en: [
+        {
+          title: "Business logic first",
+          description: "ERP background: I design for the real process, not decorative screens.",
+        },
+        {
+          title: "MVP without overbuild",
+          description: "A working contour fast — without unnecessary architecture on day one.",
+        },
+        {
+          title: "Systems, not demos",
+          description: "Bot + API + DB + deploy: a reusable base your team can keep running.",
+        },
+        {
+          title: "One scenario to done",
+          description: "Clear done criteria, handoff note, and a scope you can discuss in 24h.",
+        },
+      ],
+      ru: [
+        {
+          title: "Сначала бизнес-логика",
+          description: "ERP-бэкграунд: проектирую под реальный процесс, а не под декоративные экраны.",
+        },
+        {
+          title: "MVP без оверинжиниринга",
+          description: "Быстро довожу до рабочего контура — без лишней архитектуры на старте.",
+        },
+        {
+          title: "Системы, а не демо",
+          description: "Бот + API + БД + деплой: основа, которую можно сопровождать дальше.",
+        },
+        {
+          title: "Один сценарий до «готово»",
+          description: "Понятный критерий готовности, инструкция и объём с разбором за 24ч.",
+        },
+      ],
+    },
   },
   langSwitch: {
     toggleLabel: { en: "Switch to Russian", ru: "Переключить на английский" },

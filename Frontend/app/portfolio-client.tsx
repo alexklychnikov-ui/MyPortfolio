@@ -8,6 +8,7 @@ import Hero from "@/components/portfolio/Hero"
 import Skills from "@/components/portfolio/Skills"
 import Projects from "@/components/portfolio/Projects"
 import Services from "@/components/portfolio/Services"
+import About from "@/components/portfolio/About"
 import Testimonials from "@/components/portfolio/Testimonials"
 import Contact from "@/components/portfolio/Contact"
 import "./portfolio.css"
@@ -129,6 +130,7 @@ export default function PortfolioClient({
           <Services initialServices={initialServices} />
           <Projects initialProjects={initialProjects} />
           <Skills initialSkills={initialSkills} />
+          <About />
           <Testimonials initialTestimonials={initialTestimonials} />
           <Contact
             telegramContactUrl={telegramContactUrl}

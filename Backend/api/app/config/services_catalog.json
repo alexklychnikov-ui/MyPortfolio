@@ -1,0 +1,204 @@
+{
+  "target_services_min": 8,
+  "target_services_max": 18,
+  "templates": {
+    "telegram-leads": {
+      "id": "svc-telegram-leads",
+      "price_from_rub": 5000,
+      "days_min": 2,
+      "days_max": 4,
+      "title_hint_ru": "Telegram-бот для приёма заявок",
+      "title_hint_en": "Telegram lead collection bot",
+      "scope_ru": "один сценарий до 5 вопросов, кнопочное меню, сохранение заявок и уведомления в один Telegram-чат. Без оплаты и интеграции с CRM",
+      "scope_en": "one flow with up to 5 questions, a button menu, lead storage and notifications to one Telegram chat. Payments and CRM integration are not included",
+      "keywords": ["заявк", "lead", "intake", "менеджер", "кнопк"]
+    },
+    "telegram-ai": {
+      "id": "svc-telegram-ai",
+      "price_from_rub": 10000,
+      "days_min": 4,
+      "days_max": 7,
+      "title_hint_ru": "AI-ассистент в Telegram",
+      "title_hint_en": "Telegram AI assistant",
+      "scope_ru": "один бот, настройка инструкций, ограниченная память переписки и подключение одного AI-провайдера. Поиск по документам и действия во внешних системах отдельно",
+      "scope_en": "one bot, custom instructions, limited conversation memory and one AI provider. Document search and external actions are separate",
+      "keywords": ["ai-ассистент", "памят", "openai", "чат", "роль"]
+    },
+    "expense-bot": {
+      "id": "svc-expense-bot",
+      "price_from_rub": 12000,
+      "days_min": 5,
+      "days_max": 8,
+      "title_hint_ru": "Telegram-бот для учёта расходов",
+      "title_hint_en": "Telegram expense tracking bot",
+      "scope_ru": "текстовый ввод, категории, хранение, отчёт за период и выгрузка в Excel. Распознавание чеков и голос отдельно",
+      "scope_en": "text input, categories, storage, period reports and Excel export. Receipt OCR and voice are separate",
+      "keywords": ["расход", "expense", "учёт", "отчёт", "tgrecords"]
+    },
+    "receipt-recognition": {
+      "id": "svc-receipt-recognition",
+      "price_from_rub": 7000,
+      "days_min": 3,
+      "days_max": 5,
+      "title_hint_ru": "Распознавание чеков и перенос в таблицу",
+      "title_hint_en": "Receipt recognition and spreadsheet export",
+      "scope_ru": "один способ загрузки, согласованный набор полей и проверка на примерах. Бухгалтерская интеграция не включена",
+      "scope_en": "one upload method, agreed fields and sample validation. Accounting integration not included",
+      "keywords": ["чек", "receipt", "ocr", "распознаван"]
+    },
+    "web-parser": {
+      "id": "svc-web-parser",
+      "price_from_rub": 4000,
+      "days_min": 2,
+      "days_max": 4,
+      "title_hint_ru": "Парсер сайта в Excel или CSV",
+      "title_hint_en": "Website parser with Excel or CSV export",
+      "scope_ru": "один тип страниц, до 5 полей и до 1 000 записей. Без авторизации, CAPTCHA и обхода защит",
+      "scope_en": "one page type, up to 5 fields and 1,000 records. No login, CAPTCHA or bypass",
+      "keywords": ["парсер", "scraper", "crawl", "webscraper", "html"]
+    },
+    "news-digest": {
+      "id": "svc-news-digest",
+      "price_from_rub": 6000,
+      "days_min": 3,
+      "days_max": 5,
+      "title_hint_ru": "Мониторинг новостей и дайджест",
+      "title_hint_en": "News monitoring and digest",
+      "scope_ru": "до 5 RSS или публичных Telegram-каналов, дедуп и одно расписание. AI-сводки при наличии API-ключа",
+      "scope_en": "up to 5 RSS or public Telegram channels, dedupe and one schedule. AI summaries need an API key",
+      "keywords": ["новост", "digest", "rss", "мониторинг", "news"]
+    },
+    "content-autopost": {
+      "id": "svc-content-autopost",
+      "price_from_rub": 7000,
+      "days_min": 3,
+      "days_max": 6,
+      "title_hint_ru": "Автопубликация в Telegram или VK",
+      "title_hint_en": "Scheduled publishing to Telegram or VK",
+      "scope_ru": "один источник, очередь публикаций и журнал ошибок. Генерация текстов отдельно",
+      "scope_en": "one content source, publish queue and error log. Text generation separate",
+      "keywords": ["автопост", "публикац", "расписан", "vk", "contentforge", "queue"]
+    },
+    "ai-content": {
+      "id": "svc-ai-content",
+      "price_from_rub": 10000,
+      "days_min": 5,
+      "days_max": 8,
+      "title_hint_ru": "AI-генератор контента для бизнеса",
+      "title_hint_en": "AI content generator for business",
+      "scope_ru": "один бренд, одна площадка, план до 30 тем и черновики для ручного согласования. Без автопубликации",
+      "scope_en": "one brand, one platform, up to 30 topics and drafts for approval. No autopublish",
+      "keywords": ["контент-план", "черновик", "генератор пост", "content plan", "draft"]
+    },
+    "portfolio-website": {
+      "id": "svc-portfolio-website",
+      "price_from_rub": 10000,
+      "days_min": 5,
+      "days_max": 8,
+      "title_hint_ru": "Сайт-визитка или портфолио",
+      "title_hint_en": "Business card or portfolio website",
+      "scope_ru": "до 6 блоков, готовые материалы, контакты и базовые метатеги. Без ЛК и дизайна с нуля",
+      "scope_en": "up to 6 sections, provided content, contacts and basic meta. No cabinet or bespoke design",
+      "keywords": ["портфолио", "визитк", "лендинг", "myportfolio", "one-page"]
+    },
+    "telegram-site-management": {
+      "id": "svc-telegram-site-management",
+      "price_from_rub": 8000,
+      "days_min": 4,
+      "days_max": 7,
+      "title_hint_ru": "Управление сайтом через Telegram",
+      "title_hint_en": "Website content management via Telegram",
+      "scope_ru": "один раздел сайта, один администратор и согласованный шаблон записи",
+      "scope_en": "one website section, one admin and an agreed entry template",
+      "keywords": ["управлен", "telegram сайт", "обновлен", "cms", "бот сайт"]
+    },
+    "api-integration": {
+      "id": "svc-api-integration",
+      "price_from_rub": 6000,
+      "days_min": 3,
+      "days_max": 5,
+      "title_hint_ru": "Интеграция сервисов через API",
+      "title_hint_en": "Service integration via API",
+      "scope_ru": "два сервиса, один сценарий, односторонняя передача, до 10 полей и журнал ошибок",
+      "scope_en": "two services, one one-way flow, up to 10 fields and error logging",
+      "keywords": ["интеграц", "api", "webhook", "связ", "crm"]
+    },
+    "n8n-make": {
+      "id": "svc-n8n-make",
+      "price_from_rub": 5000,
+      "days_min": 2,
+      "days_max": 4,
+      "title_hint_ru": "Автоматизация в n8n или Make",
+      "title_hint_en": "Automation with n8n or Make",
+      "scope_ru": "один workflow, до 5 шагов и до 2 внешних сервисов. Без установки платформы",
+      "scope_en": "one workflow, up to 5 steps and 2 services. No platform install",
+      "keywords": ["n8n", "make", "zapier", "workflow", "автоматизац"]
+    },
+    "sales-dashboard": {
+      "id": "svc-sales-dashboard",
+      "price_from_rub": 10000,
+      "days_min": 5,
+      "days_max": 8,
+      "title_hint_ru": "Дашборд продаж из Excel или CSV",
+      "title_hint_en": "Sales dashboard from Excel or CSV",
+      "scope_ru": "один формат файла, до 5 KPI, до 3 графиков и фильтр по периоду",
+      "scope_en": "one file format, up to 5 KPIs, 3 charts and a period filter",
+      "keywords": ["дашборд", "dashboard", "kpi", "streamlit", "график"]
+    },
+    "sales-forecast": {
+      "id": "svc-sales-forecast",
+      "price_from_rub": 15000,
+      "days_min": 7,
+      "days_max": 10,
+      "title_hint_ru": "Прогноз продаж по вашим данным",
+      "title_hint_en": "Sales forecasting from your data",
+      "scope_ru": "один временной ряд, согласованный горизонт и проверка на истории. Точность не гарантируется",
+      "scope_en": "one time series, agreed horizon and historical check. No accuracy guarantee",
+      "keywords": ["прогноз", "forecast", "prophet", "predictive", "продаж"]
+    },
+    "mini-crm": {
+      "id": "svc-mini-crm",
+      "price_from_rub": 25000,
+      "days_min": 10,
+      "days_max": 15,
+      "title_hint_ru": "Мини-CRM для клиентов и сделок",
+      "title_hint_en": "Mini CRM for contacts and deals",
+      "scope_ru": "адаптация основы, одна организация, одна воронка. Без сложной миграции и CRM с нуля",
+      "scope_en": "adapt existing foundation, one org, one pipeline. No heavy migration or CRM from scratch",
+      "keywords": ["crm", "сделк", "воронк", "fullcrm", "контакт"]
+    },
+    "personal-ai-assistant": {
+      "id": "svc-personal-ai-assistant",
+      "price_from_rub": 15000,
+      "days_min": 7,
+      "days_max": 10,
+      "title_hint_ru": "AI-помощник с планами и напоминаниями",
+      "title_hint_en": "AI assistant with plans and reminders",
+      "scope_ru": "одна цель, план, прогресс, диалог и напоминания в Telegram для одного владельца",
+      "scope_en": "one goal, plan, progress, chat and Telegram reminders for one owner",
+      "keywords": ["коуч", "coach", "план задач", "напомина", "career"]
+    },
+    "rag-pilot": {
+      "id": "svc-rag-pilot",
+      "price_from_rub": 18000,
+      "days_min": 7,
+      "days_max": 12,
+      "title_hint_ru": "AI-ассистент по документам компании",
+      "title_hint_en": "AI assistant for company documents",
+      "scope_ru": "база до 30 текстовых документов / до 300 страниц и один интерфейс. Без OCR и ACL",
+      "scope_en": "up to 30 text docs / 300 pages and one interface. No OCR or ACL",
+      "keywords": ["rag", "lightrag", "база знаний", "документ", "pgvector"]
+    },
+    "vps-deployment": {
+      "id": "svc-vps-deployment",
+      "price_from_rub": 5000,
+      "days_min": 1,
+      "days_max": 3,
+      "title_hint_ru": "Запуск приложения или бота на VPS",
+      "title_hint_en": "Application or bot deployment on a VPS",
+      "scope_ru": "одно готовое приложение, один сервер, окружение/Docker, автозапуск и инструкция",
+      "scope_en": "one working app, one server, env/Docker, autostart and instructions",
+      "keywords": ["vps", "docker", "деплой", "deploy", "linux"]
+    }
+  }
+}

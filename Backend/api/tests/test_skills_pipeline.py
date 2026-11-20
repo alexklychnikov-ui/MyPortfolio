@@ -45,7 +45,7 @@ class SkillsPipelineTests(unittest.TestCase):
         ]
 
         with tempfile.TemporaryDirectory() as tmp_dir:
-            export_public_data([], [], skill_rows, tmp_dir)
+            export_public_data([], [], skill_rows, tmp_dir, allow_empty_services=True)
             skills_path = Path(tmp_dir) / "skills.json"
             skills = json.loads(skills_path.read_text(encoding="utf-8"))
 

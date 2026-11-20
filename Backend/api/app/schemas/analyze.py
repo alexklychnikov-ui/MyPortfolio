@@ -33,6 +33,8 @@ class GeneratedService(BaseModel):
     id: str | None = None
     title: LocalizedText
     description: LocalizedText
+    price: LocalizedText | None = None
+    timeline: LocalizedText | None = None
 
 
 class GeneratedSkills(BaseModel):
@@ -51,7 +53,14 @@ class AnalyzeResponseData(BaseModel):
     skills: GeneratedSkills
 
 
+class ExportStatus(BaseModel):
+    ok: bool
+    error: str | None = None
+    services_count: int | None = None
+
+
 class AnalyzeResponse(BaseModel):
     success: bool
     data: AnalyzeResponseData
     skipped: list[dict[str, str]]
+    export: ExportStatus | None = None

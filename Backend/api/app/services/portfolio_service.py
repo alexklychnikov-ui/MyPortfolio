@@ -1,4 +1,5 @@
-import re
+import logging
+import time
 from urllib.parse import urlparse
 
 import httpx
@@ -9,7 +10,9 @@ from app.services.demo_storage import materialize_project_demos
 from app.services.github_client import RATE_LIMIT_REASON_PREFIX, GithubClient
 from app.services.mockup_storage import materialize_project_mockups
 from app.services.openai_client import OpenAIClient
-from app.services.readme_parser import extract_readme_title
+from app.services.services_pipeline import process_service_candidates, validate_public_services
+
+logger = logging.getLogger(__name__)
 
 
 class PortfolioService:
@@ -76,107 +79,21 @@ class PortfolioService:
         return generated
 
     @staticmethod
-    def _github_signal_blob(accepted: list[dict]) -> str:
-        parts: list[str] = []
-        for item in accepted:
-            parts.extend(
-                [
-                    str(item.get("repo_url") or ""),
-                    str(item.get("description") or ""),
-                    " ".join(item.get("topics") or []),
-                    " ".join(item.get("languages") or []),
-                    str(item.get("readme") or "")[:4000],
-                ]
-            )
-        return " ".join(parts).lower()
-
-    @staticmethod
-    def _service_id_from_repo(repo: str) -> str:
-        slug = re.sub(r"[^a-z0-9]+", "-", str(repo or "service").lower()).strip("-")
-        return f"svc-{slug[:48] or 'offer'}"
-
-    @staticmethod
-    def _ensure_services_from_github(generated: dict, accepted: list[dict]) -> dict:
-        """If the model returns no services, build up to 10 offers from GitHub repos only."""
-        services = generated.get("services")
-        if isinstance(services, list) and len(services) > 0:
-            return generated
-
-        built: list[dict] = []
-        seen_ids: set[str] = set()
-
-        # One distinct offer per analyzed repository (primary commercial signal).
-        for item in accepted:
-            if len(built) >= 10:
-                break
-            repo = str(item.get("repo") or "project")
-            owner = str(item.get("owner") or "")
-            repo_url = str(item.get("repo_url") or "")
-            readme = str(item.get("readme") or "")
-            description = str(item.get("description") or "").strip()
-            title_ru = extract_readme_title(readme) or description or repo
-            title_en = title_ru
-            svc_id = PortfolioService._service_id_from_repo(repo)
-            if svc_id in seen_ids:
-                svc_id = f"{svc_id}-{len(built)+1}"
-            seen_ids.add(svc_id)
-            desc_ru = description or f"Оффер на базе репозитория {owner}/{repo} ({repo_url})."
-            desc_en = description or f"Offer grounded in repository {owner}/{repo} ({repo_url})."
-            built.append(
-                {
-                    "id": svc_id,
-                    "title": {"ru": title_ru[:120], "en": title_en[:120]},
-                    "description": {"ru": desc_ru[:400], "en": desc_en[:400]},
-                }
-            )
-
-        # Extra cross-cutting offers from aggregate signals if room remains.
-        blob = PortfolioService._github_signal_blob(accepted)
-        extras: list[dict] = []
-        if any(token in blob for token in ("telegram", "aiogram", "bot")):
-            extras.append(
-                {
-                    "id": "svc-telegram-bots",
-                    "title": {"ru": "Telegram-боты под процесс", "en": "Telegram bots for a process"},
-                    "description": {
-                        "ru": "Заявка → статус → менеджер/CRM по сигналам bot-репозиториев.",
-                        "en": "Request → status → manager/CRM from bot repository signals.",
-                    },
-                }
-            )
-        if any(token in blob for token in ("rag", "openai", "llm", "lightrag", "embedding")):
-            extras.append(
-                {
-                    "id": "svc-python-ai",
-                    "title": {"ru": "AI и RAG под задачу", "en": "AI and RAG for the job"},
-                    "description": {
-                        "ru": "Документы → база знаний → ответ в чате по AI/RAG-репозиториям.",
-                        "en": "Docs → knowledge base → chat answer from AI/RAG repos.",
-                    },
-                }
-            )
-        if any(token in blob for token in ("fastapi", "api", "postgres", "docker", "integration", "crm")):
-            extras.append(
-                {
-                    "id": "svc-integrations",
-                    "title": {"ru": "Интеграции со статусом", "en": "Integrations with status"},
-                    "description": {
-                        "ru": "API, статусы, журнал, деплой из backend/infra-сигналов GitHub.",
-                        "en": "API, statuses, journal, deploy from GitHub backend/infra signals.",
-                    },
-                }
-            )
-
-        for extra in extras:
-            if len(built) >= 10:
-                break
-            if extra["id"] in seen_ids:
-                continue
-            seen_ids.add(extra["id"])
-            built.append(extra)
-
-        generated["services"] = built[:10]
-        return generated
+    def _apply_services_pipeline(
+        generated: dict,
+        accepted: list[dict],
+    ) -> tuple[dict, dict]:
+        skills = generated.get("skills") if isinstance(generated.get("skills"), dict) else {}
+        public, diagnostics = process_service_candidates(
+            generated.get("services"),
+            accepted_repos=accepted,
+            skills=skills,
+        )
+        errors = validate_public_services(public)
+        diagnostics["validation_errors"] = errors
+        if not errors:
+            generated["services"] = public
+        return generated, diagnostics
 
     def _order_projects_by_input(self, generated: dict, accepted: list[dict], repositories: list[str]) -> dict:
         projects = generated.get("projects")
@@ -280,6 +197,7 @@ class PortfolioService:
         return generated
 
     async def analyze_repositories(self, repositories: list[str]) -> tuple[AnalyzeResponseData, list[dict[str, str]]]:
+        t0 = time.monotonic()
         accepted, skipped = await self.github.collect_many(repositories)
         rate_limited = self._rate_limit_skips(skipped)
         if rate_limited:
@@ -297,9 +215,53 @@ class PortfolioService:
             top_reasons = ", ".join(sorted(set(reasons))[:2]) if reasons else "unknown reason"
             raise ValueError(f"No repositories were successfully analyzed: {top_reasons}")
 
+        logger.info(
+            "analyze_start input_repos=%s accepted=%s skipped=%s",
+            len(repositories),
+            len(accepted),
+            len(skipped),
+        )
+
+        t_ai = time.monotonic()
         generated = await self.openai.generate(accepted)
+        repair_attempts = 0
         generated = self._sanitize_generated_projects(generated)
-        generated = self._ensure_services_from_github(generated, accepted)
+        generated, services_diag = self._apply_services_pipeline(generated, accepted)
+
+        if services_diag.get("validation_errors"):
+            repair_attempts = 1
+            logger.warning(
+                "services_validation_failed errors=%s; attempting one repair",
+                services_diag["validation_errors"],
+            )
+            repaired = await self.openai.generate(
+                accepted,
+                repair_errors=list(services_diag["validation_errors"]),
+                previous_services=generated.get("services")
+                if isinstance(generated.get("services"), list)
+                else None,
+            )
+            # Keep projects/skills from first pass if repair returns them; prefer repair services.
+            if isinstance(repaired.get("services"), list):
+                generated["services"] = repaired["services"]
+            if isinstance(repaired.get("skills"), dict) and repaired["skills"]:
+                generated["skills"] = repaired["skills"]
+            generated = self._sanitize_generated_projects(generated)
+            generated, services_diag = self._apply_services_pipeline(generated, accepted)
+
+        if services_diag.get("validation_errors"):
+            raise ValueError(
+                "Services generation failed validation after repair; previous portfolio preserved. "
+                f"errors={services_diag['validation_errors']}; diag={ {k: services_diag[k] for k in ('kept', 'dropped_duplicates', 'dropped_unconfirmed', 'dropped_roadmap_or_stub', 'dropped_unknown_key') if k in services_diag} }"
+            )
+
+        logger.info(
+            "services_stage ok kept=%s repair_attempts=%s ai_ms=%s",
+            services_diag.get("kept"),
+            repair_attempts,
+            int((time.monotonic() - t_ai) * 1000),
+        )
+
         generated = self._order_projects_by_input(generated, accepted, repositories)
         generated = self._normalize_project_tags(generated, repositories)
         generated = self._apply_readme_titles(generated, accepted)
@@ -317,4 +279,10 @@ class PortfolioService:
             self.github.headers,
         )
         payload = AnalyzeResponseData.model_validate(generated)
+        logger.info(
+            "analyze_done total_ms=%s projects=%s services=%s",
+            int((time.monotonic() - t0) * 1000),
+            len(payload.projects),
+            len(payload.services),
+        )
         return payload, skipped

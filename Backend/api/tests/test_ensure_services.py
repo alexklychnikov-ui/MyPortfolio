@@ -1,62 +1,42 @@
 import unittest
 
 from app.services.portfolio_service import PortfolioService
+from tests.fixtures.portfolio_facts import ACCEPTED_REPOS, SKILLS, candidate
 
 
 class EnsureServicesTests(unittest.TestCase):
-    def test_keeps_non_empty_services(self):
+    def test_pipeline_keeps_validated_services(self):
         generated = {
+            "skills": SKILLS,
             "services": [
-                {
-                    "id": "svc-a",
-                    "title": {"ru": "A", "en": "A"},
-                    "description": {"ru": "d", "en": "d"},
-                }
-            ]
+                candidate(
+                    "rag-pilot",
+                    sources=["https://github.com/alexklychnikov-ui/MyPortfolio"],
+                    evidence="LightRAG docs assistant pilot in portfolio stack",
+                    title_ru="RAG-пилот",
+                    title_en="RAG pilot",
+                    # MyPortfolio readme mentions RAG? Use ContentForge? Use a repo with rag — fixture MyPortfolio says Docker.
+                    # Point to a repo that exists; evidence is project-backed via FullCRM? Better LightRAG-less:
+                )
+            ],
         }
-        out = PortfolioService._ensure_services_from_github(generated, [])
-        self.assertEqual(len(out["services"]), 1)
-        self.assertEqual(out["services"][0]["id"], "svc-a")
-
-    def test_fallback_builds_one_per_repo_up_to_ten(self):
-        accepted = [
-            {
-                "owner": "alexklychnikov-ui",
-                "repo": "LightRAG",
-                "repo_url": "https://github.com/alexklychnikov-ui/LightRAG",
-                "description": "RAG knowledge base",
-                "topics": ["rag", "openai"],
-                "languages": ["Python"],
-                "readme": "# База знаний с ответом в Telegram\n\nTelegram bot with LightRAG and FastAPI",
-            },
-            {
-                "owner": "alexklychnikov-ui",
-                "repo": "FullCRM",
-                "repo_url": "https://github.com/alexklychnikov-ui/FullCRM",
-                "description": "Modular CRM",
-                "topics": ["crm"],
-                "languages": ["Python", "TypeScript"],
-                "readme": "# Модульная AI-CRM\n\nFastAPI CRM",
-            },
-            {
-                "owner": "alexklychnikov-ui",
-                "repo": "ContentForge",
-                "repo_url": "https://github.com/alexklychnikov-ui/ContentForge",
-                "description": "Content calendar",
-                "topics": ["smm"],
-                "languages": ["Python"],
-                "readme": "# Контент-календарь\n\nAutopost",
-            },
+        # Fix source to a real fixture repo that can back RAG via keyword match on key + accepted list.
+        generated["services"][0]["source_repositories"] = [
+            "https://github.com/alexklychnikov-ui/ContentForge"
         ]
-        out = PortfolioService._ensure_services_from_github({"services": []}, accepted)
-        self.assertGreaterEqual(len(out["services"]), 3)
-        self.assertLessEqual(len(out["services"]), 10)
-        ids = [item["id"] for item in out["services"]]
-        self.assertTrue(any("lightrag" in i for i in ids))
-        self.assertTrue(any("fullcrm" in i for i in ids))
-        self.assertTrue(any("contentforge" in i for i in ids))
-        titles = " ".join(item["title"]["ru"] for item in out["services"])
-        self.assertTrue("База знаний" in titles or "RAG" in titles or "LightRAG" in titles)
+        generated["services"][0]["evidence_summary"] = "OpenAI content pipeline; RAG skill mixed"
+        generated["services"][0]["evidence_type"] = "mixed"
+        out, diag = PortfolioService._apply_services_pipeline(generated, ACCEPTED_REPOS)
+        self.assertEqual(diag.get("validation_errors"), [])
+        self.assertEqual(out["services"][0]["id"], "svc-rag-pilot")
+        self.assertIn("price", out["services"][0])
+
+    def test_empty_after_filter_fails_validation(self):
+        generated = {"skills": SKILLS, "services": []}
+        out, diag = PortfolioService._apply_services_pipeline(generated, ACCEPTED_REPOS)
+        self.assertIn("empty_services", diag.get("validation_errors") or [])
+        # Original empty list not replaced with invented filler
+        self.assertEqual(out.get("services"), [])
 
 
 if __name__ == "__main__":

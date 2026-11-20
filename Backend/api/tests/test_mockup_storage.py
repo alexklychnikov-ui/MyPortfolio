@@ -50,7 +50,7 @@ class MockupStorageTests(unittest.TestCase):
 
         asyncio.run(run())
 
-    def test_existing_cover_not_overwritten_by_analyze(self):
+    def test_existing_cover_always_refreshed_from_github(self):
         async def run() -> None:
             generated = {
                 "projects": [
@@ -71,6 +71,10 @@ class MockupStorageTests(unittest.TestCase):
 
             with patch("app.services.mockup_storage.httpx.AsyncClient") as client_cls:
                 client = AsyncMock()
+                response = AsyncMock()
+                response.status_code = 200
+                response.content = b"from-github"
+                client.get.return_value = response
                 client.__aenter__.return_value = client
                 client.__aexit__.return_value = None
                 client_cls.return_value = client
@@ -81,15 +85,15 @@ class MockupStorageTests(unittest.TestCase):
                 with tempfile.TemporaryDirectory() as tmp:
                     target = Path(tmp) / "project-mockups" / "alexklychnikov-ui-lightrag.png"
                     target.parent.mkdir(parents=True, exist_ok=True)
-                    target.write_bytes(b"keep-me")
+                    target.write_bytes(b"stale-local")
 
                     result = await materialize_project_mockups(generated, accepted, tmp, {})
                     self.assertEqual(
                         result["projects"][0]["image"],
                         "/data/project-mockups/alexklychnikov-ui-lightrag.png",
                     )
-                    self.assertEqual(target.read_bytes(), b"keep-me")
-                    client.get.assert_not_called()
+                    self.assertEqual(target.read_bytes(), b"from-github")
+                    client.get.assert_called_once()
 
         import asyncio
 

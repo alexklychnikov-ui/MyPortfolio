@@ -1,6 +1,6 @@
 /* TEAM */
 Developer: Клычников Александр
-Role: Python / AI — Telegram-боты, RAG, интеграции до деплоя. Бэкграунд: корпоративные ERP
+Role: Python / AI — один сценарий → бот, RAG или API → деплой. ERP-бэкграунд 10+ лет
 Contact: alexandr_klychnikov@mail.ru
 Site: https://portfolio.hayklyvibelexy.ru
 GitHub: https://github.com/alexklychnikov-ui

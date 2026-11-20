@@ -25,7 +25,7 @@ export default function Navbar() {
         <a href="#" className="nav-logo">
           <Image
             src="/assets/myLogotype.jpg"
-            alt="NODEX"
+            alt="NODEX — логотип портфолио"
             width={48}
             height={48}
             unoptimized

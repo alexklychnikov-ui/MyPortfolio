@@ -6,12 +6,12 @@
       "en": "Telegram bots for a process"
     },
     "description": {
-      "ru": "Заявка → статус → менеджер или CRM. FAQ, классификация, уведомления. AI только там, где снимает рутину.",
-      "en": "Request → status → manager or CRM. FAQ, classification, notifications. AI only where it removes routine."
+      "ru": "Один поток: заявка → статус → менеджер или CRM. FAQ, маршрутизация, уведомления. AI — только где снимает рутину. В «от» — MVP одного сценария до деплоя.",
+      "en": "One flow: request → status → manager or CRM. FAQ, routing, notifications. AI only where it cuts routine. «From» covers one-scenario MVP through deploy."
     },
     "price": {
-      "ru": "от 40 000 ₽",
-      "en": "from 40 000 ₽"
+      "ru": "от 20 000 ₽",
+      "en": "from ₽20,000"
     },
     "timeline": {
       "ru": "1–2 недели",
@@ -25,12 +25,12 @@
       "en": "AI and RAG for the job"
     },
     "description": {
-      "ru": "Документы, Excel, классификация, база знаний с ответом в мессенджере. Один источник правды и один канал ответа.",
-      "en": "Documents, Excel, classification, a knowledge base that answers in chat. One source of truth and one reply channel."
+      "ru": "Документы или Excel → классификация / база знаний → ответ в мессенджере. Один источник правды, один канал ответа. В «от» — пилот на одном корпусе данных.",
+      "en": "Docs or Excel → classification / knowledge base → answer in chat. One source of truth, one reply channel. «From» covers a pilot on one data corpus."
     },
     "price": {
-      "ru": "от 60 000 ₽",
-      "en": "from 60 000 ₽"
+      "ru": "от 30 000 ₽",
+      "en": "from ₽30,000"
     },
     "timeline": {
       "ru": "2–4 недели",
@@ -41,15 +41,15 @@
     "id": "svc-integrations",
     "title": {
       "ru": "Интеграции со статусом",
-      "en": "Integrations with a status"
+      "en": "Integrations with status"
     },
     "description": {
-      "ru": "Telegram, CRM, таблицы и внешние API. Журнал, повтор, идемпотентность. Критерий готово — деплой и инструкция.",
-      "en": "Telegram, CRM, sheets and external APIs. A journal, retry, idempotency. Done means deploy plus a handoff note."
+      "ru": "Одна связка: Telegram ↔ CRM ↔ таблицы ↔ API. Журнал, повтор, идемпотентность. Критерий готово — деплой и инструкция. В «от» — один контур без зоопарка систем.",
+      "en": "One link: Telegram ↔ CRM ↔ sheets ↔ API. Journal, retry, idempotency. Done means deploy plus a handoff note. «From» covers one contour, not a systems zoo."
     },
     "price": {
-      "ru": "от 50 000 ₽",
-      "en": "from 50 000 ₽"
+      "ru": "от 25 000 ₽",
+      "en": "from ₽25,000"
     },
     "timeline": {
       "ru": "2–3 недели",

@@ -7,12 +7,14 @@ import type { TestimonialPublic } from "@/lib/modules/testimonials/testimonials.
 import PortfolioClient from "./portfolio-client"
 import {
   githubProfileUrl,
+  jobTitleRu,
   ogImagePath,
   personNameEn,
   personNameEnAlt,
   personNameRu,
   personNameRuAlt,
   siteDescription,
+  siteTitle,
   siteUrl,
 } from "@/lib/seo"
 
@@ -122,44 +124,75 @@ export default async function Page() {
     alternateName: [personNameRu, personNameEn, personNameEnAlt],
     url: siteUrl,
     image: `${siteUrl}${ogImagePath}`,
-    jobTitle: "Python / AI-разработчик · Telegram-боты и автоматизация",
+    jobTitle: jobTitleRu,
     description: siteDescription,
     knowsAbout: [
       "Telegram Bots",
       "OpenAI",
       "RAG",
+      "LightRAG",
       "FastAPI",
       "PostgreSQL",
       "Docker",
       "Business process automation",
       "API integrations",
     ],
-    email: "alexandr_klychnikov@mail.ru",
-    sameAs: [
-      githubProfileUrl,
-      telegramPublicUrl,
-    ],
+    email: "mailto:alexandr_klychnikov@mail.ru",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Irkutsk",
+      addressCountry: "RU",
+    },
+    homeLocation: {
+      "@type": "Place",
+      name: "Irkutsk",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Irkutsk",
+        addressCountry: "RU",
+      },
+    },
+    sameAs: [githubProfileUrl, telegramPublicUrl],
   }
   const websiteStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${siteUrl}/#website`,
-    name: `Портфолио ${personNameRu}`,
+    name: siteTitle,
     url: siteUrl,
-    inLanguage: "ru-RU",
+    inLanguage: ["ru-RU", "en-US"],
     publisher: { "@id": `${siteUrl}/#person` },
     about: { "@id": `${siteUrl}/#person` },
   }
   const profilePageStructuredData = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
-    "@id": siteUrl,
+    "@id": `${siteUrl}/#profilepage`,
     url: siteUrl,
-    name: personNameRu,
+    name: siteTitle,
     description: siteDescription,
-    inLanguage: "ru-RU",
+    inLanguage: ["ru-RU", "en-US"],
     mainEntity: { "@id": `${siteUrl}/#person` },
     isPartOf: { "@id": `${siteUrl}/#website` },
+  }
+  const offerCatalogStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    "@id": `${siteUrl}/#services`,
+    name: "Услуги",
+    url: `${siteUrl}/#services`,
+    itemListElement: initialServices.map((service, index) => ({
+      "@type": "Offer",
+      position: index + 1,
+      name: service.title.ru,
+      description: service.description.ru,
+      priceCurrency: "RUB",
+      price:
+        service.price?.ru?.replace(/[^\d]/g, "") || undefined,
+      availability: "https://schema.org/InStock",
+      url: `${siteUrl}/#contact`,
+      seller: { "@id": `${siteUrl}/#person` },
+    })),
   }
   return (
     <>
@@ -170,6 +203,7 @@ export default async function Page() {
             personStructuredData,
             websiteStructuredData,
             profilePageStructuredData,
+            offerCatalogStructuredData,
           ]),
         }}
       />

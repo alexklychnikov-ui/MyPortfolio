@@ -21,24 +21,24 @@ const translations = {
       ru: "VibeCode",
     },
     outcome: {
-      en: "Bots, AI and integrations — through to deploy",
-      ru: "Боты, AI и интеграции — до деплоя",
+      en: "One scenario → bot, RAG or API → deploy",
+      ru: "Один сценарий → бот, RAG или API → деплой",
     },
     taglinePrimary: {
-      en: "Bots, AI and integrations — through to deploy",
-      ru: "Боты, AI и интеграции — до деплоя",
+      en: "One scenario → bot, RAG or API → deploy",
+      ru: "Один сценарий → бот, RAG или API → деплой",
     },
     taglineSecondary: {
-      en: "Telegram · RAG · API · a working contour",
-      ru: "Telegram · RAG · API · рабочий контур",
+      en: "Telegram · RAG · integrations · a working contour",
+      ru: "Telegram · RAG · интеграции · рабочий контур",
     },
     subtitle: {
-      en: "Corporate systems background (ERP, 10+ years). I ship Python, AI and Telegram through to deploy and a handoff note.",
-      ru: "Бэкграунд корпоративных систем (ERP, 10+ лет). Собираю Python, AI и Telegram до деплоя и инструкции.",
+      en: "ERP background, 10+ years. I ship Python, AI and Telegram to production — with a handoff note, not a slide deck.",
+      ru: "ERP-бэкграунд, 10+ лет. Собираю Python, AI и Telegram до продакшена — с инструкцией, не с презентацией.",
     },
     description: {
-      en: "I take a business scenario to a working contour: deploy, handoff notes, one measurable flow.",
-      ru: "Довожу сценарий до рабочего контура: деплой, инструкция, один измеримый поток.",
+      en: "I take one business flow to a working contour: deploy, handoff, a clear done criterion.",
+      ru: "Довожу один бизнес-поток до рабочего контура: деплой, инструкция, понятный критерий «готово».",
     },
     chipsAria: { en: "Availability", ru: "Доступность" },
     chips: {
@@ -47,14 +47,14 @@ const translations = {
     },
     benefits: {
       en: [
-        "Telegram bots under a real process: request → status → person / system",
-        "AI & RAG that cut routine — documents, classification, knowledge bases",
-        "Integrations to a working result: API, statuses, journal — then deploy",
+        "Telegram bot for one process: request → status → person / CRM",
+        "AI & RAG pilot: docs or Excel → answer in chat",
+        "One integration contour: API, statuses, journal — then deploy",
       ],
       ru: [
-        "Telegram-боты под процесс: заявка → статус → человек / система",
-        "AI и RAG под рутину — документы, классификация, базы знаний",
-        "Интеграции до результата: API, статусы, журнал — и деплой",
+        "Telegram-бот под один процесс: заявка → статус → человек / CRM",
+        "AI и RAG-пилот: документы или Excel → ответ в чате",
+        "Один контур интеграции: API, статусы, журнал — и деплой",
       ],
     },
     cta: {
@@ -62,8 +62,8 @@ const translations = {
       secondary: { en: "View projects", ru: "Смотреть проекты" },
     },
     photoAlt: {
-      en: "Alexander Klychnikov — developer profile photo",
-      ru: "Клычников Александр — фото разработчика",
+      en: "Alexander Klychnikov — Python / AI developer, profile photo",
+      ru: "Клычников Александр — Python / AI-разработчик, фото профиля",
     },
   },
   utility: {
@@ -136,25 +136,25 @@ const translations = {
     },
   },
   services: {
-    label: { en: "What I Offer", ru: "Что я предлагаю" },
+    label: { en: "What I Offer", ru: "Что предлагаю" },
     title: { en: "Services", ru: "Услуги" },
     subtitle: {
-      en: "Three focus areas for SMB and early product teams — to a working result, not a pretty prototype.",
-      ru: "Три фокуса для МСБ и ранних команд — до рабочего результата, не до красивого прототипа.",
+      en: "Three clear scopes for SMB — price is «from» for one contour to deploy, not an endless discovery.",
+      ru: "Три понятных объёма для МСБ — цена «от» за один контур до деплоя, не бесконечный discovery.",
     },
     items: {
       en: [
-        { title: "Telegram bots + business automation", description: "Intake, FAQ, routing to a manager/CRM, statuses and dialog flows — with AI where it removes routine." },
-        { title: "AI + automation / RAG", description: "Documents and Excel, task assistants, classification, knowledge bases — a pipeline from file to answer to notification." },
-        { title: "Integrations & internal services", description: "API, Python backend, DB, Telegram ↔ CRM ↔ sheets ↔ external APIs — with statuses and a journal, not fire-and-forget." },
+        { title: "Telegram bots for a process", description: "One flow: request → status → manager/CRM. «From» = one-scenario MVP through deploy." },
+        { title: "AI and RAG for the job", description: "Docs or Excel → knowledge base → answer in chat. «From» = pilot on one data corpus." },
+        { title: "Integrations with status", description: "One Telegram ↔ CRM ↔ sheets ↔ API link. «From» = one contour with journal and handoff." },
       ],
       ru: [
-        { title: "Telegram-боты + автоматизация бизнеса", description: "Приём заявок, FAQ, передача менеджеру/в CRM, статусы и сценарии диалога — AI там, где снимает рутину." },
-        { title: "AI + автоматизация / RAG", description: "Документы и Excel, помощники под задачу, классификация, базы знаний — пайплайн «файл → ответ → уведомление»." },
-        { title: "Интеграции и внутренние сервисы", description: "API, Python backend, БД, связки Telegram ↔ CRM ↔ таблицы ↔ внешние API — со статусами и журналом, не «отправили и забыли»." },
+        { title: "Telegram-боты под процесс", description: "Один поток: заявка → статус → менеджер/CRM. «От» = MVP одного сценария до деплоя." },
+        { title: "AI и RAG под задачу", description: "Документы или Excel → база знаний → ответ в чате. «От» = пилот на одном корпусе." },
+        { title: "Интеграции со статусом", description: "Одна связка Telegram ↔ CRM ↔ таблицы ↔ API. «От» = один контур с журналом и инструкцией." },
       ],
     },
-    discuss: { en: "Send a scenario", ru: "Прислать сценарий" },
+    discuss: { en: "Discuss this scope", ru: "Обсудить этот объём" },
   },
   testimonials: {
     label: { en: "Feedback", ru: "Отзывы" },
@@ -187,18 +187,18 @@ const translations = {
   },
   contact: {
     label: { en: "Get In Touch", ru: "Связь" },
-    title: { en: "Contact Me", ru: "Свяжитесь со мной" },
+    title: { en: "Send a scenario", ru: "Пришлите сценарий" },
     subtitle: {
-      en: "Send one scenario — I'll review it within 24 hours: who triggers it, what should happen, what counts as done.",
-      ru: "Пришлите один сценарий — разберу за 24ч: кто запускает, что должно произойти, что считается «готово».",
+      en: "One flow is enough: who starts it, what should happen, what counts as done. Free review within 24h.",
+      ru: "Достаточно одного потока: кто запускает, что должно произойти, что считается «готово». Бесплатный разбор за 24ч.",
     },
     infoTitle: {
-      en: "Scenario review in 24h",
-      ru: "Разбор сценария за 24ч",
+      en: "Free scenario review in 24h",
+      ru: "Бесплатный разбор сценария за 24ч",
     },
     infoText: {
-      en: "Describe the flow (bot / AI / integration). I get a Telegram ping and reply within 24h with architecture options and a concrete next step — not a vague «let's discuss».",
-      ru: "Опишите поток (бот / AI / интеграция). Я получу пинг в Telegram и в течение 24ч отвечу вариантами архитектуры и конкретным следующим шагом — не «давайте обсудим» в вакууме.",
+      en: "Bot, AI/RAG or integration — write the flow. I get a Telegram ping and reply within 24h with architecture options and a concrete next step, not a vague «let's chat».",
+      ru: "Бот, AI/RAG или интеграция — опишите поток. Пинг в Telegram, ответ за 24ч: варианты архитектуры и конкретный следующий шаг, не «давайте созвонимся» в вакууме.",
     },
     email: "alexandr_klychnikov@mail.ru",
     location: { en: "Irkutsk · remote", ru: "Иркутск · удалённо" },
@@ -212,7 +212,7 @@ const translations = {
     },
     telegram: {
       en: "Telegram contact",
-      ru: "Telegram контакт",
+      ru: "Telegram-контакт",
     },
     telegramUsername: "Alex_Assistant_freelancing_bot",
     telegramButton: { en: "Open Telegram", ru: "Открыть Telegram" },
@@ -227,16 +227,19 @@ const translations = {
     emailPlaceholder: { en: "you@example.com", ru: "you@example.com" },
     phoneLabel: { en: "Phone", ru: "Телефон" },
     phonePlaceholder: { en: "+7 (999) 123-45-67", ru: "+7 (999) 123-45-67" },
-    messageLabel: { en: "Message", ru: "Сообщение" },
+    messageLabel: { en: "Scenario", ru: "Сценарий" },
     messagePlaceholder: {
-      en: "Scenario: trigger → steps → done criterion…",
-      ru: "Сценарий: триггер → шаги → критерий «готово»…",
+      en: "Trigger → steps → done criterion…",
+      ru: "Триггер → шаги → критерий «готово»…",
     },
-    sendButton: { en: "Send scenario", ru: "Отправить сценарий" },
+    sendButton: { en: "Send for 24h review", ru: "Отправить на разбор за 24ч" },
     formAriaLabel: { en: "Contact form", ru: "Форма связи" },
     sending: { en: "Sending...", ru: "Отправка..." },
-    success: { en: "Message sent. I'll reply soon.", ru: "Сообщение отправлено. Скоро отвечу." },
-    error: { en: "Failed to send. Try again or contact directly.", ru: "Не удалось отправить. Попробуйте ещё раз или напишите напрямую." },
+    success: {
+      en: "Got it. I'll review the scenario within 24h.",
+      ru: "Принял. Разберу сценарий в течение 24ч.",
+    },
+    error: { en: "Failed to send. Try again or write via Telegram.", ru: "Не удалось отправить. Попробуйте ещё раз или напишите в Telegram." },
   },
   footer: {
     copyright: {
@@ -244,8 +247,8 @@ const translations = {
       ru: "Клычников Александр",
     },
     text: {
-      en: "Python, AI and Telegram — through to a working contour. Irkutsk · remote.",
-      ru: "Python, AI и Telegram — до рабочего контура. Иркутск · удалённо.",
+      en: "Python, AI and Telegram — one scenario to a working contour. Irkutsk · remote.",
+      ru: "Python, AI и Telegram — один сценарий до рабочего контура. Иркутск · удалённо.",
     },
   },
   nav: {

@@ -473,7 +473,12 @@ function ProjectMediaModal({
                   aria-pressed={zoomedShot}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img key={shot.url} src={shot.url} alt={shot.label} loading="lazy" />
+                  <img
+                    key={shot.url}
+                    src={shot.url}
+                    alt={`${title}: ${shot.label}`}
+                    loading="lazy"
+                  />
                 </button>
               </div>
               {screenshots.length > 1 && (
@@ -610,7 +615,7 @@ function ProjectMediaModal({
               aria-label={t.projects.media.zoomOut[locale]}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img key={shot.url} src={shot.url} alt={shot.label} />
+              <img key={shot.url} src={shot.url} alt={`${title}: ${shot.label}`} />
             </button>
           </div>
         </div>

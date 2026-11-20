@@ -6,10 +6,10 @@ export const personNameEn = "Alexander Klychnikov"
 export const personNameEnAlt = "Klychnikov Alexander"
 
 export const siteTitle =
-  "Клычников Александр — Python, AI, Telegram-боты и автоматизация"
+  "Клычников Александр — Python, AI, Telegram: сценарий до деплоя"
 
 export const siteDescription =
-  "Python, AI и Telegram-боты до рабочего контура: RAG, интеграции, деплой. Бэкграунд — корпоративные ERP-системы. Иркутск, удалённо."
+  "Один сценарий → бот, RAG или API → деплой. Telegram-боты, AI/RAG и интеграции для МСБ. Бесплатный разбор сценария за 24ч. ERP-бэкграунд 10+ лет. Иркутск, удалённо."
 
 export const siteKeywords = [
   "Клычников Александр",
@@ -25,8 +25,13 @@ export const siteKeywords = [
   "FastAPI",
   "ERP",
   "интеграции API",
+  "разбор сценария",
+  "фриланс Python",
 ]
 
 export const githubProfileUrl = "https://github.com/alexklychnikov-ui"
 
 export const ogImagePath = "/assets/profile.jpg"
+
+export const jobTitleRu =
+  "Python / AI-разработчик · Telegram-боты, RAG и интеграции до деплоя"

@@ -88,7 +88,7 @@ function Footer() {
         <p>{`\u00A9 ${new Date().getFullYear()} ${t.footer.copyright[locale]}`}</p>
         <Image
           src="/assets/myLogotype.jpg"
-          alt="NODEX"
+          alt="NODEX — логотип портфолио"
           className="footer-logo"
           width={48}
           height={48}

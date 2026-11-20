@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from '@/components/theme-provider'
 import {
   githubProfileUrl,
+  jobTitleRu,
   ogImagePath,
   personNameRu,
   siteDescription,
@@ -48,12 +49,13 @@ export const metadata: Metadata = {
     description: siteDescription,
     siteName: personNameRu,
     locale: 'ru_RU',
+    alternateLocale: ['en_US'],
     images: [
       {
         url: ogImagePath,
         width: 680,
         height: 680,
-        alt: `${personNameRu} — фото разработчика`,
+        alt: `${personNameRu} — ${jobTitleRu}`,
       },
     ],
   },
@@ -65,11 +67,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', type: 'image/x-icon' },
+      { url: '/favicon.ico', sizes: 'any' },
       { url: '/icon.svg', type: 'image/svg+xml' },
     ],
     shortcut: ['/favicon.ico'],
-    apple: ['/icon.svg'],
+    apple: [{ url: '/icon.svg', type: 'image/svg+xml' }],
   },
   robots: {
     index: true,

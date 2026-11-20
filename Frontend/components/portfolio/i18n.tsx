@@ -260,6 +260,7 @@ const translations = {
     services: { en: "Services", ru: "Услуги" },
     testimonials: { en: "Testimonials", ru: "Отзывы" },
     contact: { en: "Contact", ru: "Контакты" },
+    discuss: { en: "Discuss project", ru: "Обсудить проект" },
   },
   langSwitch: {
     toggleLabel: { en: "Switch to Russian", ru: "Переключить на английский" },

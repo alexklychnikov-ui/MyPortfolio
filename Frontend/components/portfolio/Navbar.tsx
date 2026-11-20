@@ -40,6 +40,9 @@ export default function Navbar() {
           <li><a href="#contact" onClick={() => setMenuOpen(false)}>{t.nav.contact[locale]}</a></li>
         </ul>
         <div className="nav-right">
+          <a href="#contact" className="nav-cta" onClick={() => setMenuOpen(false)}>
+            {t.nav.discuss[locale]}
+          </a>
           <div className="lang-switch" role="radiogroup" aria-label="Language">
             <button
               className={`lang-btn${locale === "ru" ? " active" : ""}`}

@@ -152,7 +152,11 @@ export default async function Page() {
         addressCountry: "RU",
       },
     },
-    sameAs: [githubProfileUrl, telegramPublicUrl],
+    sameAs: [
+      githubProfileUrl,
+      telegramPublicUrl,
+      "https://max.ru/u/f9LHodD0cOJ6AYFaTXrO_W8Q740SO7vjkK0Gs8qmVPG8sUkLSN-QJwnwG1o",
+    ],
   }
   const websiteStructuredData = {
     "@context": "https://schema.org",

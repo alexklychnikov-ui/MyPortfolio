@@ -68,6 +68,18 @@ export default function TopUtilityBar({
           </svg>
           <span>Telegram</span>
         </a>
+        <a
+          href={t.contact.maxUrl}
+          className="top-utility-link top-utility-max"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t.utility.max[locale]}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+          <span>{t.utility.max[locale]}</span>
+        </a>
         <a href={`mailto:${email}`} className="top-utility-link" aria-label={t.utility.email[locale]}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
             <rect width="20" height="16" x="2" y="4" rx="2" />

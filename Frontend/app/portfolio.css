@@ -141,6 +141,15 @@
   color: var(--color-primary);
 }
 
+.top-utility-max {
+  color: #7dd3fc;
+  font-weight: 600;
+}
+
+.top-utility-max:hover {
+  color: #bae6fd;
+}
+
 .top-utility-copy {
   margin-left: auto;
   padding: 4px 10px;

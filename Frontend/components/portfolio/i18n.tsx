@@ -69,6 +69,7 @@ const translations = {
   utility: {
     ariaLabel: { en: "Quick contacts", ru: "Быстрые контакты" },
     telegram: { en: "Open Telegram", ru: "Открыть Telegram" },
+    max: { en: "Write in MAX", ru: "Написать в MAX" },
     email: { en: "Write email", ru: "Написать на почту" },
     copy: { en: "Copy", ru: "Копировать" },
     copyEmail: { en: "Copy email", ru: "Скопировать email" },
@@ -223,7 +224,13 @@ const translations = {
       en: "Opens Telegram app directly.",
       ru: "Откроется приложение Telegram.",
     },
-    quickConnectLabel: { en: "Quick contact", ru: "Связь в Telegram" },
+    maxUrl: "https://max.ru/u/f9LHodD0cOJ6AYFaTXrO_W8Q740SO7vjkK0Gs8qmVPG8sUkLSN-QJwnwG1o",
+    max: {
+      en: "MAX messenger contact",
+      ru: "Контакт в мессенджере MAX",
+    },
+    maxButton: { en: "Write in MAX", ru: "Написать в MAX" },
+    quickConnectLabel: { en: "Quick contact", ru: "Быстрая связь" },
     nameLabel: { en: "Name", ru: "Имя" },
     namePlaceholder: { en: "Your name", ru: "Ваше имя" },
     emailLabel: { en: "Email", ru: "Эл. почта" },
@@ -242,7 +249,10 @@ const translations = {
       en: "Got it. I'll review the scenario within 24h.",
       ru: "Принял. Разберу сценарий в течение 24ч.",
     },
-    error: { en: "Failed to send. Try again or write via Telegram.", ru: "Не удалось отправить. Попробуйте ещё раз или напишите в Telegram." },
+    error: {
+      en: "Failed to send. Try again or write via Telegram / MAX.",
+      ru: "Не удалось отправить. Попробуйте ещё раз или напишите в Telegram / MAX.",
+    },
   },
   footer: {
     copyright: {

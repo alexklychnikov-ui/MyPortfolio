@@ -93,11 +93,11 @@ const translations = {
     ariaLabel: { en: "Skills categories", ru: "Категории навыков" },
   },
   projects: {
-    label: { en: "Portfolio", ru: "Портфолио" },
-    title: { en: "Featured Projects", ru: "Избранные проекты" },
+    label: { en: "Work", ru: "Работы" },
+    title: { en: "Cases you can open", ru: "Кейсы, которые можно открыть" },
     subtitle: {
-      en: "Problem → solution → stack → result → demo / GitHub. Clear in 30 seconds.",
-      ru: "Проблема → решение → стек → результат → демо / GitHub. Понятно за 30 секунд.",
+      en: "Outcome → who it's for → result. Live demos where they exist — poke before you buy.",
+      ru: "Результат → кому → итог. Где есть демо — можно потрогать до заказа.",
     },
     loading: { en: "Loading projects...", ru: "Загрузка проектов..." },
     fields: {
@@ -107,13 +107,13 @@ const translations = {
     },
     links: {
       github: { en: "GitHub", ru: "GitHub" },
-      demo: { en: "Live demo", ru: "Демо" },
+      demo: { en: "Open live demo", ru: "Открыть демо" },
       media: { en: "Screens & video", ru: "Скрины и видео" },
     },
     liveBadge: { en: "Live demo", ru: "Live demo" },
     trustChip: {
-      en: "Open demos & repos",
-      ru: "Открытые демо и репозитории",
+      en: "Touch the demos — repos are public",
+      ru: "Демо можно потрогать — репозитории открыты",
     },
     media: {
       screenshots: { en: "Screenshots", ru: "Скриншоты" },
@@ -128,10 +128,10 @@ const translations = {
     },
     cta: {
       title: {
-        en: "Need a similar contour?",
-        ru: "Нужен похожий контур?",
+        en: "Need a similar contour under your process?",
+        ru: "Нужен похожий контур под ваш процесс?",
       },
-      contact: { en: "Send your scenario", ru: "Прислать сценарий" },
+      contact: { en: "Send a scenario — review in 24h", ru: "Прислать сценарий — разбор за 24ч" },
       github: { en: "All repositories", ru: "Все репозитории" },
     },
   },

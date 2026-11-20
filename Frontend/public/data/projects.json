@@ -2,26 +2,26 @@
   {
     "id": "1dccae02-aafc-4dc0-9a5f-b3b986c81fdc",
     "title": {
-      "ru": "Контент-календарь с автопостом",
-      "en": "Content calendar with autopost"
+      "ru": "Контент: план → пост без ручной перекладки",
+      "en": "Content: plan → post without tool-hopping"
     },
     "description": {
-      "ru": "ContentForge: план, черновики и публикация в Telegram, WordPress и Gmail в одном контуре.",
-      "en": "ContentForge: plan, drafts and publishing to Telegram, WordPress and Gmail in one contour."
+      "ru": "Один контур: календарь, черновики, очередь и публикация в Telegram, WordPress и Gmail. Можно открыть живое демо.",
+      "en": "One contour: calendar, drafts, queue and publish to Telegram, WordPress and Gmail. Live demo is open."
     },
     "stack": "Python, TypeScript, FastAPI, PostgreSQL, Celery, Redis, Docker",
     "tag": "https://github.com/alexklychnikov-ui/ContentForge",
     "goal": {
-      "ru": "Закрыть цикл «план → текст → очередь → публикация» без перекладки между кабинетами.",
-      "en": "Close the plan → draft → queue → publish loop without hopping between tools."
+      "ru": "Убрать прыжки между кабинетами в цикле «план → текст → очередь → публикация».",
+      "en": "Kill tool-hopping in the plan → draft → queue → publish loop."
     },
     "role": {
-      "ru": "SMM и владельцы, которые планируют, пишут и публикуют в разных сервисах.",
-      "en": "SMM leads and owners who plan, write and publish across separate tools."
+      "ru": "SMM и владельцы, кто пишет и публикует в разных сервисах.",
+      "en": "SMM leads and owners who write and publish across separate tools."
     },
     "result": {
-      "ru": "Рабочий контур: календарь, каналы, очередь, аналитика и A/B. Демо и репозиторий открыты.",
-      "en": "Working contour: calendar, channels, queue, analytics and A/B. Demo and repo are public."
+      "ru": "Рабочий продукт: календарь, каналы, очередь, аналитика, A/B. Демо и GitHub открыты.",
+      "en": "Shipped product: calendar, channels, queue, analytics, A/B. Demo and GitHub are public."
     },
     "demoUrl": "https://kitchen.alexklyvibe.ru",
     "image": "/data/project-mockups/alexklychnikov-ui-contentforge.png",
@@ -77,22 +77,22 @@
   {
     "id": "ac83f2c0-fdde-4783-a1a9-2d15ce6e8b3e",
     "title": {
-      "ru": "Модульная AI-CRM",
-      "en": "Modular AI CRM"
+      "ru": "CRM, которую наращивают модулями",
+      "en": "A CRM you grow with modules"
     },
     "description": {
-      "ru": "FullCRM: ядро и подключаемые модули. Новый процесс не требует переписывать ядро.",
-      "en": "FullCRM: a core plus plug-in modules. A new process does not require a core rewrite."
+      "ru": "Ядро + плагины: новый процесс — новый модуль, без переписывания CRM целиком.",
+      "en": "Core + plugins: a new process is a new module, without rewriting the whole CRM."
     },
     "stack": "Python, TypeScript, FastAPI, PostgreSQL, Docker, Redis",
     "tag": "https://github.com/alexklychnikov-ui/FullCRM",
     "goal": {
-      "ru": "Собрать CRM, которую можно наращивать модулями под процесс команды.",
-      "en": "Build a CRM a team can extend with modules per process."
+      "ru": "Собрать CRM, которая не ломается на каждом новом B2B-процессе.",
+      "en": "Build a CRM that does not break on every new B2B process."
     },
     "role": {
-      "ru": "B2B-команды, у которых жёсткая CRM ломается на каждом новом процессе.",
-      "en": "B2B teams whose rigid CRM breaks on every new process."
+      "ru": "B2B-команды с жёсткой CRM, где каждый новый процесс = боль.",
+      "en": "B2B teams stuck in a rigid CRM where every new process hurts."
     },
     "result": {
       "ru": "Каркас core + modules: сделки, контакты, AI в контуре. Репозиторий открыт.",
@@ -103,26 +103,26 @@
   {
     "id": "273d908f-e9d8-42a5-a544-e850c75b3cbf",
     "title": {
-      "ru": "Портфолио с обновлением из Telegram",
-      "en": "Portfolio updated from Telegram"
+      "ru": "Портфолио, которое само подтягивает кейсы",
+      "en": "A portfolio that pulls cases in by itself"
     },
     "description": {
-      "ru": "Сайт RU/EN. Карточки кейсов собираются из репозиториев GitHub через бота, без ручной правки каждой.",
-      "en": "RU/EN site. Case cards are built from GitHub repos via a bot, without editing each one by hand."
+      "ru": "RU/EN сайт. GitHub → бот → карточки кейсов без ручной правки каждой. Вы сейчас на нём.",
+      "en": "RU/EN site. GitHub → bot → case cards without hand-editing each one. You are on it now."
     },
     "stack": "TypeScript, Next.js, Python, FastAPI, PostgreSQL, Prisma, Docker",
     "tag": "https://github.com/alexklychnikov-ui/MyPortfolio",
     "goal": {
-      "ru": "Портфолио должно совпадать с актуальными репозиториями, а не с тем, что успел вписать руками.",
-      "en": "The portfolio should match current repos, not whatever was typed in last."
+      "ru": "Кейсы на сайте = актуальные репозитории, а не то, что успел вписать руками.",
+      "en": "Cases on the site = current repos, not whatever was typed in last."
     },
     "role": {
-      "ru": "Свой инструмент: после каждого репозитория карточки устаревали быстрее, чем я их правил.",
-      "en": "My own tool: after each repo the cards went stale faster than I could edit them."
+      "ru": "Себе: карточки устаревали быстрее, чем я их правил.",
+      "en": "Myself: cards went stale faster than I could edit them."
     },
     "result": {
-      "ru": "Сайт читает JSON. Бот анализирует GitHub и обновляет кейсы. Этот сайт — тот контур.",
-      "en": "The site reads JSON. The bot analyzes GitHub and refreshes cases. This site is that contour."
+      "ru": "Сайт читает JSON, бот обновляет кейсы из GitHub. Live demo = этот сайт.",
+      "en": "The site reads JSON; the bot refreshes cases from GitHub. Live demo = this site."
     },
     "demoUrl": "https://portfolio.hayklyvibelexy.ru",
     "image": "/data/project-mockups/alexklychnikov-ui-myportfolio.png",
@@ -136,52 +136,52 @@
   {
     "id": "eea290c0-c97f-48d1-8bfb-970c9c45d964",
     "title": {
-      "ru": "База знаний с ответом в Telegram",
-      "en": "Knowledge base with Telegram Q&A"
+      "ru": "База знаний → ответ в Telegram за минуту",
+      "en": "Knowledge base → Telegram answer in a minute"
     },
     "description": {
-      "ru": "LightRAG: загрузка документов, гибридный поиск, Q&A в Telegram и MCP в Cursor.",
-      "en": "LightRAG: document ingest, hybrid search, Telegram Q&A and Cursor MCP."
+      "ru": "Свои документы → гибридный поиск → Q&A в Telegram и MCP в Cursor. Ежедневный рабочий контур.",
+      "en": "Your docs → hybrid search → Telegram Q&A and Cursor MCP. A daily working contour."
     },
     "stack": "Python, LightRAG, PostgreSQL, pgvector, Docker, OpenAI API, aiogram",
     "tag": "https://github.com/alexklychnikov-ui/LightRAG",
     "goal": {
-      "ru": "Ответ по своим материалам за минуту, без поиска по чатам и папкам.",
-      "en": "An answer from your own materials in a minute, without hunting chats and folders."
+      "ru": "Ответ по своим материалам без поиска по чатам и папкам.",
+      "en": "Answers from your own materials without hunting chats and folders."
     },
     "role": {
-      "ru": "Свой ежедневный контур и команды, у которых знания размазаны по документам.",
-      "en": "My daily contour, and teams whose knowledge is scattered across documents."
+      "ru": "Себе и командам, у кого знания размазаны по документам.",
+      "en": "Myself and teams whose knowledge is scattered across documents."
     },
     "result": {
-      "ru": "Ingestion, PostgreSQL/pgvector, Docker на VPS, бот и MCP. Пользуюсь в работе каждый день.",
-      "en": "Ingest, PostgreSQL/pgvector, Docker on a VPS, bot and MCP. I use it every working day."
+      "ru": "Ingest, pgvector, Docker на VPS, бот и MCP. Пользуюсь каждый рабочий день.",
+      "en": "Ingest, pgvector, Docker on a VPS, bot and MCP. I use it every working day."
     },
     "image": "/data/project-mockups/alexklychnikov-ui-lightrag.png"
   },
   {
     "id": "2c989fa6-f7c3-46ad-8e53-a518b2cde584",
     "title": {
-      "ru": "Прогноз продаж с проверкой качества",
-      "en": "Sales forecast with a quality check"
+      "ru": "Прогноз продаж, который можно сверить",
+      "en": "A sales forecast you can actually check"
     },
     "description": {
-      "ru": "История продаж → аналитика → прогноз с backtesting → сценарии «что если» → рекомендации. Без ключа OpenAI работает на правилах.",
-      "en": "Sales history → analytics → a backtested forecast → what-if scenarios → recommendations. Without an OpenAI key it runs on rules."
+      "ru": "История → прогноз с backtesting → «что если» → рекомендации. Без OpenAI — на правилах. Демо открыто.",
+      "en": "History → backtested forecast → what-if → recommendations. No OpenAI? Rules still run. Live demo open."
     },
     "stack": "Python, Streamlit, PostgreSQL, Prophet, Docker",
     "tag": "https://github.com/alexklychnikov-ui/AI-PredictiveSalesAnalytics",
     "goal": {
-      "ru": "Показать прогноз, который можно сверить с историей, и посчитать сдвиг при скидке, акции или дефиците.",
-      "en": "Show a forecast you can check against history, and a shift for a discount, promo or stock-out."
+      "ru": "Показать прогноз, которому можно доверять: сверка с историей и сдвиг при скидке/акции.",
+      "en": "Show a forecast you can trust: check against history and shift for a discount or promo."
     },
     "role": {
-      "ru": "Кто смотрит продажи в таблицах и не понимает, доверять ли графику прогноза.",
-      "en": "People who live in sales spreadsheets and cannot tell if a forecast chart is trustworthy."
+      "ru": "Кто живёт в таблицах продаж и не верит «красивому» графику.",
+      "en": "People who live in sales sheets and distrust pretty forecast charts."
     },
     "result": {
-      "ru": "MVP: загрузка CSV/XLSX, Prophet против сезонного baseline, метрики MAE/RMSE/WAPE, сценарии и rule-based рекомендации. OpenAI опционален.",
-      "en": "MVP: CSV/XLSX upload, Prophet vs a seasonal baseline, MAE/RMSE/WAPE, scenarios and rule-based recommendations. OpenAI is optional."
+      "ru": "MVP: CSV/XLSX, Prophet vs baseline, MAE/RMSE/WAPE, сценарии. OpenAI опционален. Демо открыто.",
+      "en": "MVP: CSV/XLSX, Prophet vs baseline, MAE/RMSE/WAPE, scenarios. OpenAI optional. Demo is public."
     },
     "demoUrl": "https://salesanalytics.alexklyvibe.ru",
     "image": "/data/project-mockups/alexklychnikov-ui-ai-predictivesalesanalytics.png",
@@ -225,26 +225,26 @@
   {
     "id": "4f78e2ad-a94f-4716-afd6-ca4cc4daa46f",
     "title": {
-      "ru": "Личный AI-коуч карьеры",
-      "en": "Personal AI career coach"
+      "ru": "AI-коуч: одна цель и check-in в Telegram",
+      "en": "AI coach: one goal and a Telegram check-in"
     },
     "description": {
-      "ru": "Один активный трек: план, skill-gap по hh / Kwork / FL, коучинг, mock interview и check-in в Telegram.",
-      "en": "One active track: a plan, skill-gap on hh / Kwork / FL, coaching, a mock interview and a Telegram check-in."
+      "ru": "План, skill-gap по рынку, коучинг, mock interview и короткий weekly check-in в боте. Демо открыто.",
+      "en": "Plan, market skill-gap, coaching, mock interview and a short weekly bot check-in. Live demo open."
     },
     "stack": "Python, FastAPI, Streamlit, MongoDB, aiogram, Docker",
     "tag": "https://github.com/alexklychnikov-ui/PersonalAICoach",
     "goal": {
-      "ru": "Держать одну карьерную цель, план и сверку с рынком, а не три параллельных «учусь / откликаюсь / жду».",
-      "en": "Hold one career goal, a plan and a market check, instead of three parallel tracks of studying, applying and waiting."
+      "ru": "Держать одну карьерную цель вместо трёх параллельных «учусь / откликаюсь / жду».",
+      "en": "Hold one career goal instead of three parallel tracks of studying, applying and waiting."
     },
     "role": {
-      "ru": "Свой single-user контур: фокус на одной цели и короткий weekly check-in в Telegram.",
-      "en": "My own single-user contour: one goal in focus and a short weekly Telegram check-in."
+      "ru": "Single-user контур: фокус на одной цели + Telegram check-in.",
+      "en": "Single-user contour: one goal in focus plus a Telegram check-in."
     },
     "result": {
-      "ru": "UI + API + бот: онбординг, план, skill-gap, коучинг и интервью. LightRAG подключается флагом, без него коуч работает.",
-      "en": "UI + API + bot: onboarding, plan, skill-gap, coaching and interview. LightRAG is a flag; the coach runs without it."
+      "ru": "UI + API + бот: онбординг, план, skill-gap, коучинг, интервью. LightRAG опционален. Демо открыто.",
+      "en": "UI + API + bot: onboarding, plan, skill-gap, coaching, interview. LightRAG optional. Demo is public."
     },
     "demoUrl": "https://aicareercoach.alexklyvibe.ru",
     "image": "/data/project-mockups/alexklychnikov-ui-personalaicoach.png",

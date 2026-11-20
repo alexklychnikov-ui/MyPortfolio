@@ -50,6 +50,51 @@ class MockupStorageTests(unittest.TestCase):
 
         asyncio.run(run())
 
+    def test_existing_cover_not_overwritten_by_analyze(self):
+        async def run() -> None:
+            generated = {
+                "projects": [
+                    {
+                        "tag": "https://github.com/alexklychnikov-ui/LightRAG",
+                    }
+                ]
+            }
+            accepted = [
+                {
+                    "repo_url": "https://github.com/alexklychnikov-ui/LightRAG",
+                    "owner": "alexklychnikov-ui",
+                    "repo": "LightRAG",
+                    "mockup_url": "https://raw.githubusercontent.com/alexklychnikov-ui/LightRAG/main/Docs/mockups/new.png",
+                    "mockup_name": "new.png",
+                }
+            ]
+
+            with patch("app.services.mockup_storage.httpx.AsyncClient") as client_cls:
+                client = AsyncMock()
+                client.__aenter__.return_value = client
+                client.__aexit__.return_value = None
+                client_cls.return_value = client
+
+                import tempfile
+                from pathlib import Path
+
+                with tempfile.TemporaryDirectory() as tmp:
+                    target = Path(tmp) / "project-mockups" / "alexklychnikov-ui-lightrag.png"
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_bytes(b"keep-me")
+
+                    result = await materialize_project_mockups(generated, accepted, tmp, {})
+                    self.assertEqual(
+                        result["projects"][0]["image"],
+                        "/data/project-mockups/alexklychnikov-ui-lightrag.png",
+                    )
+                    self.assertEqual(target.read_bytes(), b"keep-me")
+                    client.get.assert_not_called()
+
+        import asyncio
+
+        asyncio.run(run())
+
 
 if __name__ == "__main__":
     unittest.main()

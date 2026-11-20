@@ -64,6 +64,16 @@ async def materialize_project_mockups(
             filename = _safe_filename(owner, repo_name, mockup_name)
             target = mockup_dir / filename
             download_url = _strip_query(mockup_url)
+            public_path = f"{MOCKUP_PUBLIC_PREFIX}/{filename}"
+
+            # Covers are GitHub-README sourced assets. If already on disk (synced from
+            # README), Telegram analyze must not overwrite them. Only fill gaps.
+            if target.exists() and target.stat().st_size > 0:
+                project["image"] = public_path
+                continue
+
+            if "raw.githubusercontent.com/" not in download_url and "github.com/" not in download_url:
+                continue
 
             response = await client.get(download_url, headers=download_headers)
             if response.status_code >= 400:
@@ -71,6 +81,6 @@ async def materialize_project_mockups(
 
             _cleanup_old_mockups(mockup_dir, _mockup_slug(owner, repo_name))
             target.write_bytes(response.content)
-            project["image"] = f"{MOCKUP_PUBLIC_PREFIX}/{filename}"
+            project["image"] = public_path
 
     return generated

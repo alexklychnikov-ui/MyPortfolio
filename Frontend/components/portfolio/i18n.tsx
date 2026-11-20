@@ -290,8 +290,8 @@ const translations = {
           description: "ERP background: I design for the real process, not decorative screens.",
         },
         {
-          title: "MVP without overbuild",
-          description: "A working contour fast — without unnecessary architecture on day one.",
+          title: "Simple working MVP",
+          description: "A working contour fast — without unnecessary complexity on day one.",
         },
         {
           title: "Systems, not demos",
@@ -308,8 +308,8 @@ const translations = {
           description: "ERP-бэкграунд: проектирую под реальный процесс, а не под декоративные экраны.",
         },
         {
-          title: "MVP без оверинжиниринга",
-          description: "Быстро довожу до рабочего контура — без лишней архитектуры на старте.",
+          title: "Простой рабочий MVP",
+          description: "Быстро довожу до рабочего контура — без лишней сложности на старте.",
         },
         {
           title: "Системы, а не демо",

@@ -10,20 +10,22 @@ export default function Hero() {
       <div className="section-container">
         <div className="hero-grid">
           <div className="hero-content">
-            <p className="hero-label">{t.hero.label[locale]}</p>
+            <div className="hero-chips" aria-label={t.hero.chipsAria[locale]}>
+              {t.hero.chips[locale].map((chip) => (
+                <span key={chip} className="hero-chip">
+                  {chip}
+                </span>
+              ))}
+            </div>
             <h1>
               <span className="hero-title">{t.hero.namePrimary[locale]}</span>
-              <span className="hero-name-alt">{t.hero.nameSecondary[locale]}</span>
-              <span className="hero-tagline">{t.hero.taglinePrimary[locale]}</span>
-              <span className="hero-tagline hero-tagline-secondary">
-                {t.hero.taglineSecondary[locale]}
-              </span>
+              <span className="hero-outcome">{t.hero.outcome[locale]}</span>
             </h1>
             <p className="hero-subtitle">{t.hero.subtitle[locale]}</p>
             <ul className="hero-list">
               {t.hero.benefits[locale].map((item) => (
                 <li key={item}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                   {item}
@@ -31,10 +33,10 @@ export default function Hero() {
               ))}
             </ul>
             <div className="hero-buttons">
-              <a href="#projects" className="btn btn-primary">
+              <a href="#contact" className="btn btn-primary">
                 {t.hero.cta.primary[locale]}
               </a>
-              <a href="#contact" className="btn btn-outline">
+              <a href="#projects" className="btn btn-outline">
                 {t.hero.cta.secondary[locale]}
               </a>
             </div>

@@ -33,9 +33,9 @@ export default function Navbar() {
           />
         </a>
         <ul className={`nav-links${menuOpen ? " open" : ""}`}>
-          <li><a href="#skills" onClick={() => setMenuOpen(false)}>{t.nav.skills[locale]}</a></li>
-          <li><a href="#projects" onClick={() => setMenuOpen(false)}>{t.nav.projects[locale]}</a></li>
           <li><a href="#services" onClick={() => setMenuOpen(false)}>{t.nav.services[locale]}</a></li>
+          <li><a href="#projects" onClick={() => setMenuOpen(false)}>{t.nav.projects[locale]}</a></li>
+          <li><a href="#skills" onClick={() => setMenuOpen(false)}>{t.nav.skills[locale]}</a></li>
           <li><a href="#testimonials" onClick={() => setMenuOpen(false)}>{t.nav.testimonials[locale]}</a></li>
           <li><a href="#contact" onClick={() => setMenuOpen(false)}>{t.nav.contact[locale]}</a></li>
         </ul>

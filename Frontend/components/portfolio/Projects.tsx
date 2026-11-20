@@ -6,6 +6,7 @@ import useEmblaCarousel from "embla-carousel-react"
 import Image from "next/image"
 import { ArrowLeft, ArrowRight, ExternalLink, Github, Globe, Images, Play, X } from "lucide-react"
 import { useI18n } from "./i18n"
+import { useScrollReveal } from "@/hooks/use-scroll-reveal"
 
 interface LocalizedText {
   ru: string
@@ -70,6 +71,8 @@ export default function Projects({ initialProjects = [] }: { initialProjects?: P
   const [emblaRef, emblaApi] = useEmblaCarousel(emblaOptions)
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
+  const revealRef = useScrollReveal<HTMLElement>()
+  const liveDemoCount = projects.filter((p) => Boolean(p.demoUrl)).length
 
   useEffect(() => {
     let cancelled = false
@@ -112,12 +115,15 @@ export default function Projects({ initialProjects = [] }: { initialProjects?: P
       <span className="section-label">{t.projects.label[locale]}</span>
       <h2 className="section-title">{t.projects.title[locale]}</h2>
       <p className="section-subtitle">{t.projects.subtitle[locale]}</p>
+      {liveDemoCount > 0 && (
+        <p className="projects-trust-chip">{t.projects.trustChip[locale]}</p>
+      )}
     </div>
   )
 
   if (loading) {
     return (
-      <section id="projects" className="section">
+      <section id="projects" className="section reveal-section" ref={revealRef}>
         <div className="section-container">
           {sectionHeader}
           <div className="projects-loading">{t.projects.loading[locale]}</div>
@@ -127,7 +133,7 @@ export default function Projects({ initialProjects = [] }: { initialProjects?: P
   }
 
   return (
-    <section id="projects" className="section">
+    <section id="projects" className="section reveal-section" ref={revealRef}>
       <div className="section-container">
         {sectionHeader}
 
@@ -194,6 +200,9 @@ function ProjectCard({ project, locale }: { project: Project; locale: "ru" | "en
     <div className="projects-carousel-slide">
       <article className="project-card group">
         <div className="project-thumb">
+          {project.demoUrl && (
+            <span className="project-live-badge">{t.projects.liveBadge[locale]}</span>
+          )}
           {project.image && !imageFailed ? (
             <Image
               src={project.image}

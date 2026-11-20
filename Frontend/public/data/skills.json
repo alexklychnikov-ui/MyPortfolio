@@ -1,25 +1,41 @@
 {
   "languageRuntime": [
-    "JavaScript",
     "Python",
-    "Shell",
-    "TypeScript"
+    "X++ (Axapta)",
+    "JavaScript (basic)"
   ],
   "aiLlm": [
-    "OpenAI API"
+    "OpenAI API",
+    "LangChain",
+    "Prompt engineering",
+    "RAG (LightRAG)"
   ],
   "backend": [
     "FastAPI",
-    "PostgreSQL",
-    "SQLAlchemy"
+    "Flask",
+    "REST API",
+    "asyncio",
+    "PostgreSQL"
   ],
   "botsIntegrations": [
     "Telegram Bot API",
-    "aiogram"
+    "aiogram",
+    "SQLite",
+    "PostgreSQL"
   ],
   "infrastructure": [
-    "Docker"
+    "Docker",
+    "Linux (VPS)",
+    "Git",
+    "GitHub Actions"
   ],
-  "automation": [],
-  "devTools": []
+  "automation": [
+    "Make",
+    "n8n",
+    "Bot + DB + external API"
+  ],
+  "devTools": [
+    "Cursor",
+    "VS Code"
+  ]
 }

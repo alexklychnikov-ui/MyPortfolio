@@ -1,6 +1,6 @@
 /* TEAM */
 Developer: Клычников Александр
-Role: Вайбкодер с ERP-бэкграундом — Telegram-боты, AI/RAG, интеграции
+Role: Python / AI — Telegram-боты, RAG, интеграции до деплоя. Бэкграунд: корпоративные ERP
 Contact: alexandr_klychnikov@mail.ru
 Site: https://portfolio.hayklyvibelexy.ru
 GitHub: https://github.com/alexklychnikov-ui

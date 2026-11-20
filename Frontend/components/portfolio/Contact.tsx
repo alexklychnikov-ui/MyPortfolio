@@ -97,6 +97,13 @@ export default function Contact({
                 </svg>
                 {t.contact.responseTime[locale]}
               </div>
+              <div className="contact-detail contact-sla">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                {t.contact.replySla[locale]}
+              </div>
               <div className="contact-actions">
                 <span className="contact-actions-label">{t.contact.quickConnectLabel[locale]}</span>
                 <div className="contact-actions-buttons">

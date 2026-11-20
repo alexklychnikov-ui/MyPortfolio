@@ -6,25 +6,24 @@ export const personNameEn = "Alexander Klychnikov"
 export const personNameEnAlt = "Klychnikov Alexander"
 
 export const siteTitle =
-  "Клычников Александр — вайбкодер с ERP-бэкграундом · боты, AI, автоматизация"
+  "Клычников Александр — Python, AI, Telegram-боты и автоматизация"
 
 export const siteDescription =
-  "Вайбкодер с ERP-бэкграундом: Telegram-боты, AI/RAG и интеграции — до рабочего результата, а не до красивого прототипа. Иркутск · удалённо."
+  "Python, AI и Telegram-боты до рабочего контура: RAG, интеграции, деплой. Бэкграунд — корпоративные ERP-системы. Иркутск, удалённо."
 
 export const siteKeywords = [
   "Клычников Александр",
   "Александр Клычников",
   "Alexander Klychnikov",
   "Klychnikov Alexander",
-  "вайбкодер",
-  "vibecoder",
+  "Python разработчик",
   "Telegram боты",
   "AI разработчик",
   "RAG",
   "LightRAG",
   "автоматизация бизнеса",
   "FastAPI",
-  "MVP разработка",
+  "ERP",
   "интеграции API",
 ]
 

@@ -58,6 +58,14 @@ type Service = {
     ru: string
     en: string
   }
+  price?: {
+    ru: string
+    en: string
+  }
+  timeline?: {
+    ru: string
+    en: string
+  }
 }
 
 type SkillsData = Record<string, string[] | undefined>
@@ -114,17 +122,17 @@ export default async function Page() {
     alternateName: [personNameRu, personNameEn, personNameEnAlt],
     url: siteUrl,
     image: `${siteUrl}${ogImagePath}`,
-    jobTitle: "AI, Telegram Bot и No-Code разработчик",
+    jobTitle: "Python / AI-разработчик · Telegram-боты и автоматизация",
     description: siteDescription,
     knowsAbout: [
       "Telegram Bots",
       "OpenAI",
-      "AI integrations",
-      "No-code",
-      "MVP development",
-      "Automation",
-      "Next.js",
+      "RAG",
       "FastAPI",
+      "PostgreSQL",
+      "Docker",
+      "Business process automation",
+      "API integrations",
     ],
     email: "alexandr_klychnikov@mail.ru",
     sameAs: [

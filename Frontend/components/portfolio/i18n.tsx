@@ -5,8 +5,8 @@ type Locale = "en" | "ru"
 const translations = {
   hero: {
     label: {
-      en: "Vibecoder with ERP background",
-      ru: "Вайбкодер с ERP-бэкграундом",
+      en: "Python / AI · automation",
+      ru: "Python / AI · автоматизация",
     },
     namePrimary: {
       en: "Alexander Klychnikov",
@@ -20,21 +20,30 @@ const translations = {
       en: "VibeCode",
       ru: "VibeCode",
     },
+    outcome: {
+      en: "Bots, AI and integrations — through to deploy",
+      ru: "Боты, AI и интеграции — до деплоя",
+    },
     taglinePrimary: {
-      en: "Bots, AI & automation — shipped, not prototyped",
-      ru: "Боты, AI и автоматизация — до рабочего результата",
+      en: "Bots, AI and integrations — through to deploy",
+      ru: "Боты, AI и интеграции — до деплоя",
     },
     taglineSecondary: {
-      en: "Telegram bots · AI integrations · internal services",
-      ru: "Telegram-боты · AI-интеграции · внутренние сервисы",
+      en: "Telegram · RAG · API · a working contour",
+      ru: "Telegram · RAG · API · рабочий контур",
     },
     subtitle: {
-      en: "Experienced corporate systems developer who uses AI-assisted delivery to ship Python / AI / Telegram solutions — not a ChatGPT beginner, a process practitioner with a new tool.",
-      ru: "Вайбкодер с ERP-бэкграундом: боты, AI и автоматизация — до рабочего результата, а не до красивого прототипа.",
+      en: "Corporate systems background (ERP, 10+ years). I ship Python, AI and Telegram through to deploy and a handoff note.",
+      ru: "Бэкграунд корпоративных систем (ERP, 10+ лет). Собираю Python, AI и Telegram до деплоя и инструкции.",
     },
     description: {
       en: "I take a business scenario to a working contour: deploy, handoff notes, one measurable flow.",
       ru: "Довожу сценарий до рабочего контура: деплой, инструкция, один измеримый поток.",
+    },
+    chipsAria: { en: "Availability", ru: "Доступность" },
+    chips: {
+      en: ["Open to projects", "Remote", "Scenario review in 24h"],
+      ru: ["Открыт к проектам", "Удалённо", "Разбор сценария за 24ч"],
     },
     benefits: {
       en: [
@@ -49,20 +58,30 @@ const translations = {
       ],
     },
     cta: {
-      primary: { en: "View Projects", ru: "Посмотреть проекты" },
-      secondary: { en: "Send a scenario", ru: "Прислать сценарий" },
+      primary: { en: "Send a scenario", ru: "Прислать сценарий" },
+      secondary: { en: "View projects", ru: "Смотреть проекты" },
     },
     photoAlt: {
       en: "Alexander Klychnikov — developer profile photo",
       ru: "Клычников Александр — фото разработчика",
     },
   },
+  utility: {
+    ariaLabel: { en: "Quick contacts", ru: "Быстрые контакты" },
+    telegram: { en: "Open Telegram", ru: "Открыть Telegram" },
+    email: { en: "Write email", ru: "Написать на почту" },
+    copy: { en: "Copy", ru: "Копировать" },
+    copyEmail: { en: "Copy email", ru: "Скопировать email" },
+    copied: { en: "Email copied", ru: "Email скопирован" },
+    copiedShort: { en: "Copied", ru: "Скопировано" },
+    copyFailed: { en: "Could not copy", ru: "Не удалось скопировать" },
+  },
   skills: {
     label: { en: "Expertise", ru: "Экспертиза" },
     title: { en: "Skills & Technologies", ru: "Навыки и технологии" },
     subtitle: {
-      en: "Tools and technologies I use for fast and reliable development.",
-      ru: "Инструменты и технологии, которые я использую для быстрой и надёжной разработки.",
+      en: "The stack I use to take a bot, a RAG base or an integration through to deploy.",
+      ru: "Стек, которым закрываю бота, RAG или интеграцию до деплоя.",
     },
     tabLanguageRuntime: { en: "Languages & runtime", ru: "Языки и runtime" },
     tabAILLM: { en: "AI / LLM", ru: "AI / LLM" },
@@ -83,13 +102,18 @@ const translations = {
     loading: { en: "Loading projects...", ru: "Загрузка проектов..." },
     fields: {
       goal: { en: "Task", ru: "Задача" },
-      role: { en: "My role", ru: "Моя роль" },
+      role: { en: "Who it's for", ru: "Кому" },
       result: { en: "Result", ru: "Результат" },
     },
     links: {
       github: { en: "GitHub", ru: "GitHub" },
       demo: { en: "Live demo", ru: "Демо" },
       media: { en: "Screens & video", ru: "Скрины и видео" },
+    },
+    liveBadge: { en: "Live demo", ru: "Live demo" },
+    trustChip: {
+      en: "Open demos & repos",
+      ru: "Открытые демо и репозитории",
     },
     media: {
       screenshots: { en: "Screenshots", ru: "Скриншоты" },
@@ -165,20 +189,27 @@ const translations = {
     label: { en: "Get In Touch", ru: "Связь" },
     title: { en: "Contact Me", ru: "Свяжитесь со мной" },
     subtitle: {
-      en: "Send one scenario: who triggers it, what should happen, what counts as done.",
-      ru: "Пришлите один сценарий: кто запускает, что должно произойти, что считается «готово».",
+      en: "Send one scenario — I'll review it within 24 hours: who triggers it, what should happen, what counts as done.",
+      ru: "Пришлите один сценарий — разберу за 24ч: кто запускает, что должно произойти, что считается «готово».",
     },
     infoTitle: {
-      en: "Next step",
-      ru: "Следующий шаг",
+      en: "Scenario review in 24h",
+      ru: "Разбор сценария за 24ч",
     },
     infoText: {
-      en: "Describe the flow (bot / AI / integration). I get a Telegram ping and reply with architecture options and a concrete next step — not a vague «let's discuss».",
-      ru: "Опишите поток (бот / AI / интеграция). Я получу пинг в Telegram и отвечу вариантами архитектуры и конкретным следующим шагом — не «давайте обсудим» в вакууме.",
+      en: "Describe the flow (bot / AI / integration). I get a Telegram ping and reply within 24h with architecture options and a concrete next step — not a vague «let's discuss».",
+      ru: "Опишите поток (бот / AI / интеграция). Я получу пинг в Telegram и в течение 24ч отвечу вариантами архитектуры и конкретным следующим шагом — не «давайте обсудим» в вакууме.",
     },
     email: "alexandr_klychnikov@mail.ru",
     location: { en: "Irkutsk · remote", ru: "Иркутск · удалённо" },
-    responseTime: { en: "Usually responds within 12h", ru: "Обычно отвечаю в течение 12ч" },
+    responseTime: {
+      en: "Scenario review within 24h",
+      ru: "Разбор сценария за 24ч",
+    },
+    replySla: {
+      en: "Reply within 24h",
+      ru: "Ответ за 24ч",
+    },
     telegram: {
       en: "Telegram contact",
       ru: "Telegram контакт",
@@ -213,8 +244,8 @@ const translations = {
       ru: "Клычников Александр",
     },
     text: {
-      en: "Vibecoder with ERP background — bots, AI, automation to a working result.",
-      ru: "Вайбкодер с ERP-бэкграундом — боты, AI, автоматизация до рабочего результата.",
+      en: "Python, AI and Telegram — through to a working contour. Irkutsk · remote.",
+      ru: "Python, AI и Telegram — до рабочего контура. Иркутск · удалённо.",
     },
   },
   nav: {
@@ -228,6 +259,9 @@ const translations = {
     toggleLabel: { en: "Switch to Russian", ru: "Переключить на английский" },
     navAriaLabel: { en: "Main navigation", ru: "Главная навигация" },
     menuAriaLabel: { en: "Toggle navigation menu", ru: "Открыть/закрыть меню" },
+  },
+  a11y: {
+    skipLink: { en: "Skip to content", ru: "Перейти к содержимому" },
   },
 } as const
 

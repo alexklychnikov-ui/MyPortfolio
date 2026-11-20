@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react"
 import { useI18n } from "./i18n"
+import { useScrollReveal } from "@/hooks/use-scroll-reveal"
 
 const defaultTabs = [
   {
@@ -47,6 +48,7 @@ export default function Skills({ initialSkills = {} }: { initialSkills?: SkillsD
   const { locale, t } = useI18n()
   const [activeTab, setActiveTab] = useState(defaultTabs[0].id)
   const [skills, setSkills] = useState<SkillsData>(initialSkills)
+  const revealRef = useScrollReveal<HTMLElement>()
 
   useEffect(() => {
     const loadSkills = async () => {
@@ -75,7 +77,7 @@ export default function Skills({ initialSkills = {} }: { initialSkills?: SkillsD
   )
 
   return (
-    <section id="skills" className="section skills-section">
+    <section id="skills" className="section skills-section reveal-section" ref={revealRef}>
       <div className="section-container">
         <div className="section-header">
           <span className="section-label">{t.skills.label[locale]}</span>

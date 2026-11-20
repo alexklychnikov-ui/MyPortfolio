@@ -1,6 +1,6 @@
 import React from "react"
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+import { Manrope, Source_Sans_3 } from 'next/font/google'
 import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from '@/components/theme-provider'
 import {
@@ -15,7 +15,17 @@ import {
 
 import './globals.css'
 
-const _inter = Inter({ subsets: ['latin'] })
+const displayFont = Manrope({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-display',
+  display: 'swap',
+})
+
+const bodyFont = Source_Sans_3({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-body-face',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -95,12 +105,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ru" suppressHydrationWarning>
+    <html lang="ru" className={`${displayFont.variable} ${bodyFont.variable}`} suppressHydrationWarning>
       <head>
         <link rel="me" href={githubProfileUrl} />
         <link rel="author" type="text/plain" href="/humans.txt" />
       </head>
-      <body className="font-sans antialiased">
+      <body className={`${bodyFont.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           {children}
           <Toaster />

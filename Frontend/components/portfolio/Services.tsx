@@ -2,17 +2,19 @@
 
 import { useI18n } from "./i18n"
 import { useState, useEffect } from "react"
+import { useScrollReveal } from "@/hooks/use-scroll-reveal"
+
+interface LocalizedText {
+  ru: string
+  en: string
+}
 
 interface Service {
   id: string
-  title: {
-    ru: string
-    en: string
-  }
-  description: {
-    ru: string
-    en: string
-  }
+  title: LocalizedText
+  description: LocalizedText
+  price?: LocalizedText
+  timeline?: LocalizedText
 }
 
 const icons = [
@@ -26,6 +28,7 @@ export default function Services({ initialServices = [] }: { initialServices?: S
   const { locale, t } = useI18n()
   const [services, setServices] = useState<Service[]>(initialServices)
   const [loading, setLoading] = useState(initialServices.length === 0)
+  const revealRef = useScrollReveal<HTMLElement>()
 
   useEffect(() => {
     if (initialServices.length > 0) return
@@ -36,7 +39,7 @@ export default function Services({ initialServices = [] }: { initialServices?: S
         const data = await response.json()
         setServices(data)
       } catch (error) {
-        console.error('Error loading services:', error)
+        console.error("Error loading services:", error)
       } finally {
         setLoading(false)
       }
@@ -47,7 +50,7 @@ export default function Services({ initialServices = [] }: { initialServices?: S
 
   if (loading) {
     return (
-      <section id="services" className="section services-section">
+      <section id="services" className="section services-section reveal-section" ref={revealRef}>
         <div className="section-container">
           <div className="section-header">
             <span className="section-label">{t.services.label[locale]}</span>
@@ -55,13 +58,13 @@ export default function Services({ initialServices = [] }: { initialServices?: S
             <p className="section-subtitle">{t.services.subtitle[locale]}</p>
           </div>
           <div className="services-grid">
-            {[1, 2, 3, 4].map((i) => (
+            {[1, 2, 3].map((i) => (
               <div key={i} className="service-card" style={{ opacity: 0.5 }}>
                 <div className="service-icon">...</div>
                 <h3>Загрузка...</h3>
                 <p>Загружаем услуги...</p>
-                <div style={{ marginTop: '16px' }}>
-                  <span className="btn btn-accent btn-sm" style={{ cursor: 'default', opacity: 0.5 }}>
+                <div style={{ marginTop: "16px" }}>
+                  <span className="btn btn-accent btn-sm" style={{ cursor: "default", opacity: 0.5 }}>
                     {t.services.discuss[locale]}
                   </span>
                 </div>
@@ -74,7 +77,7 @@ export default function Services({ initialServices = [] }: { initialServices?: S
   }
 
   return (
-    <section id="services" className="section services-section">
+    <section id="services" className="section services-section reveal-section" ref={revealRef}>
       <div className="section-container">
         <div className="section-header">
           <span className="section-label">{t.services.label[locale]}</span>
@@ -86,12 +89,21 @@ export default function Services({ initialServices = [] }: { initialServices?: S
           {services.map((service, i) => {
             const currentTitle = service.title[locale] || service.title.ru
             const currentDescription = service.description[locale] || service.description.ru
-            
+            const price = service.price?.[locale] || service.price?.ru
+            const timeline = service.timeline?.[locale] || service.timeline?.ru
+
             return (
               <div key={service.id} className="service-card">
                 <div className="service-icon">{icons[i] || icons[0]}</div>
                 <h3>{currentTitle}</h3>
                 <p>{currentDescription}</p>
+                {(price || timeline) && (
+                  <div className="service-meta">
+                    {price && <span className="service-price">{price}</span>}
+                    {price && timeline && <span className="service-meta-sep" aria-hidden>/</span>}
+                    {timeline && <span className="service-timeline">{timeline}</span>}
+                  </div>
+                )}
                 <a href="#contact" className="btn btn-accent btn-sm">
                   {t.services.discuss[locale]}
                 </a>

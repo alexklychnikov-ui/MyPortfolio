@@ -3,6 +3,7 @@
 import { I18nProvider, useI18n } from "@/components/portfolio/i18n"
 import Image from "next/image"
 import Navbar from "@/components/portfolio/Navbar"
+import TopUtilityBar from "@/components/portfolio/TopUtilityBar"
 import Hero from "@/components/portfolio/Hero"
 import Skills from "@/components/portfolio/Skills"
 import Projects from "@/components/portfolio/Projects"
@@ -51,6 +52,14 @@ type Service = {
     ru: string
     en: string
   }
+  price?: {
+    ru: string
+    en: string
+  }
+  timeline?: {
+    ru: string
+    en: string
+  }
 }
 
 type SkillsData = Record<string, string[] | undefined>
@@ -58,15 +67,17 @@ type SkillsData = Record<string, string[] | undefined>
 type Testimonial = {
   text: { ru: string; en: string }
   author: { ru: string; en: string }
-  role?: { ru: string; en: string }
+  role: { ru: string; en: string }
   rating?: number
 }
 
-type Testimonial = {
-  text: { ru: string; en: string }
-  author: { ru: string; en: string }
-  role: { ru: string; en: string }
-  rating?: number
+function SkipLink() {
+  const { locale, t } = useI18n()
+  return (
+    <a href="#main-content" className="skip-link">
+      {t.a11y.skipLink[locale]}
+    </a>
+  )
 }
 
 function Footer() {
@@ -107,12 +118,17 @@ export default function PortfolioClient({
   return (
     <I18nProvider>
       <div className="portfolio">
+        <SkipLink />
+        <TopUtilityBar
+          telegramContactUrl={telegramContactUrl}
+          telegramBotUsername={telegramBotUsername}
+        />
         <Navbar />
-        <main>
+        <main id="main-content">
           <Hero />
-          <Skills initialSkills={initialSkills} />
-          <Projects initialProjects={initialProjects} />
           <Services initialServices={initialServices} />
+          <Projects initialProjects={initialProjects} />
+          <Skills initialSkills={initialSkills} />
           <Testimonials initialTestimonials={initialTestimonials} />
           <Contact
             telegramContactUrl={telegramContactUrl}

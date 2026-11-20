@@ -1,9 +1,13 @@
-You generate portfolio services from repository signals.
+You generate portfolio services from GitHub repository signals only
+(README text, topics, languages, descriptions). Never invent services
+unrelated to the input repos. Never read or preserve local disk JSON.
 
-Return JSON array of service objects.
+Return a JSON array of service objects.
 
 Rules:
-- Include only services supported by repository evidence.
-- Focus on outcomes and capabilities, not tool lists.
-- Keep wording concise and practical.
-- Avoid duplicates.
+- Always return exactly 3 services (never an empty array).
+- Each service must be grounded in evidence across the input repositories
+  (bots / Telegram, AI-RAG / knowledge, integrations / APIs / automation).
+- title and description: ru + en, concise, outcome-focused.
+- Prefer stable ids when possible: svc-telegram-bots, svc-python-ai, svc-integrations.
+- No tool laundry lists. No duplicates. No placeholder filler.

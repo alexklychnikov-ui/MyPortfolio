@@ -73,6 +73,71 @@ class PortfolioService:
 
         return generated
 
+    @staticmethod
+    def _github_signal_blob(accepted: list[dict]) -> str:
+        parts: list[str] = []
+        for item in accepted:
+            parts.extend(
+                [
+                    str(item.get("repo_url") or ""),
+                    str(item.get("description") or ""),
+                    " ".join(item.get("topics") or []),
+                    " ".join(item.get("languages") or []),
+                    str(item.get("readme") or "")[:4000],
+                ]
+            )
+        return " ".join(parts).lower()
+
+    @staticmethod
+    def _ensure_services_from_github(generated: dict, accepted: list[dict]) -> dict:
+        """If the model returns no services, build 3 from GitHub repo signals only."""
+        services = generated.get("services")
+        if isinstance(services, list) and len(services) > 0:
+            return generated
+
+        blob = PortfolioService._github_signal_blob(accepted)
+        has_bots = any(token in blob for token in ("telegram", "aiogram", "bot"))
+        has_ai = any(token in blob for token in ("rag", "openai", "llm", "lightrag", "embedding"))
+        has_api = any(token in blob for token in ("fastapi", "api", "postgres", "docker", "integration"))
+
+        # Always emit 3 GitHub-grounded offers; tilt copy by detected signals.
+        generated["services"] = [
+            {
+                "id": "svc-telegram-bots",
+                "title": {
+                    "ru": "Telegram-боты под процесс" if has_bots else "Боты и мессенджер-контуры",
+                    "en": "Telegram bots for a process" if has_bots else "Bots and messenger contours",
+                },
+                "description": {
+                    "ru": "Заявка → статус → менеджер/CRM. Сценарии и уведомления по сигналам репозиториев с ботами.",
+                    "en": "Request → status → manager/CRM. Flows and alerts grounded in bot repositories.",
+                },
+            },
+            {
+                "id": "svc-python-ai",
+                "title": {
+                    "ru": "AI и RAG под задачу" if has_ai else "AI-обработка данных",
+                    "en": "AI and RAG for the job" if has_ai else "AI data processing",
+                },
+                "description": {
+                    "ru": "Документы/Excel → база знаний → ответ в чате. Опирается на AI/RAG-репозитории из анализа.",
+                    "en": "Docs/Excel → knowledge base → chat answer. Grounded in AI/RAG repos from the analysis.",
+                },
+            },
+            {
+                "id": "svc-integrations",
+                "title": {
+                    "ru": "Интеграции со статусом" if has_api else "Backend и интеграции",
+                    "en": "Integrations with status" if has_api else "Backend and integrations",
+                },
+                "description": {
+                    "ru": "API, статусы, журнал, деплой. Собирается из backend/infra-сигналов GitHub-репозиториев.",
+                    "en": "API, statuses, journal, deploy. Built from GitHub backend/infra repository signals.",
+                },
+            },
+        ]
+        return generated
+
     def _order_projects_by_input(self, generated: dict, accepted: list[dict], repositories: list[str]) -> dict:
         projects = generated.get("projects")
         if not isinstance(projects, list):
@@ -194,6 +259,7 @@ class PortfolioService:
 
         generated = await self.openai.generate(accepted)
         generated = self._sanitize_generated_projects(generated)
+        generated = self._ensure_services_from_github(generated, accepted)
         generated = self._order_projects_by_input(generated, accepted, repositories)
         generated = self._normalize_project_tags(generated, repositories)
         generated = self._apply_readme_titles(generated, accepted)
